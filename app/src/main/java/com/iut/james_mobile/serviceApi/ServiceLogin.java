@@ -25,7 +25,7 @@ public class ServiceLogin {
         JSONObject jsonLogin=new JSONObject();
         jsonLogin.put("email",login);
         jsonLogin.put("password",password);
-        httpPost=new HttpPost("http://10.0.2.2:8080/rest/api/secretaire/correctLogin");
+        httpPost=new HttpPost("http://10.0.2.2:8080/rest/api/professeur/correctLogin");
         StringEntity se=new StringEntity(jsonLogin.toString());
         httpPost.setEntity(se);
         httpPost.setHeader("Content-type","application/json");

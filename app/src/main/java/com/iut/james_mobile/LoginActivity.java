@@ -2,11 +2,14 @@ package com.iut.james_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
@@ -30,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText fieldPassword;
 
+    private TextView textMessage;
+
     private ServiceLogin serviceLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +50,29 @@ public class LoginActivity extends AppCompatActivity {
             fieldLogin=(EditText)this.findViewById(R.id.email);
             fieldPassword=(EditText)this.findViewById(R.id.password);
             boutonValider=(Button)findViewById(R.id.validLogin);
+            textMessage=(TextView) this.findViewById(R.id.message);
             boutonValider.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
                     try {
                         String login= fieldLogin.getText().toString();
                         String password=fieldPassword.getText().toString();
                         boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-                        System.out.println(correctProfesseur);
+                        if(correctProfesseur){
+                            Go();
+                        }
+                        else{
+                            textMessage.setText("Login ou mot de passe incorrect");
+                        }
                     } catch (IOException | JSONException e) {
-                        e.printStackTrace();
+                        textMessage.setText("Problème de communication avec le serveur");
                     }
                 }
             });
         }
+    }
+
+    public void Go(){
+        Intent intent=new Intent(this,AppelActivity.class);
+        startActivity(intent);
     }
 }
