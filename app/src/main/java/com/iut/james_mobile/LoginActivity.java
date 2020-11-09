@@ -2,30 +2,27 @@ package com.iut.james_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button boutonValider;
 
@@ -36,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textMessage;
 
     private ServiceLogin serviceLogin;
+
+    private CheckBox checkSouvenir;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         serviceLogin=new ServiceLogin();
@@ -51,28 +50,62 @@ public class LoginActivity extends AppCompatActivity {
             fieldPassword=(EditText)this.findViewById(R.id.password);
             boutonValider=(Button)findViewById(R.id.validLogin);
             textMessage=(TextView) this.findViewById(R.id.message);
-            boutonValider.setOnClickListener(new View.OnClickListener(){
-                public void onClick(View v){
-                    try {
-                        String login= fieldLogin.getText().toString();
-                        String password=fieldPassword.getText().toString();
-                        boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-                        if(correctProfesseur){
-                            Go();
-                        }
-                        else{
-                            textMessage.setText("Login ou mot de passe incorrect");
-                        }
-                    } catch (IOException | JSONException e) {
-                        textMessage.setText("Problème de communication avec le serveur");
-                    }
-                }
-            });
+            boutonValider.setOnClickListener(this);
+            boutonValider.setTag("validationLogin");
+            checkSouvenir=(CheckBox)this.findViewById(R.id.souvenir);
+            checkSouvenir.setChecked(true);
+            try {
+                fieldLogin.setText(readFile());
+            } catch (IOException e) {
+                fieldLogin.setText("");
+            }
+
         }
     }
 
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if ((String)v.getTag()=="validationLogin"){
+            try {
+                String login= fieldLogin.getText().toString();
+                String password=fieldPassword.getText().toString();
+                boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
+                if(correctProfesseur){
+                    if (checkSouvenir.isChecked())
+                        writeFile(login);
+                    else
+                        writeFile("");
+                    Go();
+                }
+                else{
+                    textMessage.setText("Login ou mot de passe incorrect");
+                }
+            } catch (IOException | JSONException e) {
+                textMessage.setText("Problème de communication avec le serveur");
+            }
+
+        }
+    }
+
+    private void writeFile(String login) throws IOException {
+        FileOutputStream fOut = null;
+        fOut=openFileOutput("sauvegarde.txt",Context.MODE_PRIVATE);
+        fOut.write(login.getBytes());
+        fOut.close();
+
+    }
+
+    private String readFile() throws IOException {
+        FileInputStream fileInputStream=null;
+        String login;
+        fileInputStream=openFileInput("sauvegarde.txt");
+        InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream);
+        BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
+        return bufferedReader.readLine();
     }
 }
