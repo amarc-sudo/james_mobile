@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     textMessage.setText("Login ou mot de passe incorrect");
                 }
             } catch (IOException | JSONException e) {
+                e.printStackTrace();
                 textMessage.setText("Problème de communication avec le serveur");
             }
 
