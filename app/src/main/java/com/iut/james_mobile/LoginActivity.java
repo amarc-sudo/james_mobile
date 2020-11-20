@@ -78,22 +78,7 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
 
-    /*private void writeFile(String login) throws IOException {
-        FileOutputStream fOut = null;
-        fOut=openFileOutput("sauvegarde.txt",Context.MODE_PRIVATE);
-        fOut.write(login.getBytes());
-        fOut.close();
 
-    }
-
-    private String readFile() throws IOException {
-        FileInputStream fileInputStream=null;
-        String login;
-        fileInputStream=openFileInput("sauvegarde.txt");
-        InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream);
-        BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
-        return bufferedReader.readLine();
-    }*/
 
     public void toConnect(View view){
         try {
