@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
 import java.io.BufferedReader;
@@ -33,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView textMessage;
 
     private ServiceLogin serviceLogin;
+
+    private Professeur professeurConnecte;
 
     private CheckBox checkSouvenir;
     @Override
@@ -74,12 +77,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             try {
                 String login= fieldLogin.getText().toString();
                 String password=fieldPassword.getText().toString();
-                boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-                if(correctProfesseur){
+                this.professeurConnecte=serviceLogin.correctLoginAndPassword(login,password);
+                if(professeurConnecte!=null){
                     if (checkSouvenir.isChecked())
                         writeFile(login);
                     else
                         writeFile("");
+                    serviceLogin.getEtudiantOfProfesseur(professeurConnecte);
                     Go();
                 }
                 else{
