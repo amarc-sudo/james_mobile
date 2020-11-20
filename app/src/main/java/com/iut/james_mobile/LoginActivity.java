@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -58,6 +60,42 @@ public class LoginActivity extends AppCompatActivity  {
             ET_password =(EditText)this.findViewById(R.id.ET_password);
             boutonValider=(Button)findViewById(R.id.BT_connect);
             CB_souvenir =(CheckBox)this.findViewById(R.id.CB_souvenir);
+            ET_login.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                    {
+                        switch (keyCode)
+                        {
+                            case KeyEvent.KEYCODE_ENTER:
+                                ET_password.requestFocus();
+                                return true;
+                            default:
+                                break;
+                        }
+                    }
+                    return false;
+                }
+            });
+            ET_password.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                    {
+                        switch (keyCode)
+                        {
+                            case KeyEvent.KEYCODE_ENTER:
+                                closeKeyboard();
+
+                                return true;
+                            default:
+                                break;
+                        }
+                    }
+                    return false;
+                }
+            });
+
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if(sharedPreferences.getBoolean("isChecked",false)){
                 ET_login.setText(sharedPreferences.getString("login",""));
@@ -106,6 +144,28 @@ public class LoginActivity extends AppCompatActivity  {
             Toast.makeText(this, "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
 
         }
+    }//toConnect
 
+    private void closeKeyboard(){
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = this.getCurrentFocus();
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager)
+                    getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+            manager
+                    .hideSoftInputFromWindow(
+                            view.getWindowToken(), 0);
+        }
     }
 }
