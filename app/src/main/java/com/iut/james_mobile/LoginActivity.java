@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
 import java.io.BufferedReader;
@@ -42,6 +43,9 @@ public class LoginActivity extends AppCompatActivity  {
     private SharedPreferences sharedPreferences;
 
     private CheckBox CB_souvenir;
+
+    private Professeur correctProfesseur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -112,6 +116,7 @@ public class LoginActivity extends AppCompatActivity  {
     }
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
+        intent.putExtra("professeur", correctProfesseur);
         startActivity(intent);
     }
 
@@ -122,8 +127,8 @@ public class LoginActivity extends AppCompatActivity  {
         try {
             String login= ET_login.getText().toString();
             String password= ET_password.getText().toString();
-            boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-            if(correctProfesseur) {
+            this.correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
+            if(correctProfesseur != null) {
                 if (CB_souvenir.isChecked()) {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
                     sharedPreferences.edit().putString("password", ET_password.getText().toString()).apply();
