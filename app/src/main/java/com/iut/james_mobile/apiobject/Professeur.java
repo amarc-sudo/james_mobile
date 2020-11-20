@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +16,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Professeur {
+public class Professeur implements Serializable {
 
     private int idProfesseur;
 
@@ -28,15 +29,13 @@ public class Professeur {
     public Professeur(JSONObject json) throws JSONException, ParseException {
         this.idProfesseur=json.getInt("idProfesseur");
         JSONObject jsonPersonne=json.getJSONObject("personne");
-        this.personne= new Personne(jsonPersonne.getInt("idPersonne"),
-                jsonPersonne.getString("nom"),jsonPersonne.getString("prenom"),
-                new SimpleDateFormat("yyyy-MM-dd").parse((String) jsonPersonne.get("dateCreation")));
+        this.personne= new Personne(jsonPersonne);
         JSONObject jsonContact=json.getJSONObject("contact");
-        this.contact=new Contact(jsonContact.getInt("idContact"),jsonContact.getString("adresseMail"));
+        this.contact=new Contact(jsonContact);
         JSONArray jsonFormations=json.getJSONArray("formations");
         this.formations=new HashSet<>();
         for (int i=0;i<jsonFormations.length();i++){
-            this.formations.add(new Formation(jsonFormations.getJSONObject(i).getInt("idFormation"),jsonFormations.getJSONObject(i).getString("intitule")));
+            this.formations.add(new Formation(jsonFormations.getJSONObject(i)));
         }
 
     }

@@ -1,5 +1,8 @@
 package com.iut.james_mobile.apiobject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 import lombok.Getter;
@@ -16,9 +19,14 @@ public class Formation implements Serializable {
         this.intitule=intitule;
     }
 
+    public Formation(JSONObject jsonFormation) throws JSONException {
+        this.idFormation=jsonFormation.getInt("idFormation");
+        this.intitule=jsonFormation.getString("intitule");
+    }
+
 
     @Override
     public String toString() {
-        return "Je suis prof en "+this.intitule+"\n";
+        return "Je suis en "+this.intitule+"\n";
     }
 }

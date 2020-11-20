@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.iut.james_mobile.apiobject.Etudiant;
+import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
@@ -20,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.json.JSONException;
 
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
+        intent.putExtra("professeur",professeurConnecte);
         startActivity(intent);
     }
 
@@ -78,12 +82,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String login= fieldLogin.getText().toString();
                 String password=fieldPassword.getText().toString();
                 this.professeurConnecte=serviceLogin.correctLoginAndPassword(login,password);
+
                 if(professeurConnecte!=null){
                     if (checkSouvenir.isChecked())
                         writeFile(login);
                     else
                         writeFile("");
-                    serviceLogin.getEtudiantOfProfesseur(professeurConnecte);
                     Go();
                 }
                 else{
