@@ -1,9 +1,15 @@
 package com.iut.james_mobile.apiobject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Personne {
+public class Personne implements Serializable {
 
     private int idPersonne;
 
@@ -18,6 +24,13 @@ public class Personne {
         this.nom=nom;
         this.prenom=prenom;
         this.dateCreation=dateCreation;
+    }
+
+    public Personne(JSONObject jsonPersonne) throws JSONException, ParseException {
+        this.idPersonne=jsonPersonne.getInt("idPersonne");
+        this.nom=jsonPersonne.getString("nom");
+        this.prenom=jsonPersonne.getString("prenom");
+        this.dateCreation=new SimpleDateFormat("yyyy-MM-dd").parse((String) jsonPersonne.get("dateCreation"));
     }
 
     public String toString(){

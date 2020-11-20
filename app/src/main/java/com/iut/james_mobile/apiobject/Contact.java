@@ -1,11 +1,16 @@
 package com.iut.james_mobile.apiobject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Contact {
+public class Contact implements Serializable {
     private int idContact;
 
     private String adresseMail;
@@ -14,6 +19,11 @@ public class Contact {
     public Contact(int idContact, String adresseMail) {
         this.idContact=idContact;
         this.adresseMail=adresseMail;
+    }
+
+    public Contact(JSONObject jsonContact) throws JSONException {
+        this.idContact=jsonContact.getInt("idContact");
+        this.adresseMail=jsonContact.getString("adresseMail");
     }
 
     public String toString(){
