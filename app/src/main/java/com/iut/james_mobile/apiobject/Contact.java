@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Contact implements Serializable {
+
     private int idContact;
 
     private String adresseMail;

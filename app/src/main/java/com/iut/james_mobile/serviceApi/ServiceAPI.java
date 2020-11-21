@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class ServiceLogin {
+public class ServiceAPI {
 
     private HttpPost httpPost;
 
@@ -44,19 +44,9 @@ public class ServiceLogin {
         JSONObject jsonLogin=new JSONObject();
         jsonLogin.put("email",login);
         jsonLogin.put("password",password);
-        httpPost=new HttpPost(urlLocal+"/rest/api/professeur/correctLogin");
         StringEntity se=new StringEntity(jsonLogin.toString());
-        httpPost.setEntity(se);
-        httpPost.setHeader("Content-type","application/json");
-        System.out.println(jsonLogin.toString());
-
-        HttpParams httpParameters = new BasicHttpParams();
-        int timeoutConnection = 10000;
-        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-        int timeoutSocket = 10000;
-        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-
-        httpClient = new DefaultHttpClient(httpParameters);
+        this.prepareHttpPost("/rest/api/professeur/correctLogin",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
         response= httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
@@ -68,7 +58,6 @@ public class ServiceLogin {
         catch(JSONException | ParseException e){
             return null;
         }
-
     }
 
     public List<Etudiant> getEtudiantOfProfesseur(Professeur professeur) throws JSONException, IOException {
@@ -79,29 +68,19 @@ public class ServiceLogin {
             Formation formation=i.next();
             jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
         }
-        httpPost=new HttpPost(urlLocal+"/rest/api/etudiant/listEtudiant");
         StringEntity se=new StringEntity(jsonFormation.toString());
-        httpPost.setEntity(se);
-        httpPost.setHeader("Content-type","application/json");
-        System.out.println(jsonFormation.toString());
-        HttpParams httpParameters = new BasicHttpParams();
-        int timeoutConnection = 10000;
-        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-        int timeoutSocket = 10000;
-        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-        httpClient = new DefaultHttpClient(httpParameters);
+        this.prepareHttpPost("/rest/api/etudiant/listEtudiant",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
         response= httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
         try{
             JSONArray jsonEtudiants= new JSONArray(result);
-            System.out.println(jsonEtudiants.toString());
             return getAllEtudiants(jsonEtudiants);
         }
         catch(JSONException | ParseException e){
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -113,29 +92,19 @@ public class ServiceLogin {
             Formation formation=i.next();
             jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
         }
-        httpPost=new HttpPost(urlLocal+"/rest/api/matiere/listMatiere");
         StringEntity se=new StringEntity(jsonFormation.toString());
-        httpPost.setEntity(se);
-        httpPost.setHeader("Content-type","application/json");
-        System.out.println(jsonFormation.toString());
-        HttpParams httpParameters = new BasicHttpParams();
-        int timeoutConnection = 10000;
-        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-        int timeoutSocket = 10000;
-        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-        httpClient = new DefaultHttpClient(httpParameters);
+        this.prepareHttpPost("/rest/api/matiere/listMatiere",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
         response= httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
         try{
             JSONArray jsonMatieres= new JSONArray(result);
-            System.out.println(jsonMatieres.toString());
             return getAllMatiere(jsonMatieres);
         }
         catch(JSONException e){
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -148,10 +117,33 @@ public class ServiceLogin {
         return matiereList;
     }
 
+    private List<Etudiant> getAllEtudiants(JSONArray jsonEtudiants) throws JSONException, ParseException {
+        List<Etudiant> etudiantList=new ArrayList<>();
+        for (int i=0;i<jsonEtudiants.length();i++){
+            etudiantList.add(new Etudiant(jsonEtudiants.getJSONObject(i)));
+        }
+        System.out.println(etudiantList.toString());
+        return etudiantList;
+    }
+
+    public HttpParams getHttpParams(){
+        HttpParams httpParameters = new BasicHttpParams();
+        int timeoutConnection = 10000;
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+        int timeoutSocket = 10000;
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+        return httpParameters;
+    }
+
+    public void prepareHttpPost(String urlAPI,StringEntity se){
+        httpPost=new HttpPost(urlLocal+urlAPI);
+        httpPost.setEntity(se);
+        httpPost.setHeader("Content-type","application/json");
+    }
+
     private static String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-
         String line = null;
         try {
             while ((line = reader.readLine()) != null) {
@@ -167,14 +159,5 @@ public class ServiceLogin {
             }
         }
         return sb.toString();
-    }
-
-    private List<Etudiant> getAllEtudiants(JSONArray jsonEtudiants) throws JSONException, ParseException {
-        List<Etudiant> etudiantList=new ArrayList<>();
-        for (int i=0;i<jsonEtudiants.length();i++){
-            etudiantList.add(new Etudiant(jsonEtudiants.getJSONObject(i)));
-        }
-        System.out.println(etudiantList.toString());
-        return etudiantList;
     }
 }

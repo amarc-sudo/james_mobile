@@ -2,14 +2,14 @@ package com.iut.james_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.iut.james_mobile.apiobject.Etudiant;
 import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.serviceApi.ServiceLogin;
+import com.iut.james_mobile.serviceApi.ServiceAPI;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class AppelActivity extends AppCompatActivity{
 
     List<Etudiant> etudiantList;
 
-    ServiceLogin serviceLogin=new ServiceLogin();
+    ServiceAPI serviceAPI =new ServiceAPI();
 
     Professeur professeur;
     @SneakyThrows
@@ -31,7 +31,8 @@ public class AppelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_appel);
         Intent intent=getIntent();
         professeur= (Professeur) intent.getSerializableExtra("professeur");
-        matiereList=serviceLogin.getMatiereOfProfesseur(professeur);
-        etudiantList=serviceLogin.getEtudiantOfProfesseur(professeur);
+        matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
+        etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
+        Toast.makeText(this, professeur.getPersonne().getNom(), Toast.LENGTH_SHORT).show();
     }
 }

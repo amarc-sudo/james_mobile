@@ -18,15 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.serviceApi.ServiceLogin;
+import com.iut.james_mobile.serviceApi.ServiceAPI;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.json.JSONException;
+
 
 public class LoginActivity extends AppCompatActivity  {
 
@@ -38,7 +35,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     private TextView textMessage;
 
-    private ServiceLogin serviceLogin;
+    private ServiceAPI serviceAPI;
 
     private SharedPreferences sharedPreferences;
 
@@ -110,7 +107,7 @@ public class LoginActivity extends AppCompatActivity  {
 
 
         }
-        serviceLogin=new ServiceLogin();
+        serviceAPI =new ServiceAPI();
 
 
     }
@@ -127,7 +124,7 @@ public class LoginActivity extends AppCompatActivity  {
         try {
             String login= ET_login.getText().toString();
             String password= ET_password.getText().toString();
-            this.correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
+            this.correctProfesseur= serviceAPI.correctLoginAndPassword(login,password);
             if(correctProfesseur != null) {
                 if (CB_souvenir.isChecked()) {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
@@ -142,11 +139,11 @@ public class LoginActivity extends AppCompatActivity  {
                 Go();
             }
             else{
-                Toast.makeText(this, "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
 
         }
     }//toConnect

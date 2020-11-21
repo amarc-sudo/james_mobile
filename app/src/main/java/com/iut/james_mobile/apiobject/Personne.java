@@ -8,7 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import lombok.Data;
 
+@Data
 public class Personne implements Serializable {
 
     private int idPersonne;
