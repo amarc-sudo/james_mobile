@@ -29,6 +29,8 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity  {
 
+    private Button BT_forgotPassword;
+
     private Button boutonValider;
 
     private EditText ET_login;
@@ -60,6 +62,7 @@ public class LoginActivity extends AppCompatActivity  {
             ET_password =(EditText)this.findViewById(R.id.ET_password);
             boutonValider=(Button)findViewById(R.id.BT_connect);
             CB_souvenir =(CheckBox)this.findViewById(R.id.CB_souvenir);
+            BT_forgotPassword=(Button) findViewById(R.id.BT_forgotPassword);
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -96,6 +99,8 @@ public class LoginActivity extends AppCompatActivity  {
                 }
             });
 
+
+
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if(sharedPreferences.getBoolean("isChecked",false)){
                 ET_login.setText(sharedPreferences.getString("login",""));
@@ -115,8 +120,10 @@ public class LoginActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
-
-
+    public void goForgotPassword(View view) {
+        Intent forgot=new Intent(this,ForgotPasswordActivity.class);
+        startActivity(forgot);
+    }
 
     public void toConnect(View view){
         try {
@@ -168,4 +175,6 @@ public class LoginActivity extends AppCompatActivity  {
                             view.getWindowToken(), 0);
         }
     }
+
+
 }
