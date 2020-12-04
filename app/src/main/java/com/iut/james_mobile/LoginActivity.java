@@ -4,13 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iut.james_mobile.serviceApi.ServiceLogin;
 
@@ -22,22 +27,23 @@ import java.io.InputStreamReader;
 
 import org.json.JSONException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity  {
 
     private Button boutonValider;
 
-    private EditText fieldLogin;
+    private EditText ET_login;
 
-    private EditText fieldPassword;
+    private EditText ET_password;
 
     private TextView textMessage;
 
     private ServiceLogin serviceLogin;
 
-    private CheckBox checkSouvenir;
+    private SharedPreferences sharedPreferences;
+
+    private CheckBox CB_souvenir;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        serviceLogin=new ServiceLogin();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
         {
@@ -46,67 +52,120 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
-            fieldLogin=(EditText)this.findViewById(R.id.email);
-            fieldPassword=(EditText)this.findViewById(R.id.password);
-            boutonValider=(Button)findViewById(R.id.validLogin);
-            textMessage=(TextView) this.findViewById(R.id.message);
-            boutonValider.setOnClickListener(this);
-            boutonValider.setTag("validationLogin");
-            checkSouvenir=(CheckBox)this.findViewById(R.id.souvenir);
-            checkSouvenir.setChecked(true);
-            try {
-                fieldLogin.setText(readFile());
-            } catch (IOException e) {
-                fieldLogin.setText("");
+            AnimationDrawable animDrawable = (AnimationDrawable) findViewById(R.id.layout).getBackground();
+            animDrawable.setEnterFadeDuration(10);
+            animDrawable.setExitFadeDuration(5000);
+            animDrawable.start();
+            ET_login =  findViewById(R.id.ET_login);
+            ET_password =(EditText)this.findViewById(R.id.ET_password);
+            boutonValider=(Button)findViewById(R.id.BT_connect);
+            CB_souvenir =(CheckBox)this.findViewById(R.id.CB_souvenir);
+            ET_login.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                    {
+                        switch (keyCode)
+                        {
+                            case KeyEvent.KEYCODE_ENTER:
+                                ET_password.requestFocus();
+                                return true;
+                            default:
+                                break;
+                        }
+                    }
+                    return false;
+                }
+            });
+            ET_password.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
+                    {
+                        switch (keyCode)
+                        {
+                            case KeyEvent.KEYCODE_ENTER:
+                                closeKeyboard();
+
+                                return true;
+                            default:
+                                break;
+                        }
+                    }
+                    return false;
+                }
+            });
+
+            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+            if(sharedPreferences.getBoolean("isChecked",false)){
+                ET_login.setText(sharedPreferences.getString("login",""));
+                ET_password.setText(sharedPreferences.getString("password",""));
+                CB_souvenir.setChecked(true);
             }
 
-        }
-    }
 
+
+        }
+        serviceLogin=new ServiceLogin();
+
+
+    }
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public void onClick(View v) {
-        if ((String)v.getTag()=="validationLogin"){
-            try {
-                String login= fieldLogin.getText().toString();
-                String password=fieldPassword.getText().toString();
-                boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-                if(correctProfesseur){
-                    if (checkSouvenir.isChecked())
-                        writeFile(login);
-                    else
-                        writeFile("");
-                    Go();
+
+
+
+    public void toConnect(View view){
+        try {
+            String login= ET_login.getText().toString();
+            String password= ET_password.getText().toString();
+            boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
+            if(correctProfesseur) {
+                if (CB_souvenir.isChecked()) {
+                    sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
+                    sharedPreferences.edit().putString("password", ET_password.getText().toString()).apply();
+                    sharedPreferences.edit().putBoolean("isChecked", true).apply();
                 }
-                else{
-                    textMessage.setText("Login ou mot de passe incorrect");
+                else {
+                    sharedPreferences.edit().remove("login").apply();
+                    sharedPreferences.edit().remove("password").apply();
+                    sharedPreferences.edit().remove("isChecked").apply();
                 }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-                textMessage.setText("Problème de communication avec le serveur");
+                Go();
             }
+            else{
+                Toast.makeText(this, "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
 
         }
-    }
+    }//toConnect
 
-    private void writeFile(String login) throws IOException {
-        FileOutputStream fOut = null;
-        fOut=openFileOutput("sauvegarde.txt",Context.MODE_PRIVATE);
-        fOut.write(login.getBytes());
-        fOut.close();
+    private void closeKeyboard(){
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = this.getCurrentFocus();
 
-    }
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
 
-    private String readFile() throws IOException {
-        FileInputStream fileInputStream=null;
-        String login;
-        fileInputStream=openFileInput("sauvegarde.txt");
-        InputStreamReader inputStreamReader=new InputStreamReader(fileInputStream);
-        BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
-        return bufferedReader.readLine();
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager)
+                    getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+            manager
+                    .hideSoftInputFromWindow(
+                            view.getWindowToken(), 0);
+        }
     }
 }
