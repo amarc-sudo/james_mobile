@@ -13,60 +13,118 @@
         android:id="@+id/TV_formation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="Formation" />
 
     <Spinner
         android:id="@+id/SP_formation"
         android:layout_width="match_parent"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_height="61dp" />
 
     <TextView
         android:id="@+id/TV_Matiere"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
         android:text="Matière" />
 
     <Spinner
         android:id="@+id/SP_matiere"
         android:layout_width="match_parent"
+        android:textSize="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_height="69dp" />
 
-    <TextView
-        android:id="@+id/TV_debut"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Heure de Début" />
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:id="@+id/TV_debut"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Heure de Début" />
+
+        <TextView
+            android:id="@+id/TV_fin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Heure de fin" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
+
 
     <TimePicker
         android:id="@+id/TP_debut"
         android:layout_width="match_parent"
         android:layout_height="118dp"
+        android:layout_weight="1"
         android:timePickerMode="spinner" />
 
-    <TextView
-        android:id="@+id/TV_fin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Heure de fin" />
+        <TimePicker
+            android:id="@+id/TP_fin"
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:layout_weight="1"
+            android:timePickerMode="spinner" />
 
-    <TimePicker
-        android:id="@+id/TP_fin"
-        android:layout_width="match_parent"
-        android:layout_height="109dp"
-        android:timePickerMode="spinner" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/BT_validation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Valide mon gars" />
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RV_eleve"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0px"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:scrollbars="vertical" />
 
+    <Button
+        android:id="@+id/BT_validation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Valide mon gars" />
 
 </LinearLayout>
