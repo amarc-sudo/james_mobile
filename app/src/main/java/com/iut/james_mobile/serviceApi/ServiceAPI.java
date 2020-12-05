@@ -1,5 +1,7 @@
 package com.iut.james_mobile.serviceApi;
 
+import android.widget.Spinner;
+
 import com.iut.james_mobile.apiobject.Etudiant;
 import com.iut.james_mobile.apiobject.Formation;
 import com.iut.james_mobile.apiobject.Matiere;
@@ -26,6 +28,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ServiceAPI {
@@ -60,13 +63,35 @@ public class ServiceAPI {
         }
     }
 
+    public void createNewCours(Professeur professeur, Matiere matiere, String debutCours, String finCours, Map<Integer, Integer> map) throws JSONException, IOException {
+        JSONObject jsonCours=new JSONObject();
+        jsonCours.put("professeur",professeur.getIdProfesseur());
+        jsonCours.put("matiere",matiere.getIdMatiere());
+        jsonCours.put("debut",debutCours);
+        jsonCours.put("fin",finCours);
+        for (Iterator i=map.keySet().iterator();i.hasNext();){
+            Integer idEtudiant= (Integer) i.next();
+            jsonCours.put(Integer.toString(idEtudiant),map.get(idEtudiant));
+        }
+
+        System.out.println(jsonCours.toString());
+        StringEntity se=new StringEntity(jsonCours.toString());
+        System.out.println(se.toString());
+        this.prepareHttpPost("/rest/api/cours/addCours",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
+        response= httpClient.execute(httpPost);
+
+    }
+
     public List<Etudiant> getEtudiantOfProfesseur(Professeur professeur) throws JSONException, IOException {
+        System.out.println("On fait la demande");
         Set<Formation> formations=professeur.getFormations();
         JSONObject jsonFormation=new JSONObject();
         int compteur=0;
         for (Iterator<Formation> i = formations.iterator(); i.hasNext();){
             Formation formation=i.next();
             jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
+            compteur++;
         }
         StringEntity se=new StringEntity(jsonFormation.toString());
         this.prepareHttpPost("/rest/api/etudiant/listEtudiant",se);
@@ -76,6 +101,7 @@ public class ServiceAPI {
         String result = convertStreamToString(instream);
         try{
             JSONArray jsonEtudiants= new JSONArray(result);
+            System.out.println(jsonEtudiants.toString());
             return getAllEtudiants(jsonEtudiants);
         }
         catch(JSONException | ParseException e){
@@ -91,6 +117,7 @@ public class ServiceAPI {
         for (Iterator<Formation> i = formations.iterator(); i.hasNext();){
             Formation formation=i.next();
             jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
+            compteur++;
         }
         StringEntity se=new StringEntity(jsonFormation.toString());
         this.prepareHttpPost("/rest/api/matiere/listMatiere",se);
@@ -113,7 +140,6 @@ public class ServiceAPI {
         for (int i=0;i<jsonMatieres.length();i++){
             matiereList.add(new Matiere(jsonMatieres.getJSONObject(i)));
         }
-        System.out.println(matiereList.toString());
         return matiereList;
     }
 
@@ -122,7 +148,6 @@ public class ServiceAPI {
         for (int i=0;i<jsonEtudiants.length();i++){
             etudiantList.add(new Etudiant(jsonEtudiants.getJSONObject(i)));
         }
-        System.out.println(etudiantList.toString());
         return etudiantList;
     }
 

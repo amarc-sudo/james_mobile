@@ -35,7 +35,12 @@ public class Etudiant implements Serializable {
         this.idEtudiant=jsonObject.getInt("idEtudiant");
         JSONObject jsonPersonne=jsonObject.getJSONObject("personne");
         this.personne=new Personne(jsonPersonne);
-        this.signature= Boolean.parseBoolean(jsonObject.getString("signature"));
+        if (jsonObject.getString("signature").equals("dHJ1ZQ==")){
+            this.signature=true;
+        }
+        else{
+            this.signature=false;
+        }
         JSONObject jsonFormation=jsonObject.getJSONObject("formation");
         this.formation=new Formation(jsonFormation);
         try{

@@ -1,24 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_animation"
+    android:orientation="vertical"
     tools:context=".AppelActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/TV_formation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="351dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginRight="159dp"
-        android:layout_marginBottom="332dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Formation" />
+
+    <Spinner
+        android:id="@+id/SP_formation"
+        android:layout_width="match_parent"
+        android:layout_height="61dp" />
+
+    <TextView
+        android:id="@+id/TV_Matiere"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Matière" />
+
+    <Spinner
+        android:id="@+id/SP_matiere"
+        android:layout_width="match_parent"
+        android:layout_height="69dp" />
+
+    <TextView
+        android:id="@+id/TV_debut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heure de Début" />
+
+    <TimePicker
+        android:id="@+id/TP_debut"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:timePickerMode="spinner" />
+
+    <TextView
+        android:id="@+id/TV_fin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heure de fin" />
+
+    <TimePicker
+        android:id="@+id/TP_fin"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:timePickerMode="spinner" />
+
+    <Button
+        android:id="@+id/BT_validation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valide mon gars" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RV_eleve"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0px"
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>
