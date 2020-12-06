@@ -14,6 +14,7 @@
         android:theme="@style/Theme.Jamesmobile">
         <activity android:name=".AppelActivity"></activity>
         <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".SignatureActivity"></activity>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
