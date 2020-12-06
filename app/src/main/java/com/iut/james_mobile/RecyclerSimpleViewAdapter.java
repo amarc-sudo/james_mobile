@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iut.james_mobile.apiobject.Etudiant;
+import com.iut.james_mobile.apiobject.Professeur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
      */
     private int itemLayout;
 
+    private Professeur professeurConnecte;
+
     private Map<Etudiant,Spinner> SP_presences = new HashMap<>();
 
     /**
@@ -42,6 +45,10 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     public RecyclerSimpleViewAdapter(List<Etudiant> items, int itemLayout) {
         this.items = items;
         this.itemLayout = itemLayout;
+    }
+
+    public void setProfesseurConnecte(Professeur professeurConnecte) {
+        this.professeurConnecte = professeurConnecte;
     }
 
     /**
@@ -86,6 +93,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
                 public void onClick(View v) {
                     Intent intent=new Intent(holder.context,SignatureActivity.class);
                     intent.putExtra("etudiant", etudiant);
+                    intent.putExtra("professeur", professeurConnecte);
                     holder.context.startActivity(intent);
                 }
             });
@@ -124,4 +132,6 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
         }
     }
+
+
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import lombok.Getter;
 
 @Getter
-public class Formation implements Serializable {
+public class Formation implements Serializable,Comparable<Formation> {
 
     private int idFormation;
 
@@ -28,5 +28,12 @@ public class Formation implements Serializable {
     @Override
     public String toString() {
         return "Je suis en "+this.intitule+"\n";
+    }
+
+
+
+    @Override
+    public int compareTo(Formation o) {
+        return this.intitule.compareTo(o.intitule);
     }
 }

@@ -142,6 +142,7 @@ public class LoginActivity extends AppCompatActivity  {
                     sharedPreferences.edit().remove("login").apply();
                     sharedPreferences.edit().remove("password").apply();
                     sharedPreferences.edit().remove("isChecked").apply();
+
                 }
                 Go();
             }

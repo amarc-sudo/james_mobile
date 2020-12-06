@@ -135,6 +135,16 @@ public class ServiceAPI {
         return null;
     }
 
+    public void sendSignature(Etudiant etudiant,String signature) throws JSONException, IOException {
+        JSONObject jsonSignature=new JSONObject();
+        jsonSignature.put("etudiant",etudiant.getIdEtudiant());
+        jsonSignature.put("signature",signature);
+        StringEntity se=new StringEntity(jsonSignature.toString());
+        this.prepareHttpPost("/rest/api/etudiant/signature",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
+        response= httpClient.execute(httpPost);
+    }
+
     private List<Matiere> getAllMatiere(JSONArray jsonMatieres) throws JSONException {
         List<Matiere> matiereList=new ArrayList<>();
         for (int i=0;i<jsonMatieres.length();i++){
@@ -150,6 +160,8 @@ public class ServiceAPI {
         }
         return etudiantList;
     }
+
+
 
     public HttpParams getHttpParams(){
         HttpParams httpParameters = new BasicHttpParams();

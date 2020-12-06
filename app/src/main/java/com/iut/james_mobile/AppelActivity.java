@@ -24,8 +24,10 @@ import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceAPI;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -72,16 +74,19 @@ public class AppelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_appel);
         Intent intent=getIntent();
         professeur= (Professeur) intent.getSerializableExtra("professeur");
+        System.out.println(professeur);
         matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
         etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
         SP_matiere=findViewById(R.id.SP_matiere);
         SP_formation=findViewById(R.id.SP_formation);
         List<String> nomsFormations=new ArrayList<>();
+
         for (Formation formation: professeur.getFormations()){
             nomsFormations.add(formation.getIntitule());
             nomsFormations.add(formation.getIntitule()+"-1");
             nomsFormations.add(formation.getIntitule()+"-2");
         }
+        Collections.sort(nomsFormations);
         SP_formation.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,nomsFormations));
         SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -94,6 +99,7 @@ public class AppelActivity extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
         intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
         System.out.println(intituleFormationSelectionne);
         this.setValueSpinnerMatiere();
@@ -106,6 +112,7 @@ public class AppelActivity extends AppCompatActivity{
         TP_fin.setMinute(0);
         TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY)+1);
         this.recyclerView=(RecyclerView) findViewById(R.id.RV_eleve);
+
         this.setDisplayedEtudiants();
         BT_validation=findViewById(R.id.BT_validation);
 
@@ -149,6 +156,7 @@ public class AppelActivity extends AppCompatActivity{
         adapter=new RecyclerSimpleViewAdapter(displayedEtudiants,android.R.layout.simple_list_item_1);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setProfesseurConnecte(professeur);
     }
 
     public String getIntituleFormation(){
@@ -183,6 +191,7 @@ public class AppelActivity extends AppCompatActivity{
         Map<Integer,Integer> eleveStatus=new HashMap<>();
         String heureDebut=Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute());
         String heureFin=Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute());
+        boolean toutLeMondeASigne=true;
         for (Iterator<Etudiant> iterator=relevePresence.keySet().iterator();iterator.hasNext();){
             Etudiant etudiant=iterator.next();
             Integer statutPresence = getIdPresence((String) relevePresence.get(etudiant).getSelectedItem());
@@ -194,31 +203,40 @@ public class AppelActivity extends AppCompatActivity{
                     nombreAbsents++;
                     break;
             }
+            if(!etudiant.isSignature()){
+                toutLeMondeASigne=false;
+            }
             eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
         }
-        new AlertDialog.Builder(this)
-                .setTitle("Confirmez l'ajout du cours")
-                .setMessage("Matiere: "+matiere+"\n"+
-                        "Heure début: "+heureDebut+"\n"+
-                        "Heure fin: "+heureFin +"\n"+
-                        "Nombre Retardataire(s): "+nombreRetardataires+"\n"+
-                "Nombre Absent(s): "+nombreAbsents+"\n")
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @SneakyThrows
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),heureDebut,
-                                heureFin,eleveStatus);
-                    }
-                })
-                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(AppelActivity.this, "Vous avez annulé cette décision", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .show();
+        if (toutLeMondeASigne){
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirmez l'ajout du cours")
+                    .setMessage("Matiere: "+matiere+"\n"+
+                            "Heure début: "+heureDebut+"\n"+
+                            "Heure fin: "+heureFin +"\n"+
+                            "Nombre Retardataire(s): "+nombreRetardataires+"\n"+
+                            "Nombre Absent(s): "+nombreAbsents+"\n")
+                    .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.M)
+                        @SneakyThrows
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),heureDebut,
+                                    heureFin,eleveStatus);
+                        }
+                    })
+                    .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(AppelActivity.this, "Vous avez annulé cette décision", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
+        }
+        else{
+            Toast.makeText(AppelActivity.this, "Tout le monde n'a pas signé ", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }
