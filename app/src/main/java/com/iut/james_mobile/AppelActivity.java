@@ -1,10 +1,12 @@
 package com.iut.james_mobile;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.iut.james_mobile.apiobject.Etudiant;
 import com.iut.james_mobile.apiobject.Formation;
@@ -105,21 +108,7 @@ public class AppelActivity extends AppCompatActivity{
         this.recyclerView=(RecyclerView) findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
         BT_validation=findViewById(R.id.BT_validation);
-        BT_validation.setOnClickListener(new View.OnClickListener() {
-            @SneakyThrows
-            @Override
-            public void onClick(View v) {
-                String matiere= (String) SP_matiere.getSelectedItem();
-                Map<Etudiant,Spinner> relevePresence= adapter.getSP_presences();
-                Map<Integer,Integer> eleveStatus=new HashMap<>();
-                for (Iterator<Etudiant> i=relevePresence.keySet().iterator();i.hasNext();){
-                    Etudiant etudiant=i.next();
-                    eleveStatus.put(etudiant.getIdEtudiant(), getIdPresence((String) relevePresence.get(etudiant).getSelectedItem()));
-                }
-                serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute()),
-                        Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute()),eleveStatus);
-            }
-        });
+
 
     }
 
@@ -184,4 +173,52 @@ public class AppelActivity extends AppCompatActivity{
         }
         return null;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void popUpValidation(View v){
+        int nombreAbsents=0;
+        int nombreRetardataires=0;
+        String matiere= (String) SP_matiere.getSelectedItem();
+        Map<Etudiant,Spinner> relevePresence= adapter.getSP_presences();
+        Map<Integer,Integer> eleveStatus=new HashMap<>();
+        String heureDebut=Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute());
+        String heureFin=Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute());
+        for (Iterator<Etudiant> iterator=relevePresence.keySet().iterator();iterator.hasNext();){
+            Etudiant etudiant=iterator.next();
+            Integer statutPresence = getIdPresence((String) relevePresence.get(etudiant).getSelectedItem());
+            switch (statutPresence){
+                case 2:
+                    nombreRetardataires++;
+                    break;
+                case 3:
+                    nombreAbsents++;
+                    break;
+            }
+            eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmez l'ajout du cours")
+                .setMessage("Matiere: "+matiere+"\n"+
+                        "Heure début: "+heureDebut+"\n"+
+                        "Heure fin: "+heureFin +"\n"+
+                        "Nombre Retardataire(s): "+nombreRetardataires+"\n"+
+                "Nombre Absent(s): "+nombreAbsents+"\n")
+                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @SneakyThrows
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),heureDebut,
+                                heureFin,eleveStatus);
+                    }
+                })
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(AppelActivity.this, "Vous avez annulé cette décision", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
+
 }
