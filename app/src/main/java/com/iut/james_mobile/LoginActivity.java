@@ -17,15 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iut.james_mobile.serviceApi.ServiceLogin;
+import com.iut.james_mobile.apiobject.Professeur;
+import com.iut.james_mobile.serviceApi.ServiceAPI;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.json.JSONException;
+
 
 public class LoginActivity extends AppCompatActivity  {
 
@@ -39,11 +37,14 @@ public class LoginActivity extends AppCompatActivity  {
 
     private TextView textMessage;
 
-    private ServiceLogin serviceLogin;
+    private ServiceAPI serviceAPI;
 
     private SharedPreferences sharedPreferences;
 
     private CheckBox CB_souvenir;
+
+    private Professeur correctProfesseur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -111,12 +112,13 @@ public class LoginActivity extends AppCompatActivity  {
 
 
         }
-        serviceLogin=new ServiceLogin();
+        serviceAPI =new ServiceAPI();
 
 
     }
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
+        intent.putExtra("professeur", correctProfesseur);
         startActivity(intent);
     }
 
@@ -129,8 +131,8 @@ public class LoginActivity extends AppCompatActivity  {
         try {
             String login= ET_login.getText().toString();
             String password= ET_password.getText().toString();
-            boolean correctProfesseur=serviceLogin.correctLoginAndPassword(login,password);
-            if(correctProfesseur) {
+            this.correctProfesseur= serviceAPI.correctLoginAndPassword(login,password);
+            if(correctProfesseur != null) {
                 if (CB_souvenir.isChecked()) {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
                     sharedPreferences.edit().putString("password", ET_password.getText().toString()).apply();
@@ -140,15 +142,16 @@ public class LoginActivity extends AppCompatActivity  {
                     sharedPreferences.edit().remove("login").apply();
                     sharedPreferences.edit().remove("password").apply();
                     sharedPreferences.edit().remove("isChecked").apply();
+
                 }
                 Go();
             }
             else{
-                Toast.makeText(this, "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
 
         }
     }//toConnect
