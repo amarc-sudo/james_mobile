@@ -1,6 +1,7 @@
 package com.iut.james_mobile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,9 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             holder.BT_signature.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println(etudiant.toString());
+                    Intent intent=new Intent(holder.context,SignatureActivity.class);
+                    intent.putExtra("etudiant", etudiant);
+                    holder.context.startActivity(intent);
                 }
             });
         }
@@ -104,6 +107,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
         public Spinner SP_presence;
 
+        public Context context;
+
         /**
          * Constructor ViewHolder
          * @param itemView: the itemView
@@ -114,6 +119,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             primaryText = (TextView) itemView.findViewById(R.id.TV_eleve);
             BT_signature=(Button)itemView.findViewById(R.id.BT_Signature);
             SP_presence=itemView.findViewById(R.id.SP_presence);
+            context=itemView.getContext();
 
 
         }
