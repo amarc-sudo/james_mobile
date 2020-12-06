@@ -62,6 +62,11 @@ public class AppelActivity extends AppCompatActivity{
 
     private RecyclerSimpleViewAdapter adapter;
 
+    private String heureDebut;
+
+    private String heureFin;
+
+    private List<String> nomsFormations;
 
 
 
@@ -74,12 +79,13 @@ public class AppelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_appel);
         Intent intent=getIntent();
         professeur= (Professeur) intent.getSerializableExtra("professeur");
+
         System.out.println(professeur);
         matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
         etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
         SP_matiere=findViewById(R.id.SP_matiere);
         SP_formation=findViewById(R.id.SP_formation);
-        List<String> nomsFormations=new ArrayList<>();
+        nomsFormations=new ArrayList<>();
 
         for (Formation formation: professeur.getFormations()){
             nomsFormations.add(formation.getIntitule());
@@ -99,9 +105,14 @@ public class AppelActivity extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        intituleFormationSelectionne=(String)intent.getStringExtra("formation");
+        if (intituleFormationSelectionne==null)
+            intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
+        else{
+            System.out.println("Test");
+            SP_formation.setSelection(getPositionFormation(intituleFormationSelectionne));
+        }
 
-        intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
-        System.out.println(intituleFormationSelectionne);
         this.setValueSpinnerMatiere();
         TP_debut=(TimePicker)findViewById(R.id.TP_debut);
         TP_debut.setIs24HourView(true);
@@ -117,6 +128,21 @@ public class AppelActivity extends AppCompatActivity{
         BT_validation=findViewById(R.id.BT_validation);
 
 
+    }
+
+    private int getPositionFormation(String intituleFormationSelectionne) {
+        int compteur=0;
+        System.out.println(intituleFormationSelectionne);
+        for(String intitule:nomsFormations){
+
+            if(intituleFormationSelectionne.equals(intitule)){
+                System.out.println(compteur);
+                System.out.println(intituleFormationSelectionne);
+                return compteur;
+            }
+            compteur++;
+        }
+        return 0;
     }
 
     private Integer getIdPresence(String selectedItem) {
@@ -157,6 +183,7 @@ public class AppelActivity extends AppCompatActivity{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setProfesseurConnecte(professeur);
+        adapter.setFormationSelectionne(intituleFormationSelectionne);
     }
 
     public String getIntituleFormation(){
@@ -189,8 +216,19 @@ public class AppelActivity extends AppCompatActivity{
         String matiere= (String) SP_matiere.getSelectedItem();
         Map<Etudiant,Spinner> relevePresence= adapter.getSP_presences();
         Map<Integer,Integer> eleveStatus=new HashMap<>();
-        String heureDebut=Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute());
-        String heureFin=Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute());
+        if (TP_debut.getMinute()<10){
+            heureDebut=Integer.toString(TP_debut.getHour())+":0"+Integer.toString(TP_debut.getMinute());
+        }
+        else{
+            heureDebut=Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute());
+        }
+        if (TP_fin.getMinute()<10){
+            heureFin=Integer.toString(TP_fin.getHour())+":0"+Integer.toString(TP_fin.getMinute());
+        }
+        else{
+            heureFin=Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute());
+        }
+
         boolean toutLeMondeASigne=true;
         for (Iterator<Etudiant> iterator=relevePresence.keySet().iterator();iterator.hasNext();){
             Etudiant etudiant=iterator.next();

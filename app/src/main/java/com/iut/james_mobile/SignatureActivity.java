@@ -39,6 +39,7 @@ public class SignatureActivity extends AppCompatActivity {
     private PaintView paintView;
     private Etudiant etudiant;
     private Professeur professeur;
+    private String formationSelectionne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class SignatureActivity extends AppCompatActivity {
         TV_nomEleve=findViewById(R.id.textView_nomSignature);
         TV_nomEleve.setText(etudiant.getPersonne().getNom()+" "+etudiant.getPersonne().getPrenom());
         paintView=findViewById(R.id.paintView);
-        System.out.println("Je suis après le paintview");
+        formationSelectionne=(String)intent.getSerializableExtra("formation");
     }//onCreate
 
     public void confirmationSignature(View view) throws IOException, JSONException {
@@ -84,6 +85,7 @@ public class SignatureActivity extends AppCompatActivity {
         Intent intent=new Intent(this,AppelActivity.class);
         intent.putExtra("idModifie", this.etudiant.getIdEtudiant());
         intent.putExtra("professeur",professeur);
+        intent.putExtra("formation",formationSelectionne);
         startActivity(intent);
 
     }
@@ -93,7 +95,6 @@ public class SignatureActivity extends AppCompatActivity {
     public void reset(View view) {
         //paintView.invalidate();
         paintView.resetSignature();
-        System.out.println("Je suis dans l'activité");
     }
 
 

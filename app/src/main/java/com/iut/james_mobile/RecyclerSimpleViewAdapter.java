@@ -37,6 +37,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     private Map<Etudiant,Spinner> SP_presences = new HashMap<>();
 
+    private String formationSelectionne;
+
     /**
      * Constructor RecyclerSimpleViewAdapter
      * @param items : the list items
@@ -94,6 +96,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
                     Intent intent=new Intent(holder.context,SignatureActivity.class);
                     intent.putExtra("etudiant", etudiant);
                     intent.putExtra("professeur", professeurConnecte);
+                    intent.putExtra("formation",formationSelectionne);
                     holder.context.startActivity(intent);
                 }
             });
@@ -102,6 +105,11 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
         holder.itemView.setTag(etudiant);
     }
+
+    public void setFormationSelectionne(String intituleFormationSelectionne) {
+        this.formationSelectionne=intituleFormationSelectionne;
+    }
+
     /**
      *
      * Class viewHolder
