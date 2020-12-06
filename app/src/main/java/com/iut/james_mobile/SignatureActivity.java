@@ -2,12 +2,14 @@ package com.iut.james_mobile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -17,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -30,6 +34,8 @@ import org.json.JSONException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
+import lombok.SneakyThrows;
 
 
 public class SignatureActivity extends AppCompatActivity {
@@ -74,9 +80,28 @@ public class SignatureActivity extends AppCompatActivity {
         returnedBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        ServiceAPI serviceAPI=new ServiceAPI();
-        serviceAPI.sendSignature(etudiant,encoded);
-        Go();
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmation de la signature")
+                .setMessage("Voulez vous confirmer cette signature ?")
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @SneakyThrows
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ServiceAPI serviceAPI=new ServiceAPI();
+                        serviceAPI.sendSignature(etudiant,encoded);
+                        Toast.makeText(getApplicationContext(),"Signature envoyée !",Toast.LENGTH_LONG).show();
+                        Go();
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(),"Annulation de l'ajout de la signature",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .show();
+
 
 
     }
