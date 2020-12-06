@@ -3,7 +3,7 @@
     package="com.iut.james_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_james"
@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jamesmobile">
         <activity android:name=".AppelActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".SignatureActivity"></activity>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">James-mobile</string>
+    <string name="textEmailForgotPassword">Veuillez entrer votre email : </string>
+    <string name="boutonEnvoyerEmail">Envoyer un email de réinitialisation</string>
+    <string name="button">Button</string>
+    <string-array name="etat_possible">
+        <item>Présent</item>
+        <item>En Retard</item>
+        <item>Absent</item>
+    </string-array>
 </resources>

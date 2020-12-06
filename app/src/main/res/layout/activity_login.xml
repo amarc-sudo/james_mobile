@@ -98,10 +98,11 @@
         android:layout_marginRight="40dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background"
-        android:text="Se connecter"
-        android:onClick="toConnect"></Button>
+        android:onClick="toConnect"
+        android:text="Se connecter"></Button>
 
     <Button
+        android:id="@+id/BT_forgotPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
@@ -109,7 +110,8 @@
         android:layout_marginRight="40dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background"
-        android:text="Mot de passe oublié ?"></Button>
+        android:text="Mot de passe oublié ?"
+        android:onClick="goForgotPassword"></Button>
 
 
 </LinearLayout>

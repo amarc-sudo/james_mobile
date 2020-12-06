@@ -14,9 +14,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
-public class ServiceLogin {
+public class ServiceForgotPassword {
 
     private HttpPost httpPost;
 
@@ -28,15 +27,14 @@ public class ServiceLogin {
 
     private String urlProd="http://146.59.234.40:8080";
 
-    public boolean correctLoginAndPassword(String login,String password) throws JSONException, IOException {
-        JSONObject jsonLogin=new JSONObject();
-        jsonLogin.put("email",login);
-        jsonLogin.put("password",password);
-        httpPost=new HttpPost(urlProd+"/rest/api/professeur/correctLogin");
-        StringEntity se=new StringEntity(jsonLogin.toString());
+    public boolean isEmailCorrect(String email) throws JSONException, IOException {
+        JSONObject jsonEmail=new JSONObject();
+        jsonEmail.put("email",email);
+        httpPost=new HttpPost(urlProd+"/rest/api/contact/resetPassword");
+        StringEntity se=new StringEntity(jsonEmail.toString());
         httpPost.setEntity(se);
         httpPost.setHeader("Content-type","application/json");
-        System.out.println(jsonLogin.toString());
+        System.out.println(jsonEmail.toString());
 
         HttpParams httpParameters = new BasicHttpParams();
         int timeoutConnection = 10000;
@@ -46,8 +44,10 @@ public class ServiceLogin {
 
         httpClient = new DefaultHttpClient(httpParameters);
         response= httpClient.execute(httpPost);
+
         BufferedReader reader=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String bool=reader.readLine();
+        System.out.println(bool);
         return Boolean.parseBoolean(bool);
     }
 }
