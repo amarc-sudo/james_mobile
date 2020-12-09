@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
 
 import lombok.SneakyThrows;
 
@@ -79,8 +80,6 @@ public class AppelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_appel);
         Intent intent=getIntent();
         professeur= (Professeur) intent.getSerializableExtra("professeur");
-
-        System.out.println(professeur);
         matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
         etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
         SP_matiere=findViewById(R.id.SP_matiere);
@@ -109,7 +108,6 @@ public class AppelActivity extends AppCompatActivity{
         if (intituleFormationSelectionne==null)
             intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
         else{
-            System.out.println("Test");
             SP_formation.setSelection(getPositionFormation(intituleFormationSelectionne));
         }
 
@@ -132,12 +130,8 @@ public class AppelActivity extends AppCompatActivity{
 
     private int getPositionFormation(String intituleFormationSelectionne) {
         int compteur=0;
-        System.out.println(intituleFormationSelectionne);
         for(String intitule:nomsFormations){
-
             if(intituleFormationSelectionne.equals(intitule)){
-                System.out.println(compteur);
-                System.out.println(intituleFormationSelectionne);
                 return compteur;
             }
             compteur++;
@@ -188,16 +182,41 @@ public class AppelActivity extends AppCompatActivity{
 
     public String getIntituleFormation(){
         StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
-        return tokenizer.nextToken();
+        String token;
+        String intituleFormation =new String();
+        while (tokenizer.hasMoreTokens()){
+            token=tokenizer.nextToken();
+            if (isInt(token)==true){
+                break;
+            }
+            intituleFormation+=token;
+            intituleFormation+="-";
+        }
+        return intituleFormation.substring(0,intituleFormation.length()-1);
+    }
+
+    public boolean isInt(String string){
+        char [] s= string.toCharArray();
+        for (int i=0;i<s.length;i++){
+            if (!Character.isDigit(s[i])){
+                return false;
+            }
+        }
+        return true;
     }
 
     public Integer getNumeroGroupe(){
         StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
-        if (tokenizer.countTokens()==2){
-            tokenizer.nextToken();
-            return Integer.parseInt(tokenizer.nextToken());
+        String token = new String();
+        while (tokenizer.hasMoreTokens()){
+            token= tokenizer.nextToken();
         }
-        return null;
+        try{
+            return Integer.parseInt(token);
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
     public Matiere getMatiereByIntitule(String intitule){
