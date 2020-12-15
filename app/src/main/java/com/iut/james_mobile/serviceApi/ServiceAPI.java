@@ -135,12 +135,22 @@ public class ServiceAPI {
         return null;
     }
 
-    public void sendSignature(Etudiant etudiant,String signature) throws JSONException, IOException {
+    public void sendSignatureEtudiant(Etudiant etudiant, String signature) throws JSONException, IOException {
         JSONObject jsonSignature=new JSONObject();
         jsonSignature.put("etudiant",etudiant.getIdEtudiant());
         jsonSignature.put("signature",signature);
         StringEntity se=new StringEntity(jsonSignature.toString());
         this.prepareHttpPost("/rest/api/etudiant/signature",se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
+        response= httpClient.execute(httpPost);
+    }
+
+    public void sendSignatureProfesseur(Professeur professeur, String signature) throws JSONException, IOException {
+        JSONObject jsonSignature=new JSONObject();
+        jsonSignature.put("professeur",professeur.getIdProfesseur());
+        jsonSignature.put("signature",signature);
+        StringEntity se=new StringEntity(jsonSignature.toString());
+        this.prepareHttpPost("/rest/api/professeur/signature",se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response= httpClient.execute(httpPost);
     }

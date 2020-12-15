@@ -24,7 +24,6 @@ import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceAPI;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -68,8 +67,6 @@ public class AppelActivity extends AppCompatActivity{
 
     private List<String> nomsFormations;
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SneakyThrows
     @Override
@@ -79,14 +76,11 @@ public class AppelActivity extends AppCompatActivity{
         setContentView(R.layout.activity_appel);
         Intent intent=getIntent();
         professeur= (Professeur) intent.getSerializableExtra("professeur");
-
-        System.out.println(professeur);
         matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
         etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
         SP_matiere=findViewById(R.id.SP_matiere);
         SP_formation=findViewById(R.id.SP_formation);
         nomsFormations=new ArrayList<>();
-
         for (Formation formation: professeur.getFormations()){
             nomsFormations.add(formation.getIntitule());
             nomsFormations.add(formation.getIntitule()+"-1");
@@ -109,10 +103,8 @@ public class AppelActivity extends AppCompatActivity{
         if (intituleFormationSelectionne==null)
             intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
         else{
-            System.out.println("Test");
             SP_formation.setSelection(getPositionFormation(intituleFormationSelectionne));
         }
-
         this.setValueSpinnerMatiere();
         TP_debut=(TimePicker)findViewById(R.id.TP_debut);
         TP_debut.setIs24HourView(true);
@@ -123,21 +115,14 @@ public class AppelActivity extends AppCompatActivity{
         TP_fin.setMinute(0);
         TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY)+1);
         this.recyclerView=(RecyclerView) findViewById(R.id.RV_eleve);
-
         this.setDisplayedEtudiants();
         BT_validation=findViewById(R.id.BT_validation);
-
-
     }
 
     private int getPositionFormation(String intituleFormationSelectionne) {
         int compteur=0;
-        System.out.println(intituleFormationSelectionne);
         for(String intitule:nomsFormations){
-
             if(intituleFormationSelectionne.equals(intitule)){
-                System.out.println(compteur);
-                System.out.println(intituleFormationSelectionne);
                 return compteur;
             }
             compteur++;
@@ -241,7 +226,7 @@ public class AppelActivity extends AppCompatActivity{
                     nombreAbsents++;
                     break;
             }
-            if(!etudiant.isSignature()){
+            if(!etudiant.isHasSigned()){
                 toutLeMondeASigne=false;
             }
             eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
@@ -261,6 +246,8 @@ public class AppelActivity extends AppCompatActivity{
                         public void onClick(DialogInterface dialogInterface, int i) {
                             serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),heureDebut,
                                     heureFin,eleveStatus);
+                            Toast.makeText(getApplicationContext(),"Cours bien ajouté",Toast.LENGTH_LONG).show();
+                            GoAtHome();
                         }
                     })
                     .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -274,7 +261,12 @@ public class AppelActivity extends AppCompatActivity{
         else{
             Toast.makeText(AppelActivity.this, "Tout le monde n'a pas signé ", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    private void GoAtHome() {
+        Intent intent=new Intent(this,WelcomeActivity.class);
+        intent.putExtra("professeur",professeur);
+        startActivity(intent);
     }
 
 }

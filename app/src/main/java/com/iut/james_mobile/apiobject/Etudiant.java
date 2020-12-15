@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.text.Normalizer;
 import java.text.ParseException;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ public class Etudiant implements Serializable {
 
     private Personne personne;
 
-    private boolean signature;
+    private boolean hasSigned;
 
     private Formation formation;
 
@@ -26,7 +25,7 @@ public class Etudiant implements Serializable {
     public Etudiant(int idEtudiant, Personne personne, boolean signature, Formation formation, Integer groupe){
         this.idEtudiant=idEtudiant;
         this.personne=personne;
-        this.signature=signature;
+        this.hasSigned =signature;
         this.formation=formation;
         this.groupe=groupe;
     }
@@ -35,12 +34,7 @@ public class Etudiant implements Serializable {
         this.idEtudiant=jsonObject.getInt("idEtudiant");
         JSONObject jsonPersonne=jsonObject.getJSONObject("personne");
         this.personne=new Personne(jsonPersonne);
-        if (jsonObject.getString("signature").equals("dHJ1ZQ==")){
-            this.signature=true;
-        }
-        else{
-            this.signature=false;
-        }
+        this.hasSigned=jsonObject.getBoolean("hasSigned");
         JSONObject jsonFormation=jsonObject.getJSONObject("formation");
         this.formation=new Formation(jsonFormation);
         try{
