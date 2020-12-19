@@ -2,8 +2,10 @@ package com.iut.james_mobile;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import com.iut.james_mobile.apiobject.Etudiant;
@@ -46,6 +49,8 @@ public class SignatureActivity extends AppCompatActivity {
     private Etudiant etudiant;
     private Professeur professeur;
     private String formationSelectionne;
+    private SharedPreferences sharedPreferences;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,9 @@ public class SignatureActivity extends AppCompatActivity {
         etudiant= (Etudiant) intent.getSerializableExtra("etudiant");
         professeur=(Professeur)intent.getSerializableExtra("professeur");
         setContentView(R.layout.activity_signature);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+        linearLayout=findViewById(R.id.linearSignature);
+        linearLayout.setBackgroundColor(sharedPreferences.getInt("color", 0));
         TV_nomEleve=findViewById(R.id.textView_nomSignature);
         TV_nomEleve.setText(etudiant.getPersonne().getNom()+" "+etudiant.getPersonne().getPrenom());
         paintView=findViewById(R.id.paintView);

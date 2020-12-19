@@ -1,6 +1,8 @@
 package com.iut.james_mobile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.iut.james_mobile.serviceApi.ServiceForgotPassword;
 
@@ -21,19 +24,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button BT_emailButton;
     private EditText emailForgotPassword;
     private  String emailForgotPasswordString ;
+    private ConstraintLayout constraintLayout;
     private ServiceForgotPassword serviceForgotPassword;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+        constraintLayout=findViewById(R.id.constraintForgotPassword);
+        constraintLayout.setBackgroundColor(sharedPreferences.getInt("color", 0));
         BT_emailButton=(Button) findViewById(R.id.BT_emailButton);
         emailForgotPassword=(EditText) findViewById(R.id.emailForgotPassword);
         serviceForgotPassword=new ServiceForgotPassword();
     }//onCreate
 
 
-    public void getAndSendEmail(View view) throws IOException, JSONException {
+    public void getAndSendEmail(View view) throws IOException, JSONException, InterruptedException {
        emailForgotPasswordString = emailForgotPassword.getText().toString();
         if(emailForgotPasswordString.isEmpty()) {
             Toast.makeText(this, "Champs vide, veuillez entrer une adresse email valide", Toast.LENGTH_LONG).show();
@@ -42,6 +50,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             boolean email = serviceForgotPassword.isEmailCorrect(emailForgotPasswordString);
             if(email==true) {
                 Toast.makeText(this, "Un email vient d'être envoyé sur votre adresse email", Toast.LENGTH_LONG).show();
+               // this.wait(2);
                 this.finish();
             }
             else{
