@@ -5,16 +5,16 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/blue_uvsq"
+    android:orientation="vertical"
     tools:context=".AppelActivity">
 
     <TextView
         android:id="@+id/TV_formation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Formation"
@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
@@ -111,10 +112,6 @@
 
     </LinearLayout>
 
-
-
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RV_eleve"
         android:layout_width="match_parent"
@@ -123,6 +120,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_weight="1"
         android:scrollbars="vertical" />
 
     <Button
