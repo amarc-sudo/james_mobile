@@ -84,7 +84,6 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     public void onBindViewHolder(EtudiantViewHolder holder, int position) {
         // find item by position
         Etudiant etudiant = items.get(position);
-        System.out.println(etudiant.toString());
         // save information in holder, we have one type in this adapter
         holder.primaryText.setText(etudiant.getPersonne().getNom() + " "+etudiant.getPersonne().getPrenom());
         if (etudiant.isSignature()==true)
@@ -102,7 +101,6 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             });
         }
         SP_presences.put(etudiant,holder.SP_presence);
-
         holder.itemView.setTag(etudiant);
     }
 
