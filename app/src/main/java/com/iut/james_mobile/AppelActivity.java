@@ -92,7 +92,7 @@ public class AppelActivity extends AppCompatActivity{
             nomsFormations.add(formation.getIntitule()+"-2");
         }
         Collections.sort(nomsFormations);
-        SP_formation.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,nomsFormations));
+        SP_formation.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,nomsFormations));
         SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -158,7 +158,7 @@ public class AppelActivity extends AppCompatActivity{
                 displayedMatiere.add(matiere.getIntitule());
             }
         }
-        SP_matiere.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,displayedMatiere));
+        SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,displayedMatiere));
     }
 
     public void setDisplayedEtudiants(){

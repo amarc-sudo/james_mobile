@@ -55,10 +55,6 @@ public class LoginActivity extends AppCompatActivity  {
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
-            AnimationDrawable animDrawable = (AnimationDrawable) findViewById(R.id.layout).getBackground();
-            animDrawable.setEnterFadeDuration(10);
-            animDrawable.setExitFadeDuration(5000);
-            animDrawable.start();
             ET_login =  findViewById(R.id.ET_login);
             ET_password =(EditText)this.findViewById(R.id.ET_password);
             boutonValider=(Button)findViewById(R.id.BT_connect);
@@ -99,22 +95,14 @@ public class LoginActivity extends AppCompatActivity  {
                     return false;
                 }
             });
-
-
-
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if(sharedPreferences.getBoolean("isChecked",false)){
                 ET_login.setText(sharedPreferences.getString("login",""));
                 ET_password.setText(sharedPreferences.getString("password",""));
                 CB_souvenir.setChecked(true);
             }
-
-
-
         }
         serviceAPI =new ServiceAPI();
-
-
     }
     public void Go(){
         Intent intent=new Intent(this,AppelActivity.class);
