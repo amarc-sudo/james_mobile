@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:gravity="center"
+    android:background="@color/blue_uvsq"
     android:orientation="vertical">
 
     <ImageView
@@ -13,6 +13,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="100dp"
         android:layout_weight="0"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/logo_james"></ImageView>
 
     <TextView
@@ -30,31 +31,35 @@
     <Button
         android:id="@+id/BT_emargement"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:onClick="GoEmargement"
+        android:backgroundTint="@color/green_uvsq"
+
+        android:background="@drawable/background"
         android:text="Emarger un cours" />
 
     <Button
         android:id="@+id/BT_settings"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
+        android:backgroundTint="@color/green_uvsq"
+        android:background="@drawable/background"
         android:text="Paramètres" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="100dp"
-        android:layout_weight="0"
-        android:padding="10dp"
-        app:srcCompat="@drawable/logo_uvq"></ImageView>
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/logo_uvsq"></ImageView>
 </LinearLayout>

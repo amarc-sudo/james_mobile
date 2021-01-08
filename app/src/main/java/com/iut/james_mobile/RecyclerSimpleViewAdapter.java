@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -131,6 +132,9 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
         public EtudiantViewHolder(View itemView) {
             super(itemView);
             // link primaryText
+            etatPossible.add("Présent");
+            etatPossible.add("En Retard");
+            etatPossible.add("Absent");
             primaryText = (TextView) itemView.findViewById(R.id.TV_eleve);
             BT_signature = (Button) itemView.findViewById(R.id.BT_Signature);
             SP_presence = itemView.findViewById(R.id.SP_presence);
