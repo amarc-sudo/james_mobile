@@ -17,37 +17,32 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView TV_welcome;
 
-    private Button BT_signature_prof;
-
     private Button BT_emargement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Intent intent=getIntent();
-        professeur= (Professeur) intent.getSerializableExtra("professeur");
-        TV_welcome=findViewById(R.id.TV_welcome);
-        TV_welcome.setText("Bonjour "+professeur.getPersonne().getNom().toUpperCase()+" "+professeur.getPersonne().getPrenom());
-        BT_signature_prof=findViewById(R.id.BT_signature_prof);
-        BT_emargement =findViewById(R.id.BT_emargement);
-        if (professeur.isHasSigned()){
-            BT_signature_prof.setVisibility(View.GONE);
+        Intent intent = getIntent();
+        professeur = (Professeur) intent.getSerializableExtra("professeur");
+        if (professeur.isHasSigned() == false) {
+            GoSignature();
         }
-        else{
-            BT_emargement.setEnabled(false);
-        }
+        TV_welcome = findViewById(R.id.TV_welcome);
+        TV_welcome.setText("Bonjour " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
+        BT_emargement = findViewById(R.id.BT_emargement);
     }
 
-    public void GoEmargement(View view){
-        Intent intent=new Intent(this,AppelActivity.class);
+    public void GoEmargement(View view) {
+        Intent intent = new Intent(this, AppelActivity.class);
         intent.putExtra("professeur", professeur);
         startActivity(intent);
     }
 
-    public void GoSignature(View view){
-        Intent intent=new Intent(this,SignatureActivity.class);
+    public void GoSignature() {
+        Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
+        this.finish();
         startActivity(intent);
     }
 }

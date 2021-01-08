@@ -73,7 +73,6 @@ public class ServiceAPI {
             Integer idEtudiant= (Integer) i.next();
             jsonCours.put(Integer.toString(idEtudiant),map.get(idEtudiant));
         }
-
         System.out.println(jsonCours.toString());
         StringEntity se=new StringEntity(jsonCours.toString());
         System.out.println(se.toString());

@@ -19,7 +19,7 @@ public class PaintView extends View {
     public ViewGroup.LayoutParams params;
     private Path path = new Path();
     private Paint brush = new Paint();
-    private Boolean reset = false ;
+    private Boolean reset = false;
 
     public PaintView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -53,18 +53,18 @@ public class PaintView extends View {
         canvas.drawPath(path, brush);
         System.out.println("On est dans reset");
         System.out.println(path.toString());
-        if(reset) {
+        if (reset) {
             System.out.println("On est dans reset2");
-            path=new Path();
+            path = new Path();
             canvas.drawColor(Color.WHITE);
             //canvas.restore();
-            reset=false;
+            reset = false;
         }
     }
 
-    public void resetSignature(){
+    public void resetSignature() {
         System.out.println("je suis dans la vue");
-        reset=true;
+        reset = true;
         this.postInvalidate();
     }
 

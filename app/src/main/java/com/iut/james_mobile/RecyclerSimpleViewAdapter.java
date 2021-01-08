@@ -29,7 +29,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     private Professeur professeurConnecte;
 
-    private Map<Etudiant,Spinner> SP_presences = new HashMap<>();
+    private Map<Etudiant, Spinner> SP_presences = new HashMap<>();
 
     private String formationSelectionne;
 
@@ -57,27 +57,27 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     @Override
     public void onBindViewHolder(EtudiantViewHolder holder, int position) {
         Etudiant etudiant = items.get(position);
-        holder.primaryText.setText(etudiant.getPersonne().getNom() + " "+etudiant.getPersonne().getPrenom());
-        if (etudiant.isHasSigned()==true)
+        holder.primaryText.setText(etudiant.getPersonne().getNom() + " " + etudiant.getPersonne().getPrenom());
+        if (etudiant.isHasSigned() == true)
             holder.BT_signature.setEnabled(false);
-        else{
+        else {
             holder.BT_signature.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(holder.context,SignatureActivity.class);
+                    Intent intent = new Intent(holder.context, SignatureActivity.class);
                     intent.putExtra("etudiant", etudiant);
                     intent.putExtra("professeur", professeurConnecte);
-                    intent.putExtra("formation",formationSelectionne);
+                    intent.putExtra("formation", formationSelectionne);
                     holder.context.startActivity(intent);
                 }
             });
         }
-        SP_presences.put(etudiant,holder.SP_presence);
+        SP_presences.put(etudiant, holder.SP_presence);
         holder.itemView.setTag(etudiant);
     }
 
     public void setFormationSelectionne(String intituleFormationSelectionne) {
-        this.formationSelectionne=intituleFormationSelectionne;
+        this.formationSelectionne = intituleFormationSelectionne;
     }
 
     public static class EtudiantViewHolder extends RecyclerView.ViewHolder {
@@ -92,9 +92,9 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
         public EtudiantViewHolder(View itemView) {
             super(itemView);
             primaryText = (TextView) itemView.findViewById(R.id.TV_eleve);
-            BT_signature=(Button)itemView.findViewById(R.id.BT_Signature);
-            SP_presence=itemView.findViewById(R.id.SP_presence);
-            context=itemView.getContext();
+            BT_signature = (Button) itemView.findViewById(R.id.BT_Signature);
+            SP_presence = itemView.findViewById(R.id.SP_presence);
+            context = itemView.getContext();
         }
     }
 

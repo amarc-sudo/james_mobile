@@ -19,16 +19,16 @@ public class Matiere implements Serializable {
 
     private String intitule;
 
-    public Matiere(int idMatiere, Formation formation, String intitule){
-        this.idMatiere=idMatiere;
-        this.formation=formation;
-        this.intitule=intitule;
+    public Matiere(int idMatiere, Formation formation, String intitule) {
+        this.idMatiere = idMatiere;
+        this.formation = formation;
+        this.intitule = intitule;
     }
 
     public Matiere(JSONObject jsonMatiere) throws JSONException {
-        this.idMatiere=jsonMatiere.getInt("idMatiere");
-        JSONObject jsonFormation=jsonMatiere.getJSONObject("formation");
-        this.formation=new Formation(jsonFormation);
-        this.intitule=jsonMatiere.getString("intitule");
+        this.idMatiere = jsonMatiere.getInt("idMatiere");
+        JSONObject jsonFormation = jsonMatiere.getJSONObject("formation");
+        this.formation = new Formation(jsonFormation);
+        this.intitule = jsonMatiere.getString("intitule");
     }
 }

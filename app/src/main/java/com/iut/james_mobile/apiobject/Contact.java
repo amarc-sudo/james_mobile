@@ -16,19 +16,18 @@ public class Contact implements Serializable {
 
     private String adresseMail;
 
-
     public Contact(int idContact, String adresseMail) {
-        this.idContact=idContact;
-        this.adresseMail=adresseMail;
+        this.idContact = idContact;
+        this.adresseMail = adresseMail;
     }
 
     public Contact(JSONObject jsonContact) throws JSONException {
-        this.idContact=jsonContact.getInt("idContact");
-        this.adresseMail=jsonContact.getString("adresseMail");
+        this.idContact = jsonContact.getInt("idContact");
+        this.adresseMail = jsonContact.getString("adresseMail");
     }
 
-    public String toString(){
-        return "Mon id de contact est: "+idContact+"\n"
-                +"Mon adresse mail est : "+adresseMail+"\n";
+    public String toString() {
+        return "Mon id de contact est: " + idContact + "\n"
+                + "Mon adresse mail est : " + adresseMail + "\n";
     }
 }

@@ -113,11 +113,13 @@ public class LoginActivity extends AppCompatActivity  {
     public void Go(){
         Intent intent=new Intent(this,WelcomeActivity.class);
         intent.putExtra("professeur", correctProfesseur);
+        this.finish();
         startActivity(intent);
     }
 
     public void goForgotPassword(View view) {
         Intent forgot=new Intent(this,ForgotPasswordActivity.class);
+        this.finish();
         startActivity(forgot);
     }
 

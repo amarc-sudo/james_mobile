@@ -32,7 +32,7 @@ import lombok.SneakyThrows;
 
 
 public class SignatureActivity extends AppCompatActivity {
-    private Button BT_signature_confirmation ;
+    private Button BT_signature_confirmation;
 
     private Button BT_resetSignature;
 
@@ -49,28 +49,27 @@ public class SignatureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent=getIntent();
-        etudiant= (Etudiant) intent.getSerializableExtra("etudiant");
-        professeur=(Professeur)intent.getSerializableExtra("professeur");
+        Intent intent = getIntent();
+        etudiant = (Etudiant) intent.getSerializableExtra("etudiant");
+        professeur = (Professeur) intent.getSerializableExtra("professeur");
         setContentView(R.layout.activity_signature);
-        TV_nomEleve=findViewById(R.id.textView_nomSignature);
-        if (etudiant != null){
-            TV_nomEleve.setText(etudiant.getPersonne().getNom()+" "+etudiant.getPersonne().getPrenom());
+        TV_nomEleve = findViewById(R.id.textView_nomSignature);
+        if (etudiant != null) {
+            TV_nomEleve.setText(etudiant.getPersonne().getNom() + " " + etudiant.getPersonne().getPrenom());
+        } else {
+            TV_nomEleve.setText(professeur.getPersonne().getNom() + " " + professeur.getPersonne().getPrenom());
         }
-        else{
-            TV_nomEleve.setText(professeur.getPersonne().getNom()+" "+professeur.getPersonne().getPrenom());
-        }
-        paintView=findViewById(R.id.paintView);
-        formationSelectionne=(String)intent.getSerializableExtra("formation");
+        paintView = findViewById(R.id.paintView);
+        formationSelectionne = (String) intent.getSerializableExtra("formation");
     }
 
     public void confirmationSignature(View view) throws IOException, JSONException {
         paintView.buildDrawingCache(true);
-        Bitmap returnedBitmap = Bitmap.createBitmap(paintView.getWidth(), paintView.getHeight(),Bitmap.Config.ARGB_8888);
+        Bitmap returnedBitmap = Bitmap.createBitmap(paintView.getWidth(), paintView.getHeight(), Bitmap.Config.ARGB_8888);
         paintView.setDrawingCacheEnabled(false);
         Canvas canvas = new Canvas(returnedBitmap);
-        Drawable bgDrawable =paintView.getBackground();
-        if (bgDrawable!=null)
+        Drawable bgDrawable = paintView.getBackground();
+        if (bgDrawable != null)
             bgDrawable.draw(canvas);
         else
             canvas.drawColor(Color.WHITE);
@@ -87,41 +86,38 @@ public class SignatureActivity extends AppCompatActivity {
                     @SneakyThrows
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ServiceAPI serviceAPI=new ServiceAPI();
-                        if(etudiant==null){
-                            serviceAPI.sendSignatureProfesseur(professeur,encoded);
+                        ServiceAPI serviceAPI = new ServiceAPI();
+                        if (etudiant == null) {
+                            serviceAPI.sendSignatureProfesseur(professeur, encoded);
+                        } else {
+                            serviceAPI.sendSignatureEtudiant(etudiant, encoded);
                         }
-                        else{
-                            serviceAPI.sendSignatureEtudiant(etudiant,encoded);
-                        }
-                        Toast.makeText(getApplicationContext(),"Signature envoyée !",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Signature envoyée !", Toast.LENGTH_LONG).show();
                         Go();
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(),"Annulation de l'ajout de la signature",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Annulation de l'ajout de la signature", Toast.LENGTH_LONG).show();
                     }
                 })
                 .show();
 
 
-
     }
 
-    public void Go(){
+    public void Go() {
         Intent intent;
-        if (etudiant!=null){
-            intent=new Intent(this,AppelActivity.class);
+        if (etudiant != null) {
+            intent = new Intent(this, AppelActivity.class);
             intent.putExtra("idModifie", this.etudiant.getIdEtudiant());
-            intent.putExtra("professeur",professeur);
-            intent.putExtra("formation",formationSelectionne);
-        }
-        else{
-            intent=new Intent(this,WelcomeActivity.class);
+            intent.putExtra("professeur", professeur);
+            intent.putExtra("formation", formationSelectionne);
+        } else {
+            intent = new Intent(this, WelcomeActivity.class);
             professeur.setHasSigned(true);
-            intent.putExtra("professeur",professeur);
+            intent.putExtra("professeur", professeur);
         }
         startActivity(intent);
 
