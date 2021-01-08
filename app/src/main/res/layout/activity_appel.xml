@@ -12,11 +12,15 @@
         android:id="@+id/TV_formation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Formation"
+        android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Spinner
@@ -31,10 +35,12 @@
         android:id="@+id/TV_Matiere"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:text="Matière"
+        android:textColor="@color/white"
         android:textSize="18dp" />
 
     <Spinner
@@ -48,6 +54,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
 
@@ -62,6 +71,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Heure de Début"
+            android:textColor="@color/white"
             android:textSize="18dp" />
 
         <TextView
@@ -71,6 +81,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Heure de fin"
+            android:textColor="@color/white"
             android:textSize="18dp" />
 
 
@@ -91,6 +102,9 @@
             android:layout_width="match_parent"
             android:layout_height="118dp"
             android:layout_weight="1"
+            android:theme="@style/MyDatePicker"
+            android:numbersTextColor="@color/white"
+            android:headerBackground="@color/white"
             android:timePickerMode="spinner" />
 
         <TimePicker
@@ -98,9 +112,14 @@
             android:layout_width="match_parent"
             android:layout_height="109dp"
             android:layout_weight="1"
+            android:theme="@style/MyDatePicker"
+            android:headerBackground="@color/white"
             android:timePickerMode="spinner" />
 
     </LinearLayout>
+
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -111,19 +130,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_weight="1"
         android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/BT_validation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:onClick="popUpValidation"
         android:text="Validation du cours"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        app:backgroundTint="@color/green_uvsq" />
 
 </LinearLayout>

@@ -24,6 +24,7 @@ import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceAPI;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -32,16 +33,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
 
 import lombok.SneakyThrows;
 
-public class AppelActivity extends AppCompatActivity {
+public class AppelActivity extends AppCompatActivity{
 
     private List<Matiere> matiereList;
 
     private List<Etudiant> etudiantList;
 
-    private ServiceAPI serviceAPI = new ServiceAPI();
+    private ServiceAPI serviceAPI =new ServiceAPI();
 
     private Spinner SP_matiere;
 
@@ -67,6 +69,8 @@ public class AppelActivity extends AppCompatActivity {
 
     private List<String> nomsFormations;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SneakyThrows
     @Override
@@ -87,15 +91,14 @@ public class AppelActivity extends AppCompatActivity {
             nomsFormations.add(formation.getIntitule() + "-2");
         }
         Collections.sort(nomsFormations);
-        SP_formation.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nomsFormations));
-        SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        SP_formation.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,nomsFormations));
+        SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                intituleFormationSelectionne = (String) SP_formation.getSelectedItem();
+                intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
                 setValueSpinnerMatiere();
                 setDisplayedEtudiants();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -106,6 +109,7 @@ public class AppelActivity extends AppCompatActivity {
         else {
             SP_formation.setSelection(getPositionFormation(intituleFormationSelectionne));
         }
+
         this.setValueSpinnerMatiere();
         TP_debut = (TimePicker) findViewById(R.id.TP_debut);
         TP_debut.setIs24HourView(true);
@@ -150,7 +154,7 @@ public class AppelActivity extends AppCompatActivity {
                 displayedMatiere.add(matiere.getIntitule());
             }
         }
-        SP_matiere.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, displayedMatiere));
+        SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,displayedMatiere));
     }
 
     public void setDisplayedEtudiants() {
@@ -172,18 +176,43 @@ public class AppelActivity extends AppCompatActivity {
         adapter.setFormationSelectionne(intituleFormationSelectionne);
     }
 
-    public String getIntituleFormation() {
-        StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");
-        return tokenizer.nextToken();
+    public String getIntituleFormation(){
+        StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
+        String token;
+        String intituleFormation =new String();
+        while (tokenizer.hasMoreTokens()){
+            token=tokenizer.nextToken();
+            if (isInt(token)==true){
+                break;
+            }
+            intituleFormation+=token;
+            intituleFormation+="-";
+        }
+        return intituleFormation.substring(0,intituleFormation.length()-1);
     }
 
-    public Integer getNumeroGroupe() {
-        StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");
-        if (tokenizer.countTokens() == 2) {
-            tokenizer.nextToken();
-            return Integer.parseInt(tokenizer.nextToken());
+    public boolean isInt(String string){
+        char [] s= string.toCharArray();
+        for (int i=0;i<s.length;i++){
+            if (!Character.isDigit(s[i])){
+                return false;
+            }
         }
-        return null;
+        return true;
+    }
+
+    public Integer getNumeroGroupe(){
+        StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
+        String token = new String();
+        while (tokenizer.hasMoreTokens()){
+            token= tokenizer.nextToken();
+        }
+        try{
+            return Integer.parseInt(token);
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
     public Matiere getMatiereByIntitule(String intitule) {
