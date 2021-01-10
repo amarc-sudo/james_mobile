@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/linearSignature">
+    android:background="@color/blue_uvsq"
+    >
 
     <TextView
         android:id="@+id/textView_nomSignature"
@@ -14,19 +15,23 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Nom de l'eleve"
+        android:textColor="@color/white"
         android:textSize="20dp" />
 
     <LinearLayout
+        android:background="@drawable/border"
         android:layout_width="wrap_content"
+        android:backgroundTint="@color/white"
         android:layout_height="591dp"
-        android:background="@drawable/border">
+        >
 
 
         <com.iut.james_mobile.dessiner.PaintView
             android:id="@+id/paintView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
@@ -53,9 +58,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/background"
             android:onClick="reset"
             android:text="Reset"
+            android:backgroundTint="@color/green_uvsq"
+            android:layout_marginRight="10dp"
             tools:ignore="Suspicious0dp" />
 
         <Button
@@ -63,9 +69,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/background"
             android:onClick="confirmationSignature"
             android:text="Valider"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/green_uvsq"
             tools:ignore="Suspicious0dp" />
 
     </LinearLayout>

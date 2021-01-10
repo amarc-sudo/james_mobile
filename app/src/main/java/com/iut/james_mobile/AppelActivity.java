@@ -24,6 +24,7 @@ import com.iut.james_mobile.apiobject.Matiere;
 import com.iut.james_mobile.apiobject.Professeur;
 import com.iut.james_mobile.serviceApi.ServiceAPI;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -32,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutionException;
 
 import lombok.SneakyThrows;
 
@@ -67,6 +69,8 @@ public class AppelActivity extends AppCompatActivity{
 
     private List<String> nomsFormations;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SneakyThrows
     @Override
@@ -74,20 +78,20 @@ public class AppelActivity extends AppCompatActivity{
         System.out.println("onCreate c'est Tipar");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appel);
-        Intent intent=getIntent();
-        professeur= (Professeur) intent.getSerializableExtra("professeur");
-        matiereList= serviceAPI.getMatiereOfProfesseur(professeur);
-        etudiantList= serviceAPI.getEtudiantOfProfesseur(professeur);
-        SP_matiere=findViewById(R.id.SP_matiere);
-        SP_formation=findViewById(R.id.SP_formation);
-        nomsFormations=new ArrayList<>();
-        for (Formation formation: professeur.getFormations()){
+        Intent intent = getIntent();
+        professeur = (Professeur) intent.getSerializableExtra("professeur");
+        matiereList = serviceAPI.getMatiereOfProfesseur(professeur);
+        etudiantList = serviceAPI.getEtudiantOfProfesseur(professeur);
+        SP_matiere = findViewById(R.id.SP_matiere);
+        SP_formation = findViewById(R.id.SP_formation);
+        nomsFormations = new ArrayList<>();
+        for (Formation formation : professeur.getFormations()) {
             nomsFormations.add(formation.getIntitule());
-            nomsFormations.add(formation.getIntitule()+"-1");
-            nomsFormations.add(formation.getIntitule()+"-2");
+            nomsFormations.add(formation.getIntitule() + "-1");
+            nomsFormations.add(formation.getIntitule() + "-2");
         }
         Collections.sort(nomsFormations);
-        SP_formation.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,nomsFormations));
+        SP_formation.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,nomsFormations));
         SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -99,30 +103,31 @@ public class AppelActivity extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        intituleFormationSelectionne=(String)intent.getStringExtra("formation");
-        if (intituleFormationSelectionne==null)
-            intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
-        else{
+        intituleFormationSelectionne = (String) intent.getStringExtra("formation");
+        if (intituleFormationSelectionne == null)
+            intituleFormationSelectionne = (String) SP_formation.getSelectedItem();
+        else {
             SP_formation.setSelection(getPositionFormation(intituleFormationSelectionne));
         }
+
         this.setValueSpinnerMatiere();
-        TP_debut=(TimePicker)findViewById(R.id.TP_debut);
+        TP_debut = (TimePicker) findViewById(R.id.TP_debut);
         TP_debut.setIs24HourView(true);
         TP_debut.setMinute(0);
         TP_debut.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY));
-        TP_fin=(TimePicker)findViewById(R.id.TP_fin);
+        TP_fin = (TimePicker) findViewById(R.id.TP_fin);
         TP_fin.setIs24HourView(true);
         TP_fin.setMinute(0);
-        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY)+1);
-        this.recyclerView=(RecyclerView) findViewById(R.id.RV_eleve);
+        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+        this.recyclerView = (RecyclerView) findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
-        BT_validation=findViewById(R.id.BT_validation);
+        BT_validation = findViewById(R.id.BT_validation);
     }
 
     private int getPositionFormation(String intituleFormationSelectionne) {
-        int compteur=0;
-        for(String intitule:nomsFormations){
-            if(intituleFormationSelectionne.equals(intitule)){
+        int compteur = 0;
+        for (String intitule : nomsFormations) {
+            if (intituleFormationSelectionne.equals(intitule)) {
                 return compteur;
             }
             compteur++;
@@ -131,7 +136,7 @@ public class AppelActivity extends AppCompatActivity{
     }
 
     private Integer getIdPresence(String selectedItem) {
-        switch (selectedItem){
+        switch (selectedItem) {
             case "Présent":
                 return 1;
             case "En Retard":
@@ -142,29 +147,29 @@ public class AppelActivity extends AppCompatActivity{
         return null;
     }
 
-    public void setValueSpinnerMatiere(){
-        List<String> displayedMatiere=new ArrayList<String>();
-        for(Matiere matiere:matiereList){
-            if (matiere.getFormation().getIntitule().equals(this.getIntituleFormation())){
+    public void setValueSpinnerMatiere() {
+        List<String> displayedMatiere = new ArrayList<String>();
+        for (Matiere matiere : matiereList) {
+            if (matiere.getFormation().getIntitule().equals(this.getIntituleFormation())) {
                 displayedMatiere.add(matiere.getIntitule());
             }
         }
-        SP_matiere.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,displayedMatiere));
+        SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,displayedMatiere));
     }
 
-    public void setDisplayedEtudiants(){
-        List<Etudiant> displayedEtudiants=new ArrayList<>();
-        for(Etudiant etudiant:etudiantList){
-            if (getNumeroGroupe()==null){
-                if (etudiant.getFormation().getIntitule().equals(getIntituleFormation())){
+    public void setDisplayedEtudiants() {
+        List<Etudiant> displayedEtudiants = new ArrayList<>();
+        for (Etudiant etudiant : etudiantList) {
+            if (getNumeroGroupe() == null) {
+                if (etudiant.getFormation().getIntitule().equals(getIntituleFormation())) {
                     displayedEtudiants.add(etudiant);
                 }
             }
-            if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && etudiant.getGroupe()==getNumeroGroupe()){
+            if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && etudiant.getGroupe() == getNumeroGroupe()) {
                 displayedEtudiants.add(etudiant);
             }
         }
-        adapter=new RecyclerSimpleViewAdapter(displayedEtudiants,android.R.layout.simple_list_item_1);
+        adapter = new RecyclerSimpleViewAdapter(displayedEtudiants, android.R.layout.simple_list_item_1);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setProfesseurConnecte(professeur);
@@ -173,21 +178,46 @@ public class AppelActivity extends AppCompatActivity{
 
     public String getIntituleFormation(){
         StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
-        return tokenizer.nextToken();
+        String token;
+        String intituleFormation =new String();
+        while (tokenizer.hasMoreTokens()){
+            token=tokenizer.nextToken();
+            if (isInt(token)==true){
+                break;
+            }
+            intituleFormation+=token;
+            intituleFormation+="-";
+        }
+        return intituleFormation.substring(0,intituleFormation.length()-1);
+    }
+
+    public boolean isInt(String string){
+        char [] s= string.toCharArray();
+        for (int i=0;i<s.length;i++){
+            if (!Character.isDigit(s[i])){
+                return false;
+            }
+        }
+        return true;
     }
 
     public Integer getNumeroGroupe(){
         StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
-        if (tokenizer.countTokens()==2){
-            tokenizer.nextToken();
-            return Integer.parseInt(tokenizer.nextToken());
+        String token = new String();
+        while (tokenizer.hasMoreTokens()){
+            token= tokenizer.nextToken();
         }
-        return null;
+        try{
+            return Integer.parseInt(token);
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
-    public Matiere getMatiereByIntitule(String intitule){
-        for (Matiere matiere:matiereList){
-            if (matiere.getFormation().getIntitule().equals(getIntituleFormation()) && matiere.getIntitule().equals(intitule)){
+    public Matiere getMatiereByIntitule(String intitule) {
+        for (Matiere matiere : matiereList) {
+            if (matiere.getFormation().getIntitule().equals(getIntituleFormation()) && matiere.getIntitule().equals(intitule)) {
                 return matiere;
             }
         }
@@ -195,30 +225,28 @@ public class AppelActivity extends AppCompatActivity{
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void popUpValidation(View v){
-        int nombreAbsents=0;
-        int nombreRetardataires=0;
-        String matiere= (String) SP_matiere.getSelectedItem();
-        Map<Etudiant,Spinner> relevePresence= adapter.getSP_presences();
-        Map<Integer,Integer> eleveStatus=new HashMap<>();
-        if (TP_debut.getMinute()<10){
-            heureDebut=Integer.toString(TP_debut.getHour())+":0"+Integer.toString(TP_debut.getMinute());
+    public void popUpValidation(View v) {
+        int nombreAbsents = 0;
+        int nombreRetardataires = 0;
+        String matiere = (String) SP_matiere.getSelectedItem();
+        Map<Etudiant, Spinner> relevePresence = adapter.getSP_presences();
+        Map<Integer, Integer> eleveStatus = new HashMap<>();
+        if (TP_debut.getMinute() < 10) {
+            heureDebut = Integer.toString(TP_debut.getHour()) + ":0" + Integer.toString(TP_debut.getMinute());
+        } else {
+            heureDebut = Integer.toString(TP_debut.getHour()) + ":" + Integer.toString(TP_debut.getMinute());
         }
-        else{
-            heureDebut=Integer.toString(TP_debut.getHour())+":"+Integer.toString(TP_debut.getMinute());
-        }
-        if (TP_fin.getMinute()<10){
-            heureFin=Integer.toString(TP_fin.getHour())+":0"+Integer.toString(TP_fin.getMinute());
-        }
-        else{
-            heureFin=Integer.toString(TP_fin.getHour())+":"+Integer.toString(TP_fin.getMinute());
+        if (TP_fin.getMinute() < 10) {
+            heureFin = Integer.toString(TP_fin.getHour()) + ":0" + Integer.toString(TP_fin.getMinute());
+        } else {
+            heureFin = Integer.toString(TP_fin.getHour()) + ":" + Integer.toString(TP_fin.getMinute());
         }
 
-        boolean toutLeMondeASigne=true;
-        for (Iterator<Etudiant> iterator=relevePresence.keySet().iterator();iterator.hasNext();){
-            Etudiant etudiant=iterator.next();
+        boolean toutLeMondeASigne = true;
+        for (Iterator<Etudiant> iterator = relevePresence.keySet().iterator(); iterator.hasNext(); ) {
+            Etudiant etudiant = iterator.next();
             Integer statutPresence = getIdPresence((String) relevePresence.get(etudiant).getSelectedItem());
-            switch (statutPresence){
+            switch (statutPresence) {
                 case 2:
                     nombreRetardataires++;
                     break;
@@ -226,27 +254,27 @@ public class AppelActivity extends AppCompatActivity{
                     nombreAbsents++;
                     break;
             }
-            if(!etudiant.isHasSigned()){
-                toutLeMondeASigne=false;
+            if (!etudiant.isHasSigned()) {
+                toutLeMondeASigne = false;
             }
             eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
         }
-        if (toutLeMondeASigne){
+        if (toutLeMondeASigne) {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmez l'ajout du cours")
-                    .setMessage("Matiere: "+matiere+"\n"+
-                            "Heure début: "+heureDebut+"\n"+
-                            "Heure fin: "+heureFin +"\n"+
-                            "Nombre Retardataire(s): "+nombreRetardataires+"\n"+
-                            "Nombre Absent(s): "+nombreAbsents+"\n")
+                    .setMessage("Matiere: " + matiere + "\n" +
+                            "Heure début: " + heureDebut + "\n" +
+                            "Heure fin: " + heureFin + "\n" +
+                            "Nombre Retardataire(s): " + nombreRetardataires + "\n" +
+                            "Nombre Absent(s): " + nombreAbsents + "\n")
                     .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @SneakyThrows
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            serviceAPI.createNewCours(professeur,getMatiereByIntitule(matiere),heureDebut,
-                                    heureFin,eleveStatus);
-                            Toast.makeText(getApplicationContext(),"Cours bien ajouté",Toast.LENGTH_LONG).show();
+                            serviceAPI.createNewCours(professeur, getMatiereByIntitule(matiere), heureDebut,
+                                    heureFin, eleveStatus);
+                            Toast.makeText(getApplicationContext(), "Cours bien ajouté", Toast.LENGTH_LONG).show();
                             GoAtHome();
                         }
                     })
@@ -257,15 +285,14 @@ public class AppelActivity extends AppCompatActivity{
                         }
                     })
                     .show();
-        }
-        else{
+        } else {
             Toast.makeText(AppelActivity.this, "Tout le monde n'a pas signé ", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void GoAtHome() {
-        Intent intent=new Intent(this,WelcomeActivity.class);
-        intent.putExtra("professeur",professeur);
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.putExtra("professeur", professeur);
         startActivity(intent);
     }
 

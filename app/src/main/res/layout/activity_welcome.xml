@@ -4,54 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:gravity="center"
+    android:background="@color/blue_uvsq"
     android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="0"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/logo_james"></ImageView>
 
     <TextView
         android:id="@+id/TV_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
-        android:text="TextView" />
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/BT_emargement"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:onClick="GoEmargement"
-        android:text="Emarger un cours" />
+        android:backgroundTint="@color/green_uvsq"
 
-    <Button
-        android:id="@+id/BT_signature_prof"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:onClick="GoSignature"
-        android:text="Signature" />
+        android:background="@drawable/background"
+        android:text="Emarger un cours" />
 
     <Button
         android:id="@+id/BT_settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="75dp"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
+        android:backgroundTint="@color/green_uvsq"
+        android:background="@drawable/background"
         android:text="Paramètres" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/logo_uvsq"></ImageView>
 </LinearLayout>
