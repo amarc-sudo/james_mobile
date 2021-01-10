@@ -26,8 +26,11 @@ public class Professeur implements Serializable {
 
     private Set<Formation> formations;
 
+    private boolean hasSigned;
+
     public Professeur(JSONObject json) throws JSONException, ParseException {
         this.idProfesseur=json.getInt("idProfesseur");
+        this.hasSigned=json.getBoolean("hasSigned");
         JSONObject jsonPersonne=json.getJSONObject("personne");
         this.personne= new Personne(jsonPersonne);
         JSONObject jsonContact=json.getJSONObject("contact");

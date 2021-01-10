@@ -99,25 +99,19 @@ public class LoginActivity extends AppCompatActivity  {
                     return false;
                 }
             });
-
-
-
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if(sharedPreferences.getBoolean("isChecked",false)){
                 ET_login.setText(sharedPreferences.getString("login",""));
                 ET_password.setText(sharedPreferences.getString("password",""));
                 CB_souvenir.setChecked(true);
             }
-
-
-
         }
         serviceAPI =new ServiceAPI();
 
 
     }
     public void Go(){
-        Intent intent=new Intent(this,AppelActivity.class);
+        Intent intent=new Intent(this,WelcomeActivity.class);
         intent.putExtra("professeur", correctProfesseur);
         startActivity(intent);
     }
@@ -137,6 +131,7 @@ public class LoginActivity extends AppCompatActivity  {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
                     sharedPreferences.edit().putString("password", ET_password.getText().toString()).apply();
                     sharedPreferences.edit().putBoolean("isChecked", true).apply();
+
                 }
                 else {
                     sharedPreferences.edit().remove("login").apply();
@@ -154,21 +149,11 @@ public class LoginActivity extends AppCompatActivity  {
             Toast.makeText(this.getApplicationContext(), "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
 
         }
-    }//toConnect
+    }
 
     private void closeKeyboard(){
-        // this will give us the view
-        // which is currently focus
-        // in this layout
         View view = this.getCurrentFocus();
-
-        // if nothing is currently
-        // focus then this will protect
-        // the app from crash
         if (view != null) {
-
-            // now assign the system
-            // service to InputMethodManager
             InputMethodManager manager
                     = (InputMethodManager)
                     getSystemService(
