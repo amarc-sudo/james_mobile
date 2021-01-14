@@ -265,6 +265,7 @@ public class AppelActivity extends AppCompatActivity {
             }
             eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
         }
+        System.out.println(relevePresence.size());
         if (toutLeMondeASigne) {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmez l'ajout du cours")

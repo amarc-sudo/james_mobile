@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -18,6 +19,7 @@ import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,13 +40,14 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     private Professeur professeurConnecte;
 
-    private Map<Etudiant,Spinner> SP_presences = new HashMap<>();
+    private Map<Etudiant, Spinner> SP_presences = new HashMap<>();
 
     private String formationSelectionne;
 
     /**
      * Constructor RecyclerSimpleViewAdapter
-     * @param items : the list items
+     *
+     * @param items      : the list items
      * @param itemLayout : the resource id of itemView
      */
     public RecyclerSimpleViewAdapter(List<Etudiant> items, int itemLayout) {
@@ -58,7 +61,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     /**
      * Create View Holder by Type
-     * @param parent, the view parent
+     *
+     * @param parent,  the view parent
      * @param viewType : the type of View
      */
     @Override
@@ -72,23 +76,26 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     /**
      * Get the size of items in adapter
+     *
      * @return the size of items in adapter
      */
     @Override
     public int getItemCount() {
         return items.size();
     }
+
     /**
      * Bind View Holder with Items
-     * @param holder: the view holder
+     *
+     * @param holder:  the view holder
      * @param position : the current position
      */
     @Override
     public void onBindViewHolder(EtudiantViewHolder holder, int position) {
         // find item by position
+        System.out.println(position);
         Etudiant etudiant = items.get(position);
         holder.primaryText.setText(etudiant.getPersonne().getNom() + " " + etudiant.getPersonne().getPrenom());
-        System.out.println(etudiant.isHasSigned());
         if (etudiant.isHasSigned() == true)
             holder.BT_signature.setEnabled(false);
         else {
@@ -104,8 +111,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
                 }
             });
         }
-        SP_presences.put(etudiant, holder.SP_presence);
-        holder.itemView.setTag(etudiant);
+
     }
 
     public void setFormationSelectionne(String intituleFormationSelectionne) {
@@ -113,7 +119,6 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     }
 
     /**
-     *
      * Class viewHolder
      * Hold an textView
      */
@@ -127,26 +132,24 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
         public Context context;
 
-        public List<String> etatPossible=new ArrayList<>();
+        public List<String> etatPossible = Arrays.asList("Présent","En Retard","Absent");
+
+        public ArrayAdapter<String> texteSpinner;
 
         /**
          * Constructor ViewHolder
+         *
          * @param itemView: the itemView
          */
         public EtudiantViewHolder(View itemView) {
             super(itemView);
             // link primaryText
-            etatPossible.add("Présent");
-            etatPossible.add("En Retard");
-            etatPossible.add("Absent");
             primaryText = (TextView) itemView.findViewById(R.id.TV_eleve);
             BT_signature = (Button) itemView.findViewById(R.id.BT_Signature);
-            SP_presence = itemView.findViewById(R.id.SP_presence);
             context = itemView.getContext();
-            BT_signature=(Button)itemView.findViewById(R.id.BT_Signature);
-            SP_presence=itemView.findViewById(R.id.SP_presence);
-            context=itemView.getContext();
-            SP_presence.setAdapter(new ArrayAdapter<String>(context, R.layout.spinner_item_presence,etatPossible));
+            SP_presence = itemView.findViewById(R.id.SP_presence);
+            texteSpinner = new ArrayAdapter<String>(context, R.layout.spinner_item_presence, etatPossible);
+            SP_presence.setAdapter(texteSpinner);
 
         }
     }

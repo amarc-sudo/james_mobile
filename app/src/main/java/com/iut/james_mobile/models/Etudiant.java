@@ -43,6 +43,5 @@ public class Etudiant implements Serializable {
         } catch (Exception e) {
             this.groupe = null;
         }
-
     }
 }
