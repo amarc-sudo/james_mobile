@@ -22,8 +22,10 @@ import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Formation;
 import com.iut.james_mobile.models.Matiere;
 import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.services.ServiceCours;
+import com.iut.james_mobile.services.ServiceEtudiant;
+import com.iut.james_mobile.services.ServiceMatiere;
 import com.iut.james_mobile.views.RecyclerSimpleViewAdapter;
-import com.iut.james_mobile.services.ServiceAPI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,13 +38,17 @@ import java.util.StringTokenizer;
 
 import lombok.SneakyThrows;
 
-public class AppelActivity extends AppCompatActivity{
+public class AppelActivity extends AppCompatActivity {
 
     private List<Matiere> matiereList;
 
     private List<Etudiant> etudiantList;
 
-    private ServiceAPI serviceAPI =new ServiceAPI();
+    private ServiceEtudiant serviceEtudiant;
+
+    private ServiceMatiere serviceMatiere;
+
+    private ServiceCours serviceCours;
 
     private Spinner SP_matiere;
 
@@ -69,18 +75,19 @@ public class AppelActivity extends AppCompatActivity{
     private List<String> nomsFormations;
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("onCreate c'est Tipar");
         super.onCreate(savedInstanceState);
+        serviceEtudiant = new ServiceEtudiant();
+        serviceMatiere = new ServiceMatiere();
+        serviceCours = new ServiceCours();
         setContentView(R.layout.activity_appel);
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
-        matiereList = serviceAPI.getMatiereOfProfesseur(professeur);
-        etudiantList = serviceAPI.getEtudiantOfProfesseur(professeur);
+        matiereList = serviceMatiere.listByProfesseur(professeur);
+        etudiantList = serviceEtudiant.listByProfesseur(professeur);
         SP_matiere = findViewById(R.id.SP_matiere);
         SP_formation = findViewById(R.id.SP_formation);
         nomsFormations = new ArrayList<>();
@@ -90,14 +97,15 @@ public class AppelActivity extends AppCompatActivity{
             nomsFormations.add(formation.getIntitule() + "-2");
         }
         Collections.sort(nomsFormations);
-        SP_formation.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,nomsFormations));
-        SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        SP_formation.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item, nomsFormations));
+        SP_formation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                intituleFormationSelectionne=(String) SP_formation.getSelectedItem();
+                intituleFormationSelectionne = (String) SP_formation.getSelectedItem();
                 setValueSpinnerMatiere();
                 setDisplayedEtudiants();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -153,7 +161,7 @@ public class AppelActivity extends AppCompatActivity{
                 displayedMatiere.add(matiere.getIntitule());
             }
         }
-        SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item,displayedMatiere));
+        SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item, displayedMatiere));
     }
 
     public void setDisplayedEtudiants() {
@@ -175,41 +183,40 @@ public class AppelActivity extends AppCompatActivity{
         adapter.setFormationSelectionne(intituleFormationSelectionne);
     }
 
-    public String getIntituleFormation(){
-        StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
+    public String getIntituleFormation() {
+        StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");
         String token;
-        String intituleFormation =new String();
-        while (tokenizer.hasMoreTokens()){
-            token=tokenizer.nextToken();
-            if (isInt(token)==true){
+        String intituleFormation = new String();
+        while (tokenizer.hasMoreTokens()) {
+            token = tokenizer.nextToken();
+            if (isInt(token) == true) {
                 break;
             }
-            intituleFormation+=token;
-            intituleFormation+="-";
+            intituleFormation += token;
+            intituleFormation += "-";
         }
-        return intituleFormation.substring(0,intituleFormation.length()-1);
+        return intituleFormation.substring(0, intituleFormation.length() - 1);
     }
 
-    public boolean isInt(String string){
-        char [] s= string.toCharArray();
-        for (int i=0;i<s.length;i++){
-            if (!Character.isDigit(s[i])){
+    public boolean isInt(String string) {
+        char[] s = string.toCharArray();
+        for (int i = 0; i < s.length; i++) {
+            if (!Character.isDigit(s[i])) {
                 return false;
             }
         }
         return true;
     }
 
-    public Integer getNumeroGroupe(){
-        StringTokenizer tokenizer=new StringTokenizer(intituleFormationSelectionne,"-");
+    public Integer getNumeroGroupe() {
+        StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");
         String token = new String();
-        while (tokenizer.hasMoreTokens()){
-            token= tokenizer.nextToken();
+        while (tokenizer.hasMoreTokens()) {
+            token = tokenizer.nextToken();
         }
-        try{
+        try {
             return Integer.parseInt(token);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -271,7 +278,7 @@ public class AppelActivity extends AppCompatActivity{
                         @SneakyThrows
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            serviceAPI.createNewCours(professeur, getMatiereByIntitule(matiere), heureDebut,
+                            serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut,
                                     heureFin, eleveStatus);
                             Toast.makeText(getApplicationContext(), "Cours bien ajouté", Toast.LENGTH_LONG).show();
                             GoAtHome();

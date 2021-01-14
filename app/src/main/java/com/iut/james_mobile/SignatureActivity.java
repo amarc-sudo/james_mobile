@@ -20,8 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.services.ServiceEtudiant;
+import com.iut.james_mobile.services.ServiceProfesseur;
 import com.iut.james_mobile.views.PaintView;
-import com.iut.james_mobile.services.ServiceAPI;
+import com.iut.james_mobile.services.ServiceConfiguration;
 
 import org.json.JSONException;
 
@@ -86,11 +88,10 @@ public class SignatureActivity extends AppCompatActivity {
                     @SneakyThrows
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ServiceAPI serviceAPI = new ServiceAPI();
                         if (etudiant == null) {
-                            serviceAPI.sendSignatureProfesseur(professeur, encoded);
+                            new ServiceProfesseur().updateSignature(professeur, encoded);
                         } else {
-                            serviceAPI.sendSignatureEtudiant(etudiant, encoded);
+                            new ServiceEtudiant().updateSignature(etudiant, encoded);
                         }
                         Toast.makeText(getApplicationContext(), "Signature envoyée !", Toast.LENGTH_LONG).show();
                         Go();

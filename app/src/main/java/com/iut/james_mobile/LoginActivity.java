@@ -17,14 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iut.james_mobile.models.Professeur;
-import com.iut.james_mobile.services.ServiceAPI;
+import com.iut.james_mobile.services.ServiceConfiguration;
+import com.iut.james_mobile.services.ServiceProfesseur;
 
 import java.io.IOException;
 
 import org.json.JSONException;
 
 
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
 
     private Button BT_forgotPassword;
 
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     private TextView textMessage;
 
-    private ServiceAPI serviceAPI;
+    private ServiceProfesseur serviceProfesseur;
 
     private SharedPreferences sharedPreferences;
 
@@ -47,25 +48,22 @@ public class LoginActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
-            ET_login =  findViewById(R.id.ET_login);
-            ET_password =(EditText)this.findViewById(R.id.ET_password);
-            boutonValider=(Button)findViewById(R.id.BT_connect);
-            CB_souvenir =(CheckBox)this.findViewById(R.id.CB_souvenir);
-            BT_forgotPassword=(Button) findViewById(R.id.BT_forgotPassword);
+            ET_login = findViewById(R.id.ET_login);
+            ET_password = (EditText) this.findViewById(R.id.ET_password);
+            boutonValider = (Button) findViewById(R.id.BT_connect);
+            CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
+            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
-                    {
-                        switch (keyCode)
-                        {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                        switch (keyCode) {
                             case KeyEvent.KEYCODE_ENTER:
                                 ET_password.requestFocus();
                                 return true;
@@ -79,10 +77,8 @@ public class LoginActivity extends AppCompatActivity  {
             ET_password.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN)
-                    {
-                        switch (keyCode)
-                        {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                        switch (keyCode) {
                             case KeyEvent.KEYCODE_ENTER:
                                 closeKeyboard();
 
@@ -95,47 +91,46 @@ public class LoginActivity extends AppCompatActivity  {
                 }
             });
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
-            if(sharedPreferences.getBoolean("isChecked",false)){
-                ET_login.setText(sharedPreferences.getString("login",""));
-                ET_password.setText(sharedPreferences.getString("password",""));
+            if (sharedPreferences.getBoolean("isChecked", false)) {
+                ET_login.setText(sharedPreferences.getString("login", ""));
+                ET_password.setText(sharedPreferences.getString("password", ""));
                 CB_souvenir.setChecked(true);
             }
         }
-        serviceAPI =new ServiceAPI();
+        serviceProfesseur = new ServiceProfesseur();
     }
-    public void Go(){
-        Intent intent=new Intent(this,WelcomeActivity.class);
+
+    public void Go() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
         intent.putExtra("professeur", correctProfesseur);
         this.finish();
         startActivity(intent);
     }
 
     public void goForgotPassword(View view) {
-        Intent forgot=new Intent(this,ForgotPasswordActivity.class);
+        Intent forgot = new Intent(this, ForgotPasswordActivity.class);
         startActivity(forgot);
     }
 
-    public void toConnect(View view){
+    public void toConnect(View view) {
         try {
-            String login= ET_login.getText().toString();
-            String password= ET_password.getText().toString();
-            this.correctProfesseur= serviceAPI.readProfesseurByLoginAndPassword(login,password);
-            if(correctProfesseur != null) {
+            String login = ET_login.getText().toString();
+            String password = ET_password.getText().toString();
+            this.correctProfesseur = serviceProfesseur.readByLoginAndPassword(login, password);
+            if (correctProfesseur != null) {
                 if (CB_souvenir.isChecked()) {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();
                     sharedPreferences.edit().putString("password", ET_password.getText().toString()).apply();
                     sharedPreferences.edit().putBoolean("isChecked", true).apply();
 
-                }
-                else {
+                } else {
                     sharedPreferences.edit().remove("login").apply();
                     sharedPreferences.edit().remove("password").apply();
                     sharedPreferences.edit().remove("isChecked").apply();
 
                 }
                 Go();
-            }
-            else{
+            } else {
                 Toast.makeText(this.getApplicationContext(), "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException | JSONException e) {
@@ -145,7 +140,7 @@ public class LoginActivity extends AppCompatActivity  {
         }
     }
 
-    private void closeKeyboard(){
+    private void closeKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager manager
