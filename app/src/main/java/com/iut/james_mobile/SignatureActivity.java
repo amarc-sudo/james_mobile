@@ -18,10 +18,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.iut.james_mobile.apiobject.Etudiant;
-import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.dessiner.PaintView;
-import com.iut.james_mobile.serviceApi.ServiceAPI;
+import com.iut.james_mobile.models.Etudiant;
+import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.views.PaintView;
+import com.iut.james_mobile.services.ServiceAPI;
 
 import org.json.JSONException;
 

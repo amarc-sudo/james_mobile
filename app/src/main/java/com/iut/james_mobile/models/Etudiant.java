@@ -1,4 +1,4 @@
-package com.iut.james_mobile.apiobject;
+package com.iut.james_mobile.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 @Data
 public class Etudiant implements Serializable {
+
     private int idEtudiant;
 
     private Personne personne;

@@ -18,13 +18,13 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.iut.james_mobile.apiobject.Etudiant;
-import com.iut.james_mobile.apiobject.Formation;
-import com.iut.james_mobile.apiobject.Matiere;
-import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.serviceApi.ServiceAPI;
+import com.iut.james_mobile.models.Etudiant;
+import com.iut.james_mobile.models.Formation;
+import com.iut.james_mobile.models.Matiere;
+import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.views.RecyclerSimpleViewAdapter;
+import com.iut.james_mobile.services.ServiceAPI;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -33,7 +33,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
 
 import lombok.SneakyThrows;
 

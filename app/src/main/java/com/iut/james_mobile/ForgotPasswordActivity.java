@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.iut.james_mobile.serviceApi.ServiceForgotPassword;
+import com.iut.james_mobile.services.ServiceForgotPassword;
 
 import org.json.JSONException;
 

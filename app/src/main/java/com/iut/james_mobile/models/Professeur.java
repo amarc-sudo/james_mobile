@@ -1,4 +1,4 @@
-package com.iut.james_mobile.apiobject;
+package com.iut.james_mobile.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -6,8 +6,6 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

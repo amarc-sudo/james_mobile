@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iut.james_mobile.apiobject.Etudiant;
-import com.iut.james_mobile.apiobject.Professeur;
+import com.iut.james_mobile.R;
+import com.iut.james_mobile.SignatureActivity;
+import com.iut.james_mobile.models.Etudiant;
+import com.iut.james_mobile.models.Professeur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,9 +88,11 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
         // find item by position
         Etudiant etudiant = items.get(position);
         holder.primaryText.setText(etudiant.getPersonne().getNom() + " " + etudiant.getPersonne().getPrenom());
+        System.out.println(etudiant.isHasSigned());
         if (etudiant.isHasSigned() == true)
             holder.BT_signature.setEnabled(false);
         else {
+            holder.BT_signature.setEnabled(true);
             holder.BT_signature.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

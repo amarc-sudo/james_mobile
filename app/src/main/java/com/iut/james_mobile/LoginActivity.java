@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.KeyEvent;
@@ -17,8 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.serviceApi.ServiceAPI;
+import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.services.ServiceAPI;
 
 import java.io.IOException;
 
@@ -120,7 +119,7 @@ public class LoginActivity extends AppCompatActivity  {
         try {
             String login= ET_login.getText().toString();
             String password= ET_password.getText().toString();
-            this.correctProfesseur= serviceAPI.correctLoginAndPassword(login,password);
+            this.correctProfesseur= serviceAPI.readProfesseurByLoginAndPassword(login,password);
             if(correctProfesseur != null) {
                 if (CB_souvenir.isChecked()) {
                     sharedPreferences.edit().putString("login", ET_login.getText().toString()).apply();

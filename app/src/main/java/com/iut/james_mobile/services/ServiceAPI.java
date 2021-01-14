@@ -1,11 +1,9 @@
-package com.iut.james_mobile.serviceApi;
+package com.iut.james_mobile.services;
 
-import android.widget.Spinner;
-
-import com.iut.james_mobile.apiobject.Etudiant;
-import com.iut.james_mobile.apiobject.Formation;
-import com.iut.james_mobile.apiobject.Matiere;
-import com.iut.james_mobile.apiobject.Professeur;
+import com.iut.james_mobile.models.Etudiant;
+import com.iut.james_mobile.models.Formation;
+import com.iut.james_mobile.models.Matiere;
+import com.iut.james_mobile.models.Professeur;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -23,7 +21,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,140 +36,136 @@ public class ServiceAPI {
 
     private HttpResponse response;
 
-    private String urlLocal="http://10.0.2.2:8080";
+    private String urlLocal = "http://10.0.2.2:8080";
 
-    private String urlProd="http://146.59.234.40:8080";
+    private String urlProd = "http://146.59.234.40:8080";
 
-    public Professeur correctLoginAndPassword(String login,String password) throws JSONException, IOException {
-        JSONObject jsonLogin=new JSONObject();
-        jsonLogin.put("email",login);
-        jsonLogin.put("password",password);
-        StringEntity se=new StringEntity(jsonLogin.toString());
-        this.prepareHttpPost("/rest/api/professeur/correctLogin",se);
+    public Professeur readProfesseurByLoginAndPassword(String login, String password) throws JSONException, IOException {
+        JSONObject jsonLogin = new JSONObject();
+        jsonLogin.put("email", login);
+        jsonLogin.put("password", password);
+        StringEntity se = new StringEntity(jsonLogin.toString());
+        this.prepareHttpPost("/rest/api/professeur/correctLogin", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
-        try{
+        try {
             JSONObject jsonProfesseur = new JSONObject(result);
-            Professeur professeur=new Professeur(jsonProfesseur);
+            Professeur professeur = new Professeur(jsonProfesseur);
             return professeur;
-        }
-        catch(JSONException | ParseException e){
+        } catch (JSONException | ParseException e) {
             return null;
         }
     }
 
     public void createNewCours(Professeur professeur, Matiere matiere, String debutCours, String finCours, Map<Integer, Integer> map) throws JSONException, IOException {
-        JSONObject jsonCours=new JSONObject();
-        jsonCours.put("professeur",professeur.getIdProfesseur());
-        jsonCours.put("matiere",matiere.getIdMatiere());
-        jsonCours.put("debut",debutCours);
-        jsonCours.put("fin",finCours);
-        for (Iterator i=map.keySet().iterator();i.hasNext();){
-            Integer idEtudiant= (Integer) i.next();
-            jsonCours.put(Integer.toString(idEtudiant),map.get(idEtudiant));
+        JSONObject jsonCours = new JSONObject();
+        jsonCours.put("professeur", professeur.getIdProfesseur());
+        jsonCours.put("matiere", matiere.getIdMatiere());
+        jsonCours.put("debut", debutCours);
+        jsonCours.put("fin", finCours);
+        for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
+            Integer idEtudiant = (Integer) i.next();
+            jsonCours.put(Integer.toString(idEtudiant), map.get(idEtudiant));
         }
         System.out.println(jsonCours.toString());
-        StringEntity se=new StringEntity(jsonCours.toString());
+        StringEntity se = new StringEntity(jsonCours.toString());
         System.out.println(se.toString());
-        this.prepareHttpPost("/rest/api/cours/addCours",se);
+        this.prepareHttpPost("/rest/api/cours/addCours", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
 
     }
 
     public List<Etudiant> getEtudiantOfProfesseur(Professeur professeur) throws JSONException, IOException {
         System.out.println("On fait la demande");
-        Set<Formation> formations=professeur.getFormations();
-        JSONObject jsonFormation=new JSONObject();
-        int compteur=0;
-        for (Iterator<Formation> i = formations.iterator(); i.hasNext();){
-            Formation formation=i.next();
-            jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
+        Set<Formation> formations = professeur.getFormations();
+        JSONObject jsonFormation = new JSONObject();
+        int compteur = 0;
+        for (Iterator<Formation> i = formations.iterator(); i.hasNext(); ) {
+            Formation formation = i.next();
+            jsonFormation.put(Integer.toString(compteur), formation.getIdFormation());
             compteur++;
         }
-        StringEntity se=new StringEntity(jsonFormation.toString());
-        this.prepareHttpPost("/rest/api/etudiant/listEtudiant",se);
+        StringEntity se = new StringEntity(jsonFormation.toString());
+        this.prepareHttpPost("/rest/api/etudiant/listEtudiant", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
-        try{
-            JSONArray jsonEtudiants= new JSONArray(result);
+        try {
+            JSONArray jsonEtudiants = new JSONArray(result);
             System.out.println(jsonEtudiants.toString());
             return getAllEtudiants(jsonEtudiants);
-        }
-        catch(JSONException | ParseException e){
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     public List<Matiere> getMatiereOfProfesseur(Professeur professeur) throws IOException, JSONException {
-        Set<Formation> formations=professeur.getFormations();
-        JSONObject jsonFormation=new JSONObject();
-        int compteur=0;
-        for (Iterator<Formation> i = formations.iterator(); i.hasNext();){
-            Formation formation=i.next();
-            jsonFormation.put(Integer.toString(compteur),formation.getIdFormation());
+        Set<Formation> formations = professeur.getFormations();
+        JSONObject jsonFormation = new JSONObject();
+        int compteur = 0;
+        for (Iterator<Formation> i = formations.iterator(); i.hasNext(); ) {
+            Formation formation = i.next();
+            jsonFormation.put(Integer.toString(compteur), formation.getIdFormation());
             compteur++;
         }
-        StringEntity se=new StringEntity(jsonFormation.toString());
-        this.prepareHttpPost("/rest/api/matiere/listMatiere",se);
+        StringEntity se = new StringEntity(jsonFormation.toString());
+        this.prepareHttpPost("/rest/api/matiere/listMatiere", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
         InputStream instream = response.getEntity().getContent();
         String result = convertStreamToString(instream);
-        try{
-            JSONArray jsonMatieres= new JSONArray(result);
+        try {
+            JSONArray jsonMatieres = new JSONArray(result);
             return getAllMatiere(jsonMatieres);
-        }
-        catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     public void sendSignatureEtudiant(Etudiant etudiant, String signature) throws JSONException, IOException {
-        JSONObject jsonSignature=new JSONObject();
-        jsonSignature.put("etudiant",etudiant.getIdEtudiant());
-        jsonSignature.put("signature",signature);
-        StringEntity se=new StringEntity(jsonSignature.toString());
-        this.prepareHttpPost("/rest/api/etudiant/signature",se);
+        JSONObject jsonSignature = new JSONObject();
+        jsonSignature.put("etudiant", etudiant.getIdEtudiant());
+        jsonSignature.put("signature", signature);
+        StringEntity se = new StringEntity(jsonSignature.toString());
+        this.prepareHttpPost("/rest/api/etudiant/signature", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
     }
 
     public void sendSignatureProfesseur(Professeur professeur, String signature) throws JSONException, IOException {
-        JSONObject jsonSignature=new JSONObject();
-        jsonSignature.put("professeur",professeur.getIdProfesseur());
-        jsonSignature.put("signature",signature);
-        StringEntity se=new StringEntity(jsonSignature.toString());
-        this.prepareHttpPost("/rest/api/professeur/signature",se);
+        JSONObject jsonSignature = new JSONObject();
+        jsonSignature.put("professeur", professeur.getIdProfesseur());
+        jsonSignature.put("signature", signature);
+        StringEntity se = new StringEntity(jsonSignature.toString());
+        this.prepareHttpPost("/rest/api/professeur/signature", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
-        response= httpClient.execute(httpPost);
+        response = httpClient.execute(httpPost);
     }
 
     private List<Matiere> getAllMatiere(JSONArray jsonMatieres) throws JSONException {
-        List<Matiere> matiereList=new ArrayList<>();
-        for (int i=0;i<jsonMatieres.length();i++){
+        List<Matiere> matiereList = new ArrayList<>();
+        for (int i = 0; i < jsonMatieres.length(); i++) {
             matiereList.add(new Matiere(jsonMatieres.getJSONObject(i)));
         }
         return matiereList;
     }
 
     private List<Etudiant> getAllEtudiants(JSONArray jsonEtudiants) throws JSONException, ParseException {
-        List<Etudiant> etudiantList=new ArrayList<>();
-        for (int i=0;i<jsonEtudiants.length();i++){
+        List<Etudiant> etudiantList = new ArrayList<>();
+        for (int i = 0; i < jsonEtudiants.length(); i++) {
             etudiantList.add(new Etudiant(jsonEtudiants.getJSONObject(i)));
         }
         return etudiantList;
     }
 
 
-
-    public HttpParams getHttpParams(){
+    public HttpParams getHttpParams() {
         HttpParams httpParameters = new BasicHttpParams();
         int timeoutConnection = 10000;
         HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
@@ -181,10 +174,10 @@ public class ServiceAPI {
         return httpParameters;
     }
 
-    public void prepareHttpPost(String urlAPI,StringEntity se){
-        httpPost=new HttpPost(urlLocal+urlAPI);
+    public void prepareHttpPost(String urlAPI, StringEntity se) {
+        httpPost = new HttpPost(urlLocal + urlAPI);
         httpPost.setEntity(se);
-        httpPost.setHeader("Content-type","application/json");
+        httpPost.setHeader("Content-type", "application/json");
     }
 
     private static String convertStreamToString(InputStream is) {

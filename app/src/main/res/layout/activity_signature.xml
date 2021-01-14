@@ -29,7 +29,7 @@
         >
 
 
-        <com.iut.james_mobile.dessiner.PaintView
+        <com.iut.james_mobile.views.PaintView
             android:id="@+id/paintView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

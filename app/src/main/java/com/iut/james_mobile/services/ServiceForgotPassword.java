@@ -1,4 +1,4 @@
-package com.iut.james_mobile.serviceApi;
+package com.iut.james_mobile.services;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
