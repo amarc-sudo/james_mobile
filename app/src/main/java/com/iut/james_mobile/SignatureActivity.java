@@ -119,6 +119,7 @@ public class SignatureActivity extends AppCompatActivity {
             professeur.setHasSigned(true);
             intent.putExtra("professeur", professeur);
         }
+        this.finish();
         startActivity(intent);
 
     }

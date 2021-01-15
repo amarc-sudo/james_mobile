@@ -17,7 +17,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Nom de l'eleve"
+        android:text="@string/textNomEleve"
         android:textColor="@color/white"
         android:textSize="20dp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="reset"
-            android:text="Reset"
+            android:text="@string/reset"
             android:backgroundTint="@color/green_uvsq"
             android:layout_marginRight="10dp"
             tools:ignore="Suspicious0dp" />
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="confirmationSignature"
-            android:text="Valider"
+            android:text="@string/valider"
             android:layout_marginLeft="10dp"
             android:backgroundTint="@color/green_uvsq"
             tools:ignore="Suspicious0dp" />

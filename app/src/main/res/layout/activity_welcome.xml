@@ -39,9 +39,8 @@
         android:gravity="center"
         android:onClick="GoEmargement"
         android:backgroundTint="@color/green_uvsq"
-
         android:background="@drawable/background"
-        android:text="Emarger un cours" />
+        android:text="@string/textEmargerUnCours" />
 
     <Button
         android:id="@+id/BT_settings"
@@ -54,7 +53,8 @@
         android:gravity="center"
         android:backgroundTint="@color/green_uvsq"
         android:background="@drawable/background"
-        android:text="Paramètres" />
+        android:text="@string/parametres"
+        android:onClick="goParametre"/>
 
     <ImageView
         android:layout_width="match_parent"

@@ -1,7 +1,42 @@
 <resources>
     <string name="app_name">James-mobile</string>
-    <string name="textEmailForgotPassword">Veuillez entrer votre email : </string>
-    <string name="boutonEnvoyerEmail">Envoyer un email de réinitialisation</string>
+    <string name="textEmailForgotPassword">Please enter your mail :</string>
+    <string name="textEmailForgotPasswordConfirmation">Please repeat your mail : </string>
+    <string name="textFormation">Training</string>
+    <string name="textMatiere">Subject</string>
+    <string name="textRemember">Remember me</string>
+    <string name="textConnecter">Log in</string>
+    <string name="textForgotPassword">Forgot your password ?</string>
+    <string name="textEnterPassword">Please enter a new password : </string>
+    <string name="textEnterPasswordConfirmation">Please repeat your new password : </string>
+    <string name="textNomEleve">"Student's name"</string>
+    <string name="textEmargerUnCours">Saving a course</string>
+    <string name="boutonValiderChangerEmail">Confirm mail change</string>
+    <string name="boutonChangerCouleur">"Change application's color"</string>
+    <string name="boutonChangerLangue">"Change application's language"</string>
+    <string name="boutonValiderCours">Course validation</string>
+    <string name="boutonChangerSignature">Change your signature</string>
+    <string name="boutonChangerEmail">Change your mail</string>
+    <string name="boutonEnvoyerEmail">Send a reset mail</string>
+    <string name="boutonEnvoyer">Confirm</string>
+    <string name="heureDebut">Start time</string>
+    <string name="heureFin">End time</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="choisir">Choose</string>
+    <string name="reset">Reset</string>
+    <string name="valider">Validate</string>
+    <string name="parametres">Settings</string>
+    <string name="francais">French</string>
+    <string name="anglais">English</string>
+    <string name="espagnol">Espagnol</string>
+    <string-array name="languages">
+        <item>@string/francais</item>
+        <item>@string/anglais</item>
+        <item>@string/espagnol</item>
+    </string-array>
+    <integer name="recreate">0</integer>
+
     <string name="button">Button</string>
     <string-array name="etat_possible">
         <item>Présent</item>

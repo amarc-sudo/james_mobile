@@ -51,10 +51,10 @@ public class PaintView extends View {
 
     protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, brush);
-        System.out.println("On est dans reset");
-        System.out.println(path.toString());
+        //System.out.println("On est dans reset");
+        //System.out.println(path.toString());
         if (reset) {
-            System.out.println("On est dans reset2");
+            //System.out.println("On est dans reset2");
             path = new Path();
             canvas.drawColor(Color.WHITE);
             //canvas.restore();
@@ -63,7 +63,7 @@ public class PaintView extends View {
     }
 
     public void resetSignature() {
-        System.out.println("je suis dans la vue");
+        //System.out.println("je suis dans la vue");
         reset = true;
         this.postInvalidate();
     }

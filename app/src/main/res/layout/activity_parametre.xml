@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parametreLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/parametreLayout">
+    android:layout_height="match_parent">
 
 
     <Button
-        android:id="@+id/BTChangeColor"
+        android:id="@+id/BTConfirmeParametre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="647dp"
         android:layout_marginBottom="36dp"
-        android:text="Choisir"
+        android:text="@string/choisir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -22,17 +21,56 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/BTConfirmeParametre"
+        android:id="@+id/BTChangeColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="111dp"
         android:layout_marginBottom="488dp"
         android:onClick="openColorPicker"
-        android:text="Change Color"
-        app:layout_constraintBottom_toTopOf="@+id/BTChangeColor"
+        android:text="@string/boutonChangerCouleur"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/BT_goSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="389dp"
+        android:onClick="goSignature"
+        android:text="@string/boutonChangerSignature"
+        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BTChangeColor" />
+
+    <Button
+        android:id="@+id/BT_goChangerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:layout_marginBottom="274dp"
+        android:text="@string/boutonChangerEmail"
+        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BT_goSignature"
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="goChangeMail"/>
+
+    <Spinner
+        android:id="@+id/SP_languages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="178dp"
+        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BT_goChangerEmail"
+        android:spinnerMode="dropdown"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
-        android:text="Formation"
+        android:text="@string/textFormation"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
@@ -36,7 +36,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
-        android:text="Matière"
+        android:text="@string/textMatiere"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Heure de Début"
+            android:text="@string/heureDebut"
             android:textColor="@color/white"
             android:textSize="18dp" />
 
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Heure de fin"
+            android:text="@string/heureFin"
             android:textColor="@color/white"
             android:textSize="18dp" />
 
@@ -132,7 +132,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:onClick="popUpValidation"
-        android:text="Validation du cours"
+        android:text="@string/boutonValiderCours"
         android:textSize="18dp"
         app:backgroundTint="@color/green_uvsq" />
 

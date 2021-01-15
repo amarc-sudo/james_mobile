@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">James-mobile</string>
+    <string name="textEmailForgotPassword">Por favor introduzca su correo electrónico:</string>
+    <string name="textEmailForgotPasswordConfirmation">Por favor,Repita tu correo electrónico:</string>
+    <string name="textFormation">Formación</string>
+    <string name="textMatiere">Asignatura escolar</string>
+    <string name="textRemember">Recuérdame</string>
+    <string name="textConnecter">Conectarse</string>
+    <string name="textForgotPassword">Olvidaste tu contraseña ?</string>
+    <string name="textEnterPassword">Ingrese una nueva contraseña: </string>
+    <string name="textEnterPasswordConfirmation">Repita su nueva contraseña:</string>
+    <string name="textNomEleve">"El nombre del estudiante"</string>
+    <string name="textEmargerUnCours">Iniciar un curso</string>
+    <string name="boutonValiderChangerEmail">Confirmar cambio de correo electrónico</string>
+    <string name="boutonChangerCouleur">Cambiar el color de la aplicación</string>
+    <string name="boutonChangerLangue">Cambiar el idioma de la aplicación</string>
+    <string name="boutonValiderCours">Validación del curso</string>
+    <string name="boutonChangerSignature">Cambia tu firma</string>
+    <string name="boutonChangerEmail">Cambia tu correo</string>
+    <string name="boutonEnvoyerEmail">Enviar un correo de reinicio</string>
+    <string name="boutonEnvoyer">Confirmar</string>
+    <string name="heureDebut">Hora de inicio</string>
+    <string name="heureFin">Hora de finalización</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="choisir">Escoger</string>
+    <string name="reset">Reiniciar</string>
+    <string name="valider">Validar</string>
+    <string name="parametres">Configuraciones</string>
+    <string name="francais" >Francés</string>
+    <string name="anglais" >Inglés</string>
+    <string name="espagnol">Español</string>
+    <string-array name="languages">
+        <item>@string/francais</item>
+        <item>@string/anglais</item>
+        <item>@string/espagnol</item>
+    </string-array>
+    <integer name="recreate">0</integer>
+</resources>

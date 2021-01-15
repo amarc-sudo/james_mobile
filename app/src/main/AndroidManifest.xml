@@ -17,6 +17,8 @@
         <activity android:name=".SignatureActivity" />
         <activity android:name=".ParametreActivity" />
         <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".EmailChangeActivity"></activity>
+        <activity android:name=".LanguageActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">

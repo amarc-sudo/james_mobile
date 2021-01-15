@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity  {
 
     private Professeur correctProfesseur;
 
+    private ParametreActivity parametreActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -55,6 +57,10 @@ public class LoginActivity extends AppCompatActivity  {
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_login);
+            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+            parametreActivity=new ParametreActivity();
+            System.out.println("Oui : " + sharedPreferences.getString("language","en"));
+           // parametreActivity.checkLanguage(sharedPreferences.getString("language","en"));
             ET_login =  findViewById(R.id.ET_login);
             ET_password =(EditText)this.findViewById(R.id.ET_password);
             boutonValider=(Button)findViewById(R.id.BT_connect);
@@ -95,7 +101,6 @@ public class LoginActivity extends AppCompatActivity  {
                     return false;
                 }
             });
-            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if(sharedPreferences.getBoolean("isChecked",false)){
                 ET_login.setText(sharedPreferences.getString("login",""));
                 ET_password.setText(sharedPreferences.getString("password",""));

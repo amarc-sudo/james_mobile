@@ -17,12 +17,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView TV_welcome;
 
-    private Button BT_emargement;
+    private Button BT_emargement;  // inutile ici puisqu'on n'utilise pas ce bouton
+
+    private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
+
+    private LanguageActivity languageActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        //languageActivity.setAppLocal("fr");
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
         if (professeur.isHasSigned() == false) {
@@ -43,6 +48,12 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
         this.finish();
+        startActivity(intent);
+    }
+
+    public void goParametre(View view) {
+        Intent intent = new Intent(this, ParametreActivity.class);
+        intent.putExtra("professeur", professeur);
         startActivity(intent);
     }
 }
