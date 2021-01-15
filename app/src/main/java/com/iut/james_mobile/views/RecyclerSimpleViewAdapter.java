@@ -44,6 +44,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     private String formationSelectionne;
 
+    private List<ArrayAdapter<String>> listTexteSpinners = new ArrayList<>();
+
     /**
      * Constructor RecyclerSimpleViewAdapter
      *
@@ -93,8 +95,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     @Override
     public void onBindViewHolder(EtudiantViewHolder holder, int position) {
         // find item by position
-        System.out.println(position);
         Etudiant etudiant = items.get(position);
+        holder.SP_presence.setAdapter(new ArrayAdapter<String>(holder.context, R.layout.spinner_item_presence, holder.etatPossible));
         holder.primaryText.setText(etudiant.getPersonne().getNom() + " " + etudiant.getPersonne().getPrenom());
         if (etudiant.isHasSigned() == true)
             holder.BT_signature.setEnabled(false);
@@ -111,6 +113,19 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
                 }
             });
         }
+        holder.SP_presence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                etudiant.setPositionSpinner(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        holder.SP_presence.setSelection(etudiant.getPositionSpinner());
+        SP_presences.put(etudiant,holder.SP_presence);
 
     }
 
@@ -150,6 +165,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             SP_presence = itemView.findViewById(R.id.SP_presence);
             texteSpinner = new ArrayAdapter<String>(context, R.layout.spinner_item_presence, etatPossible);
             SP_presence.setAdapter(texteSpinner);
+
 
         }
     }

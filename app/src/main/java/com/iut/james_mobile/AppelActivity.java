@@ -44,6 +44,8 @@ public class AppelActivity extends AppCompatActivity {
 
     private List<Etudiant> etudiantList;
 
+    private List<Etudiant> displayedEtudiantList;
+
     private ServiceEtudiant serviceEtudiant;
 
     private ServiceMatiere serviceMatiere;
@@ -176,6 +178,7 @@ public class AppelActivity extends AppCompatActivity {
                 displayedEtudiants.add(etudiant);
             }
         }
+        this.displayedEtudiantList = displayedEtudiants;
         adapter = new RecyclerSimpleViewAdapter(displayedEtudiants, android.R.layout.simple_list_item_1);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -247,25 +250,22 @@ public class AppelActivity extends AppCompatActivity {
         } else {
             heureFin = Integer.toString(TP_fin.getHour()) + ":" + Integer.toString(TP_fin.getMinute());
         }
-
         boolean toutLeMondeASigne = true;
-        for (Iterator<Etudiant> iterator = relevePresence.keySet().iterator(); iterator.hasNext(); ) {
+        for (Iterator<Etudiant> iterator = displayedEtudiantList.iterator(); iterator.hasNext(); ) {
             Etudiant etudiant = iterator.next();
-            Integer statutPresence = getIdPresence((String) relevePresence.get(etudiant).getSelectedItem());
-            switch (statutPresence) {
-                case 2:
+            switch (etudiant.getPositionSpinner()) {
+                case 1:
                     nombreRetardataires++;
                     break;
-                case 3:
+                case 2:
                     nombreAbsents++;
                     break;
             }
             if (!etudiant.isHasSigned()) {
                 toutLeMondeASigne = false;
             }
-            eleveStatus.put(etudiant.getIdEtudiant(), statutPresence);
+            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner()+1);
         }
-        System.out.println(relevePresence.size());
         if (toutLeMondeASigne) {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmez l'ajout du cours")
