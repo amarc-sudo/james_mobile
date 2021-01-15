@@ -1,4 +1,4 @@
-package com.iut.james_mobile.dessiner;
+package com.iut.james_mobile.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,7 +19,7 @@ public class PaintView extends View {
     public ViewGroup.LayoutParams params;
     private Path path = new Path();
     private Paint brush = new Paint();
-    private Boolean reset = false ;
+    private Boolean reset = false;
 
     public PaintView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -51,20 +51,16 @@ public class PaintView extends View {
 
     protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, brush);
-        System.out.println("On est dans reset");
-        System.out.println(path.toString());
-        if(reset) {
-            System.out.println("On est dans reset2");
-            path=new Path();
+        if (reset) {
+            path = new Path();
             canvas.drawColor(Color.WHITE);
             //canvas.restore();
-            reset=false;
+            reset = false;
         }
     }
 
-    public void resetSignature(){
-        System.out.println("je suis dans la vue");
-        reset=true;
+    public void resetSignature() {
+        reset = true;
         this.postInvalidate();
     }
 

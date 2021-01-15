@@ -1,117 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_uvsq"
     android:orientation="vertical"
-    android:background="@drawable/gradient_animation"
     tools:context=".LoginActivity">
 
-    <ImageView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="291dp"
-        android:layout_weight="0"
-        android:padding="50dp"
-        app:srcCompat="@drawable/logo_uvq"></ImageView>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="5dp"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="20dp"></TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/ET_login"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:paddingLeft="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background"
-        android:backgroundTint="#B30000"
-        >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="291dp"
+                android:layout_weight="0"
+                android:padding="25dp"
+                app:srcCompat="@drawable/logo_uvsq"></ImageView>
 
-    </EditText>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="5dp"
+                android:text="Login"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
 
-    <TextView
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="5dp"
-        android:text="Password"
-        android:textColor="@color/white"
-        android:textSize="20dp"></TextView>
-    <EditText
-        android:id="@+id/ET_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:paddingLeft="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/white"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background"
-        android:backgroundTint="#B30000"
-        android:inputType="textPassword">
+            <EditText
+                android:id="@+id/ET_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="20dp">
 
-    </EditText>
+            </EditText>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="5dp"
+                android:text="Password"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
 
-    <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/CB_souvenir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:text="Se souvenir de moi"
-        android:textColor="@color/white"
-        android:textSize="20dp"></androidx.appcompat.widget.AppCompatCheckBox>
+            <EditText
+                android:id="@+id/ET_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:textSize="20dp">
 
-    <Button
-        android:id="@+id/BT_connect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background"
-        android:onClick="toConnect"
-        android:text="Se connecter"></Button>
-
-    <Button
-        android:id="@+id/BT_forgotPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background"
-        android:text="Mot de passe oublié ?"
-        android:onClick="goForgotPassword"></Button>
+            </EditText>
 
 
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/CB_souvenir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:buttonTint="@color/white"
+                android:clickable="true"
+                android:text="Se souvenir de moi"
+                android:textColor="@color/white"
+                android:textSize="20dp"></androidx.appcompat.widget.AppCompatCheckBox>
+
+            <Button
+                android:id="@+id/BT_connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background"
+                android:onClick="toConnect"
+                android:text="Se connecter"
+                app:backgroundTint="@color/green_uvsq"></Button>
+
+            <Button
+                android:id="@+id/BT_forgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background"
+                android:onClick="goForgotPassword"
+                android:text="Mot de passe oublié ?"
+                app:backgroundTint="@color/green_uvsq"></Button>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
