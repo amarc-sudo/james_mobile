@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.iut.james_mobile.serviceApi.ServiceForgotPassword;
+import com.iut.james_mobile.services.ServiceContact;
 
 import org.json.JSONException;
 
@@ -24,7 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private String emailForgotPasswordString;
 
-    private ServiceForgotPassword serviceForgotPassword;
+    private ServiceContact serviceContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgotpassword);
         BT_emailButton = (Button) findViewById(R.id.BT_emailButton);
         emailForgotPassword = (EditText) findViewById(R.id.emailForgotPassword);
-        serviceForgotPassword = new ServiceForgotPassword();
+        serviceContact = new ServiceContact();
     }
 
     public void getAndSendEmail(View view) throws IOException, JSONException {
@@ -40,7 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (emailForgotPasswordString.isEmpty()) {
             Toast.makeText(this, "Champs vide, veuillez entrer une adresse email valide", Toast.LENGTH_LONG).show();
         } else {
-            boolean email = serviceForgotPassword.isEmailCorrect(emailForgotPasswordString);
+            boolean email = serviceContact.checkLoginAndSendMailReset(emailForgotPasswordString);
             if (email == true) {
                 Toast.makeText(this, "Un email vient d'être envoyé sur votre adresse email", Toast.LENGTH_LONG).show();
                 this.finish();

@@ -1,4 +1,4 @@
-package com.iut.james_mobile.apiobject;
+package com.iut.james_mobile.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 @Data
 public class Etudiant implements Serializable {
+
     private int idEtudiant;
 
     private Personne personne;
@@ -22,12 +23,15 @@ public class Etudiant implements Serializable {
 
     private Integer groupe;
 
+    private int positionSpinner;
+
     public Etudiant(int idEtudiant, Personne personne, boolean signature, Formation formation, Integer groupe) {
         this.idEtudiant = idEtudiant;
         this.personne = personne;
         this.hasSigned = signature;
         this.formation = formation;
         this.groupe = groupe;
+        this.positionSpinner = 0;
     }
 
     public Etudiant(JSONObject jsonObject) throws JSONException, ParseException {
@@ -42,6 +46,6 @@ public class Etudiant implements Serializable {
         } catch (Exception e) {
             this.groupe = null;
         }
-
+        this.positionSpinner = 0;
     }
 }

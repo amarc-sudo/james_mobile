@@ -96,9 +96,9 @@
             android:layout_width="match_parent"
             android:layout_height="118dp"
             android:layout_weight="1"
-            android:theme="@style/MyDatePicker"
-            android:numbersTextColor="@color/white"
             android:headerBackground="@color/white"
+            android:numbersTextColor="@color/white"
+            android:theme="@style/MyDatePicker"
             android:timePickerMode="spinner" />
 
         <TimePicker
@@ -106,8 +106,8 @@
             android:layout_width="match_parent"
             android:layout_height="109dp"
             android:layout_weight="1"
-            android:theme="@style/MyDatePicker"
             android:headerBackground="@color/white"
+            android:theme="@style/MyDatePicker"
             android:timePickerMode="spinner" />
 
     </LinearLayout>

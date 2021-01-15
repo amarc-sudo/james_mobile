@@ -1,10 +1,9 @@
-package com.iut.james_mobile.apiobject;
+package com.iut.james_mobile.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.text.Normalizer;
 
 import lombok.Data;
 import lombok.Getter;

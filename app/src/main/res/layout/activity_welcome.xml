@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/blue_uvsq"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="100dp"
         android:layout_weight="0"
-        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/logo_james"></ImageView>
 
     <TextView
