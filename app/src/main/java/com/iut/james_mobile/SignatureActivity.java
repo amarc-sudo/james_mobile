@@ -22,7 +22,7 @@ import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceEtudiant;
 import com.iut.james_mobile.services.ServiceProfesseur;
-import com.iut.james_mobile.views.PaintView;
+
 import com.iut.james_mobile.services.ServiceConfiguration;
 
 import org.json.JSONException;
@@ -40,7 +40,7 @@ public class SignatureActivity extends AppCompatActivity {
 
     private TextView TV_nomEleve;
 
-    private PaintView paintView;
+    private com.iut.james_mobile.dessiner.PaintView paintView;
 
     private Etudiant etudiant;
 

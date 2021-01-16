@@ -32,9 +32,9 @@
     <string name="anglais" >Inglés</string>
     <string name="espagnol">Español</string>
     <string-array name="languages">
-        <item>@string/francais</item>
-        <item>@string/anglais</item>
-        <item>@string/espagnol</item>
+        <item>Français</item>
+        <item>English</item>
+        <item>Español</item>
     </string-array>
-    <integer name="recreate">0</integer>
+
 </resources>

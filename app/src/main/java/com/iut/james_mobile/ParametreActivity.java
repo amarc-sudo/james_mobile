@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
-import com.iut.james_mobile.apiobject.Professeur;
+
+import com.iut.james_mobile.models.Professeur;
 
 import java.util.Locale;
 
@@ -32,22 +34,23 @@ public class ParametreActivity extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private int defaultColor;
     private SharedPreferences sharedPreferences;
-   // private Button BT_goSignature;  // inutile ici puisqu'on n'utilise pas ce bouton
+    // private Button BT_goSignature;  // inutile ici puisqu'on n'utilise pas ce bouton
     private Professeur professeur;
     private Spinner spinnerLanguages;
-    private int languagesComplete []={R.string.francais, R.string.anglais,R.string.espagnol};
-    private String languagesAbr []={"fr", "en","es"};
+    //private int languagesComplete[] = {R.string.francais, R.string.anglais, R.string.espagnol};
+    private String languagesAbr[] = {"fr", "en", "es"};
+    private LanguageModifier languageModifier;
+    private String language;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
-        System.out.println("La langue actuelle est : " + sharedPreferences.getString("language", languagesAbr[1]));
-        checkLanguage(sharedPreferences.getString("language",languagesAbr[1]));
+        languageModifier = new LanguageModifier();
         setContentView(R.layout.activity_parametre);
-        constraintLayout=findViewById(R.id.parametreLayout);
-        spinnerLanguages=findViewById(R.id.SP_languages);
+        constraintLayout = findViewById(R.id.parametreLayout);
+        spinnerLanguages = findViewById(R.id.SP_languages);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         constraintLayout.setBackgroundColor(sharedPreferences.getInt("color", 0));
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
@@ -55,8 +58,8 @@ public class ParametreActivity extends AppCompatActivity {
         this.setValuesSpinnerLanguages();
     }
 
-    public void openColorPicker(View view){
-        AmbilWarnaDialog colorPicker= new AmbilWarnaDialog(this, defaultColor,  new AmbilWarnaDialog.OnAmbilWarnaListener() {
+    public void openColorPicker(View view) {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
 
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
@@ -64,35 +67,25 @@ public class ParametreActivity extends AppCompatActivity {
 
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
-                    defaultColor= color;
-                    constraintLayout.setBackgroundColor(defaultColor);
-                    sharedPreferences.edit().putInt("color", defaultColor).apply();
+                defaultColor = color;
+                constraintLayout.setBackgroundColor(defaultColor);
+                sharedPreferences.edit().putInt("color", defaultColor).apply();
             }
-        }) ;
+        });
         colorPicker.show();
     }
 
-    public void setValuesSpinnerLanguages(){
+    public void setValuesSpinnerLanguages() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguages.setAdapter(adapter);
-        spinnerLanguages.setSelection(0,false);
         spinnerLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    sharedPreferences.edit().putString("language", adapterView.getItemAtPosition(i).toString()).apply();
-                    String languageComplete=adapterView.getItemAtPosition(i).toString(); //Nom complet du language "Espagnol" par exemple
-                    checkLanguage(languageComplete);
-
+                language=adapterView.getItemAtPosition(i).toString();
+                language=language.substring(0,2).toLowerCase();
             }
-                //System.out.println(sharedPreferences.getString("language", "en"));
-             /*   String myString = getString(R.string.espagnol); //the value you want the position for
-                ArrayAdapter myAdap = (ArrayAdapter) spinnerLanguages.getAdapter(); //cast to an ArrayAdapter
-                int spinnerPosition = myAdap.getPosition(myString);
-                spinnerLanguages.setSelection(spinnerPosition);
-             */
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -100,24 +93,12 @@ public class ParametreActivity extends AppCompatActivity {
         });
     }
 
-    public void checkLanguage(String languageStringComplete){
-        for(int i=0;i<languagesAbr.length;i++) {
-            if (languageStringComplete.equals(getBaseContext().getResources().getString(this.languagesComplete[i]))) {
-                this.setLanguage(languagesAbr[i]);
-                break;
-            }
-        }
-
-    }
-
-   public void setLanguage(String language) {
-        String languageToLoad = language; // your language
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-       //recreate();
+    public void LanguageChangementButton(View view){
+        sharedPreferences.edit().putString("language", language).apply();
+        languageModifier.setLanguage(sharedPreferences.getString("language", languagesAbr[0]), ParametreActivity.this);
+        finish();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     public void goSignature(View view) { //Il faut renommer la méthode

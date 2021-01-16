@@ -31,11 +31,10 @@
     <string name="anglais">English</string>
     <string name="espagnol">Espagnol</string>
     <string-array name="languages">
-        <item>@string/francais</item>
-        <item>@string/anglais</item>
-        <item>@string/espagnol</item>
+        <item>Français</item>
+        <item>English</item>
+        <item>Español</item>
     </string-array>
-    <integer name="recreate">0</integer>
 
     <string name="button">Button</string>
     <string-array name="etat_possible">

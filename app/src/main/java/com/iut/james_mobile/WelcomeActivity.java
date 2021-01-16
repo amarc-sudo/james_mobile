@@ -20,13 +20,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
 
-    private LanguageActivity languageActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        //languageActivity.setAppLocal("fr");
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
         if (professeur.isHasSigned() == false) {

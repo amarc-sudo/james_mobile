@@ -8,10 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.iut.james_mobile.apiobject.Professeur;
-import com.iut.james_mobile.serviceApi.ServiceAPI;
-import com.iut.james_mobile.serviceApi.ServiceForgotPassword;
+import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.services.ServiceContact;
 
 import org.json.JSONException;
 
@@ -21,7 +19,7 @@ public class EmailChangeActivity extends AppCompatActivity {
 
     private EditText ET_emailChange,ET_emailChangeConfirmation;
     private Button BT_emailChangeConfirmation;
-    private ServiceAPI serviceAPI;
+    private ServiceContact serviceContact;
     private Professeur professeur;
     private SharedPreferences sharedPreferences;
 
@@ -33,20 +31,20 @@ public class EmailChangeActivity extends AppCompatActivity {
         ET_emailChange = (EditText) findViewById(R.id.ET_emailChange);
         ET_emailChangeConfirmation = (EditText) findViewById(R.id.ET_emailChangeConfirmation);
         professeur= (Professeur) getIntent().getSerializableExtra("professeur");
-        serviceAPI=new ServiceAPI();
+        serviceContact =new ServiceContact();
         sharedPreferences=this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
     }
 
 
-
+/*
     public void emailChange(View view) throws IOException, JSONException {
         String email=ET_emailChange.getText().toString();
         String emailConfirmation=ET_emailChangeConfirmation.getText().toString();
         if(email.equals(emailConfirmation)) {
-            serviceAPI.changeMail(professeur, emailConfirmation);
+            serviceContact.changeMail(professeur, emailConfirmation);
             sharedPreferences.edit().putString("login", emailConfirmation).apply();
         }
     }
-
+*/
 
 }

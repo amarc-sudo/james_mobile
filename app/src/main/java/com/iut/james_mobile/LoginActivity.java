@@ -45,30 +45,31 @@ public class LoginActivity extends AppCompatActivity {
 
     private Professeur correctProfesseur;
 
+    private LanguageModifier languageModifier;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
+            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+            languageModifier=new LanguageModifier();
+            languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
             setContentView(R.layout.activity_login);
             ET_login = findViewById(R.id.ET_login);
             ET_password = (EditText) this.findViewById(R.id.ET_password);
             boutonValider = (Button) findViewById(R.id.BT_connect);
             CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
             BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
-            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
-            parametreActivity=new ParametreActivity();
-            System.out.println("Oui : " + sharedPreferences.getString("language","en"));
-           // parametreActivity.checkLanguage(sharedPreferences.getString("language","en"));
-            ET_login =  findViewById(R.id.ET_login);
-            ET_password =(EditText)this.findViewById(R.id.ET_password);
-            boutonValider=(Button)findViewById(R.id.BT_connect);
-            CB_souvenir =(CheckBox)this.findViewById(R.id.CB_souvenir);
-            BT_forgotPassword=(Button) findViewById(R.id.BT_forgotPassword);
+
+            ET_login = findViewById(R.id.ET_login);
+            ET_password = (EditText) this.findViewById(R.id.ET_password);
+            boutonValider = (Button) findViewById(R.id.BT_connect);
+            CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
+            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
