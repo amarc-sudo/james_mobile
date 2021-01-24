@@ -1,4 +1,4 @@
-package com.iut.james_mobile.dessiner;
+package com.iut.james_mobile.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

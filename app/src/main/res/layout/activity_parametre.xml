@@ -1,77 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parametreLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue_uvsq">
 
-
-    <Button
-        android:id="@+id/BTConfirmeParametre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="647dp"
-        android:layout_marginBottom="36dp"
-        android:text="@string/choisir"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="LanguageChangementButton" />
-
-    <Button
-        android:id="@+id/BTChangeColor"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="111dp"
-        android:layout_marginBottom="488dp"
-        android:onClick="openColorPicker"
-        android:text="@string/boutonChangerCouleur"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/BT_goSignature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
-        android:layout_marginBottom="389dp"
-        android:onClick="goSignature"
-        android:text="@string/boutonChangerSignature"
-        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BTChangeColor" />
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="0"
+        app:srcCompat="@drawable/logo_james"></ImageView>
 
     <Button
         android:id="@+id/BT_goChangerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
-        android:layout_marginBottom="274dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:text="@string/boutonChangerEmail"
-        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BT_goSignature"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="goChangeMail"/>
+        android:onClick="goChangeMail"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/green_uvsq"/>
+
+    <Button
+        android:id="@+id/BT_goSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="goSignature"
+        android:text="@string/boutonChangerSignature"
+       android:background="@drawable/background"
+        android:backgroundTint="@color/green_uvsq"/>
+
+    <Button
+        android:id="@+id/BT_goChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/boutonChangerPassword"
+        android:onClick="goChangePassword"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/green_uvsq" />
 
     <Spinner
         android:id="@+id/SP_languages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:layout_marginBottom="178dp"
-        app:layout_constraintBottom_toTopOf="@+id/BTConfirmeParametre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BT_goChangerEmail"
-        android:spinnerMode="dropdown"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:spinnerMode="dropdown"
+        android:backgroundTint="@color/green_uvsq"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/BTConfirmeParametre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/green_uvsq"
+        android:onClick="LanguageChangementButton"
+        android:text="@string/choisir" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/logo_uvsq"></ImageView>
+
+</LinearLayout>

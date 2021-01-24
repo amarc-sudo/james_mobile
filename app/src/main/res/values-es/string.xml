@@ -8,9 +8,9 @@
     <string name="textRemember">Recuérdame</string>
     <string name="textConnecter">Conectarse</string>
     <string name="textForgotPassword">Olvidaste tu contraseña ?</string>
-    <string name="textEnterPassword">Ingrese una nueva contraseña: </string>
+    <string name="textEnterPassword">Ingrese una nueva contraseña : </string>
     <string name="textEnterPasswordConfirmation">Repita su nueva contraseña:</string>
-    <string name="textNomEleve">"El nombre del estudiante"</string>
+    <string name="textNomEleve">El nombre del estudiante</string>
     <string name="textEmargerUnCours">Iniciar un curso</string>
     <string name="boutonValiderChangerEmail">Confirmar cambio de correo electrónico</string>
     <string name="boutonChangerCouleur">Cambiar el color de la aplicación</string>
@@ -18,8 +18,9 @@
     <string name="boutonValiderCours">Validación del curso</string>
     <string name="boutonChangerSignature">Cambia tu firma</string>
     <string name="boutonChangerEmail">Cambia tu correo</string>
+    <string name="boutonChangerPassword">Cambia tu contraseña</string>
     <string name="boutonEnvoyerEmail">Enviar un correo de reinicio</string>
-    <string name="boutonEnvoyer">Confirmar</string>
+    <string name="boutonEnvoyer">Enviar</string>
     <string name="heureDebut">Hora de inicio</string>
     <string name="heureFin">Hora de finalización</string>
     <string name="login">Iniciar sesión</string>
@@ -28,6 +29,7 @@
     <string name="reset">Reiniciar</string>
     <string name="valider">Validar</string>
     <string name="parametres">Configuraciones</string>
+    <string name="bonjour">Buenos dias</string>
     <string name="francais" >Francés</string>
     <string name="anglais" >Inglés</string>
     <string name="espagnol">Español</string>

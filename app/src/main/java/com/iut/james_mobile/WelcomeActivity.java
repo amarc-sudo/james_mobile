@@ -30,7 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
             GoSignature();
         }
         TV_welcome = findViewById(R.id.TV_welcome);
-        TV_welcome.setText("Bonjour " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
+        TV_welcome.setText(getResources().getString(R.string.bonjour)+ " " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
         BT_emargement = findViewById(R.id.BT_emargement);
     }
 

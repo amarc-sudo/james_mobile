@@ -10,14 +10,15 @@
     <string name="textForgotPassword">Mot de passe oublié ?</string>
     <string name="textEnterPassword">Entrez votre nouveau mot de passe : </string>
     <string name="textEnterPasswordConfirmation">Confirmez votre nouveau mot de passe : </string>
-    <string name="textNomEleve">"Nom de l'élève"</string>
+    <string name="textNomEleve">Nom de l\'élève</string>
     <string name="textEmargerUnCours">Émarger Un Cours</string>
     <string name="boutonValiderChangerEmail">Valider le changement de son email</string>
-    <string name="boutonChangerCouleur">"Changer la couleur de l'application"</string>
-    <string name="boutonChangerLangue">"Changer le langage de l'application"</string>
+    <string name="boutonChangerCouleur">Changer la couleur de l\'application</string>
+    <string name="boutonChangerLangue">Changer le langage de l\'application</string>
     <string name="boutonValiderCours">Validation du cours</string>
     <string name="boutonChangerSignature">Changer sa signature</string>
     <string name="boutonChangerEmail">Changer son email</string>
+    <string name="boutonChangerPassword">Changer son mot de passe</string>
     <string name="boutonEnvoyerEmail">Envoyer un email de réinitialisation</string>
     <string name="boutonEnvoyer">Envoyer</string>
     <string name="heureDebut">Heure de début</string>
@@ -28,17 +29,17 @@
     <string name="reset">Reset</string>
     <string name="valider">Valider</string>
     <string name="parametres">Paramètres</string>
+    <string name="bonjour">Bonjour</string>
     <string name="next">Suivant</string>
     <string name="previous">Précédent</string>
-    <string name="francais" >Français</string>
-    <string name="anglais" >Anglais</string>
-    <string name="espagnol">Espagnol</string>
+    <string name="francais">Français</string>
+    <string name="anglais">English</string>
+    <string name="espagnol">Español</string>
     <string-array name="languages">
-        <item>Français</item>
-        <item>English</item>
-        <item>Español</item>
+        <item>@string/francais</item>
+        <item>@string/anglais</item>
+        <item>@string/espagnol</item>
     </string-array>
-    <integer name="recreate">0</integer>
 
 
 </resources>
