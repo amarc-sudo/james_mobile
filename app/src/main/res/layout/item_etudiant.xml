@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/TV_eleve"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_weight="1"
         android:text="TextView"
         android:textColor="@color/white"
@@ -20,14 +20,14 @@
     <Spinner
         android:id="@+id/SP_presence"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_weight="1"
-        android:textSize="14sp" />
+        android:textSize="14dp" />
 
     <Button
         android:id="@+id/BT_Signature"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_weight="1"
         android:text="Signature"
         android:textSize="14dp"
