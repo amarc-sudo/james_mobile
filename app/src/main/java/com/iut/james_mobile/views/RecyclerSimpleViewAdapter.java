@@ -48,6 +48,8 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
     private List<ArrayAdapter<String>> listTexteSpinners = new ArrayList<>();
 
+    private boolean everybodySigned;
+
     /**
      * Constructor RecyclerSimpleViewAdapter
      *
@@ -57,6 +59,12 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
     public RecyclerSimpleViewAdapter(List<Etudiant> items, int itemLayout) {
         this.items = items;
         this.itemLayout = itemLayout;
+        everybodySigned = true;
+        for (Etudiant etudiant : items) {
+            if (etudiant.isHasSigned() == false) {
+                everybodySigned = false;
+            }
+        }
     }
 
     public void setProfesseurConnecte(Professeur professeurConnecte) {
@@ -115,6 +123,9 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
                 }
             });
         }
+        if (everybodySigned) {
+            holder.BT_signature.setVisibility(View.GONE);
+        }
         holder.SP_presence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -127,7 +138,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             }
         });
         holder.SP_presence.setSelection(etudiant.getPositionSpinner());
-        SP_presences.put(etudiant, holder.SP_presence);
+        SP_presences.put(etudiant,holder.SP_presence);
 
     }
 
