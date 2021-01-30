@@ -8,12 +8,21 @@
     android:orientation="vertical"
     android:background="@color/blue_uvsq">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/logo_james"></ImageView>
+
     <EditText
         android:id="@+id/ET_emailChange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="50dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginLeft="21dp"
         android:ems="10"
         android:hint="@string/textNewEmail"
         android:inputType="textEmailAddress"
@@ -26,6 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:ems="10"
+        android:layout_marginRight="21dp"
+        android:layout_marginLeft="21dp"
         android:hint="@string/textNewEmailConfirmation"
         android:inputType="textEmailAddress|textNoSuggestions"
         android:textColor="@color/white"
