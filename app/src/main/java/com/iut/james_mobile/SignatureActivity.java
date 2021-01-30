@@ -116,10 +116,19 @@ public class SignatureActivity extends AppCompatActivity {
             intent.putExtra("idModifie", this.etudiant.getIdEtudiant());
             intent.putExtra("professeur", professeur);
             intent.putExtra("formation", formationSelectionne);
-        } else {
-            intent = new Intent(this, WelcomeActivity.class);
-            professeur.setHasSigned(true);
-            intent.putExtra("professeur", professeur);
+        }
+        else {
+            if(getIntent().getIntExtra("modificationSignature",0)==1){
+                intent = new Intent(this, ParametreActivity.class);
+                professeur.setHasSigned(true);
+                intent.putExtra("professeur", professeur);
+                intent.putExtra("modificationSignature",0);
+            }
+            else{
+                intent = new Intent(this, WelcomeActivity.class);
+                professeur.setHasSigned(true);
+                intent.putExtra("professeur", professeur);
+            }
         }
         this.finish();
         startActivity(intent);

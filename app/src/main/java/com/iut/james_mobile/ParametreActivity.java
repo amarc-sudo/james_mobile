@@ -94,8 +94,10 @@ public class ParametreActivity extends AppCompatActivity {
     }
 
     public void goSignature(View view) { //Il faut renommer la méthode
+        int modificationSignature=1;
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
+        intent.putExtra("modificationSignature",modificationSignature);
         this.startActivity(intent);
     }
 
