@@ -41,13 +41,14 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void GoSignature() {
+        this.finish();
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
-        this.finish();
         startActivity(intent);
     }
 
     public void goParametre(View view) {
+        this.finish();
         Intent intent = new Intent(this, ParametreActivity.class);
         intent.putExtra("professeur", professeur);
         startActivity(intent);

@@ -60,7 +60,8 @@
             android:onClick="reset"
             android:text="@string/reset"
             android:backgroundTint="@color/green_uvsq"
-            tools:ignore="Suspicious0dp" />
+            tools:ignore="Suspicious0dp"
+            android:background="@drawable/background"/>
 
         <Button
             android:id="@+id/BT_resetSignature"
@@ -71,7 +72,8 @@
             android:text="@string/valider"
             android:layout_marginLeft="10dp"
             android:backgroundTint="@color/green_uvsq"
-            tools:ignore="Suspicious0dp" />
+            tools:ignore="Suspicious0dp"
+            android:background="@drawable/background"/>
 
     </LinearLayout>
 

@@ -40,7 +40,7 @@ public class EmailChangeActivity extends AppCompatActivity {
     public void emailChange(View view) throws IOException, JSONException {
         String email=ET_emailChange.getText().toString();
         String emailConfirmation=ET_emailChangeConfirmation.getText().toString();
-        if(email.equals(emailConfirmation)) {
+        if(email.equals(emailConfirmation) && email.isEmpty()==false && emailConfirmation.isEmpty()==false) {
             String messageRetour=serviceContact.updateMail(professeur.getContact().getIdContact(), emailConfirmation);
             sharedPreferences.edit().putString("login", emailConfirmation).apply();
             Toast.makeText(this.getApplicationContext(), "Message serveur : " + messageRetour, Toast.LENGTH_SHORT).show();

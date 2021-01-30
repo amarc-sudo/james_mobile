@@ -40,7 +40,7 @@ public class ParametreActivity extends AppCompatActivity {
     // private Button BT_goSignature;  // inutile ici puisqu'on n'utilise pas ce bouton
     private Professeur professeur;
     private Spinner spinnerLanguages;
-    private String languagesAbr[] = {"fr", "en", "es"};
+    private String languagesAbr[] = {"fr", "en", "es", "ro"};
     private LanguageModifier languageModifier;
     private String language;
     private int positionLanguage;

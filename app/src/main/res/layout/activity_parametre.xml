@@ -28,18 +28,6 @@
         android:backgroundTint="@color/green_uvsq"/>
 
     <Button
-        android:id="@+id/BT_goSignature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:onClick="goSignature"
-        android:text="@string/boutonChangerSignature"
-       android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"/>
-
-    <Button
         android:id="@+id/BT_goChangePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,6 +38,18 @@
         android:onClick="goChangePassword"
         android:background="@drawable/background"
         android:backgroundTint="@color/green_uvsq" />
+
+    <Button
+        android:id="@+id/BT_goSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:onClick="goSignature"
+        android:text="@string/boutonChangerSignature"
+        android:background="@drawable/background"
+        android:backgroundTint="@color/green_uvsq"/>
 
     <Spinner
         android:id="@+id/SP_languages"
@@ -65,13 +65,15 @@
         android:id="@+id/BTConfirmeParametre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/background"
         android:backgroundTint="@color/green_uvsq"
         android:onClick="LanguageChangementButton"
         android:text="@string/choisir" />
+
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -79,5 +81,7 @@
         android:layout_marginTop="80dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/logo_uvsq"></ImageView>
+
+
 
 </LinearLayout>

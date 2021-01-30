@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">James-mobile</string>
     <string name="textEmailForgotPassword">Veuillez entrer votre email : </string>
+    <string name="textNewEmail">Veuillez entrer votre nouvelle adresse email : </string>
+    <string name="textNewEmailConfirmation">Veuillez répéter votre nouvelle adresse email : </string>
     <string name="textEmailForgotPasswordConfirmation">Veuillez répéter votre email : </string>
     <string name="textFormation">Formation</string>
     <string name="textMatiere">Matière</string>
@@ -35,10 +37,18 @@
     <string name="francais">Français</string>
     <string name="anglais">English</string>
     <string name="espagnol">Español</string>
+    <string name="roumain">Română</string>
+    <string name="present">Présent</string>
+    <string name="absent">Absent</string>
+    <string name="retard">Retard</string>
+    <string name="retour">Retour</string>
+    <string name="signature">Signature</string>
+
     <string-array name="languages">
         <item>@string/francais</item>
         <item>@string/anglais</item>
         <item>@string/espagnol</item>
+        <item>@string/roumain</item>
     </string-array>
 
 
