@@ -41,14 +41,14 @@ public class PasswordChangeActivity extends AppCompatActivity {
         if(passwordFirst.equals(passwordConfirmation)){
             String messageRetour=serviceContact.updatePassword(professeur.getContact().getIdContact(), passwordConfirmation);
             sharedPreferences.edit().putString("password", passwordConfirmation).apply();
-            Toast.makeText(this.getApplicationContext(), "Message serveur : " + messageRetour, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.messageServeur) + messageRetour, Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(this, ParametreActivity.class);
             intent.putExtra("professeur", professeur);
             finish();
             startActivity(intent);
         }
         else{
-            Toast.makeText(this.getApplicationContext(), "Les mots de passe ne correspondent pas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.mdpCorrespondentPas), Toast.LENGTH_SHORT).show();
         }
     }
 }

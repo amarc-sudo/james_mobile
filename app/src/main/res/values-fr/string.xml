@@ -44,6 +44,30 @@
     <string name="retour">Retour</string>
     <string name="signature">Signature</string>
 
+    <string name="confirmationAjoutCours">Confirmez l\'ajout du cours</string>
+    <string name="nombreRetardataire">Nombre Retardataire(s)</string>
+    <string name="coursAjoute">Cours bien ajouté</string>
+    <string name="annulerCoursAjout">Vous avez annulé cette décision</string>
+    <string name="tousSigne">Tout le monde n\'a pas signé </string>
+    <string name="nombreAbsent">Nombre Absent(s)</string>
+    <string name="annuler">Annuler</string>
+    <string name="messageServeur">Message serveur : </string>
+    <string name="emailCorrespondentPas">Les emails ne correspondent pas</string>
+    <string name="champsVideEmail">Champs vide, veuillez entrer une adresse email valide</string>
+    <string name="emailEnvoyeSurEmail">Un email vient d\'être envoyé sur votre adresse email</string>
+    <string name="emailPasValide">Veuillez entrer une adresse email valide</string>
+    <string name="loginOuMdpIncorrect">Login ou mot de passe incorrect</string>
+    <string name="ProblemeCommunicationServeur">Problème de communication avec le serveur</string>
+    <string name="mdpCorrespondentPas">Les mots de passe ne correspondent pas</string>
+    <string name="signatureConfirmation">Confirmation de la signature</string>
+    <string name="alertSignatureConfirmation">Voulez vous confirmer cette signature ?</string>
+    <string name="oui">Oui</string>
+    <string name="non">Non</string>
+    <string name="signatureEnvoyee">Signature envoyée !</string>
+    <string name="annulationEnvoiSignature">Annulation de l\'ajout de la signature</string>
+
+
+
     <string-array name="languages">
         <item>@string/francais</item>
         <item>@string/anglais</item>

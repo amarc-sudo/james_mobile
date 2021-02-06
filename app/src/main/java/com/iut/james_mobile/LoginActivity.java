@@ -141,11 +141,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 Go();
             } else {
-                Toast.makeText(this.getApplicationContext(), "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.loginOuMdpIncorrect), Toast.LENGTH_SHORT).show();
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this.getApplicationContext(), "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.ProblemeCommunicationServeur), Toast.LENGTH_SHORT).show();
 
         }
     }

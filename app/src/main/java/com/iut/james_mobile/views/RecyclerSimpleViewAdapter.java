@@ -182,10 +182,10 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
 
             switch(sharedPreferences.getString("language", "fr")) {
-                case "fr": etatPossible = Arrays.asList("Présent", "Absent","Retard"); break;
-                case "en": etatPossible = Arrays.asList("Present", "Absent","Late");break;
-                case "es": etatPossible = Arrays.asList("Presente", "Ausente","Retraso");break;
-                case "ro": etatPossible = Arrays.asList("Prezent", "Absent","Întârziere");break;
+                case "fr": etatPossible = Arrays.asList("Présent","Retard", "Absent"); break;
+                case "en": etatPossible = Arrays.asList("Present","Late", "Absent");break;
+                case "es": etatPossible = Arrays.asList("Presente","Retraso", "Ausente");break;
+                case "ro": etatPossible = Arrays.asList("Prezent","Întârziere", "Absent");break;
             }
             SP_presence = itemView.findViewById(R.id.SP_presence);
             texteSpinner = new ArrayAdapter<String>(context, R.layout.spinner_item_presence, etatPossible);

@@ -43,14 +43,14 @@ public class EmailChangeActivity extends AppCompatActivity {
         if(email.equals(emailConfirmation) && email.isEmpty()==false && emailConfirmation.isEmpty()==false) {
             String messageRetour=serviceContact.updateMail(professeur.getContact().getIdContact(), emailConfirmation);
             sharedPreferences.edit().putString("login", emailConfirmation).apply();
-            Toast.makeText(this.getApplicationContext(), "Message serveur : " + messageRetour, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.messageServeur) + messageRetour, Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(this, ParametreActivity.class);
             intent.putExtra("professeur", professeur);
             finish();
             startActivity(intent);
         }
         else{
-            Toast.makeText(this.getApplicationContext(), "Les emails ne correspondent pas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.emailCorrespondentPas), Toast.LENGTH_SHORT).show();
         }
     }
 

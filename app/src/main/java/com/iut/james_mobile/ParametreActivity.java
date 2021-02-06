@@ -58,7 +58,7 @@ public class ParametreActivity extends AppCompatActivity {
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
         listLanguages= new ArrayList<String>();
-        this.addLanguagesToArrayList();
+        //this.addLanguagesToArrayList();
         //BT_goSignature=findViewById(R.id.BT_goSignature);  // inutile ici puisqu'on n'utilise pas ce bouton
         this.setValuesSpinnerLanguages();
     }
@@ -68,6 +68,8 @@ public class ParametreActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguages.setAdapter(adapter);
         spinnerLanguages.setSelection(sharedPreferences.getInt("positionLanguage",0), true);
+        positionLanguage=sharedPreferences.getInt("positionLanguage",0);
+        language=sharedPreferences.getString("language", languagesAbr[0]);
         spinnerLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -113,10 +115,4 @@ public class ParametreActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    public ArrayList<String> addLanguagesToArrayList(){
-        listLanguages.add(getResources().getString(R.string.francais));
-        listLanguages.add(getResources().getString(R.string.anglais));
-        listLanguages.add(getResources().getString(R.string.espagnol));
-        return (ArrayList<String>) listLanguages;
-    }
 }

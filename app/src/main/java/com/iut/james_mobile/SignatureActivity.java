@@ -82,9 +82,9 @@ public class SignatureActivity extends AppCompatActivity {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         new AlertDialog.Builder(this)
-                .setTitle("Confirmation de la signature")
-                .setMessage("Voulez vous confirmer cette signature ?")
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.signatureConfirmation))
+                .setMessage(getResources().getString(R.string.alertSignatureConfirmation))
+                .setPositiveButton(getResources().getString(R.string.oui), new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @SneakyThrows
                     @Override
@@ -94,14 +94,14 @@ public class SignatureActivity extends AppCompatActivity {
                         } else {
                             new ServiceEtudiant().updateSignature(etudiant, encoded);
                         }
-                        Toast.makeText(getApplicationContext(), "Signature envoyée !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.signatureEnvoyee), Toast.LENGTH_LONG).show();
                         Go();
                     }
                 })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), "Annulation de l'ajout de la signature", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.annulationEnvoiSignature), Toast.LENGTH_LONG).show();
                     }
                 })
                 .show();
