@@ -2,6 +2,7 @@ package com.iut.james_mobile.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iut.james_mobile.ParametreActivity;
 import com.iut.james_mobile.R;
 import com.iut.james_mobile.SignatureActivity;
 import com.iut.james_mobile.models.Etudiant;
@@ -156,9 +158,11 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
 
         public Spinner SP_presence;
 
+        public SharedPreferences sharedPreferences;
+
         public Context context;
 
-        public List<String> etatPossible = Arrays.asList("Présent", "En Retard", "Absent");
+        public List<String> etatPossible;
 
         public ArrayAdapter<String> texteSpinner;
 
@@ -170,9 +174,27 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
         public EtudiantViewHolder(View itemView) {
             super(itemView);
             // link primaryText
+
             primaryText = (TextView) itemView.findViewById(R.id.TV_eleve);
             BT_signature = (Button) itemView.findViewById(R.id.BT_Signature);
             context = itemView.getContext();
+            sharedPreferences = context.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+
+
+            switch (sharedPreferences.getString("language", "fr")) {
+                case "fr":
+                    etatPossible = Arrays.asList("Présent", "Retard", "Absent");
+                    break;
+                case "en":
+                    etatPossible = Arrays.asList("Present", "Late", "Absent");
+                    break;
+                case "es":
+                    etatPossible = Arrays.asList("Presente", "Retraso", "Ausente");
+                    break;
+                case "ro":
+                    etatPossible = Arrays.asList("Prezent", "Întârziere", "Absent");
+                    break;
+            }
             SP_presence = itemView.findViewById(R.id.SP_presence);
             texteSpinner = new ArrayAdapter<String>(context, R.layout.spinner_item_presence, etatPossible);
             SP_presence.setAdapter(texteSpinner);

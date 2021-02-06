@@ -264,36 +264,36 @@ public class AppelActivity extends AppCompatActivity {
             if (!etudiant.isHasSigned()) {
                 toutLeMondeASigne = false;
             }
-            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner()+1);
+            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner() + 1);
         }
         if (toutLeMondeASigne) {
             new AlertDialog.Builder(this)
-                    .setTitle("Confirmez l'ajout du cours")
-                    .setMessage("Matiere: " + matiere + "\n" +
-                            "Heure début: " + heureDebut + "\n" +
-                            "Heure fin: " + heureFin + "\n" +
-                            "Nombre Retardataire(s): " + nombreRetardataires + "\n" +
-                            "Nombre Absent(s): " + nombreAbsents + "\n")
-                    .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                    .setTitle(getResources().getString((R.string.confirmationAjoutCours)))
+                    .setMessage(getResources().getString(R.string.textMatiere) + " : " + matiere + "\n" +
+                            getResources().getString(R.string.heureDebut) + " : " + heureDebut + "\n" +
+                            getResources().getString(R.string.heureDebut) + " : " + heureFin + "\n" +
+                            getResources().getString(R.string.nombreRetardataire) + " : " + nombreRetardataires + "\n" +
+                            getResources().getString(R.string.nombreAbsent) + " : " + nombreAbsents + "\n")
+                    .setPositiveButton(getResources().getString(R.string.valider), new DialogInterface.OnClickListener() {
                         @RequiresApi(api = Build.VERSION_CODES.M)
                         @SneakyThrows
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut,
                                     heureFin, eleveStatus);
-                            Toast.makeText(getApplicationContext(), "Cours bien ajouté", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.coursAjoute), Toast.LENGTH_LONG).show();
                             GoAtHome();
                         }
                     })
-                    .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getResources().getString(R.string.annuler), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(AppelActivity.this, "Vous avez annulé cette décision", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AppelActivity.this, getResources().getString(R.string.annulerCoursAjout), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .show();
         } else {
-            Toast.makeText(AppelActivity.this, "Tout le monde n'a pas signé ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AppelActivity.this, getResources().getString(R.string.tousSigne), Toast.LENGTH_SHORT).show();
         }
     }
 

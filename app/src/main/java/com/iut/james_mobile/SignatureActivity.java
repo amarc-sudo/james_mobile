@@ -22,8 +22,9 @@ import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceEtudiant;
 import com.iut.james_mobile.services.ServiceProfesseur;
-import com.iut.james_mobile.views.PaintView;
+
 import com.iut.james_mobile.services.ServiceConfiguration;
+import com.iut.james_mobile.views.PaintView;
 
 import org.json.JSONException;
 
@@ -81,9 +82,9 @@ public class SignatureActivity extends AppCompatActivity {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         new AlertDialog.Builder(this)
-                .setTitle("Confirmation de la signature")
-                .setMessage("Voulez vous confirmer cette signature ?")
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.signatureConfirmation))
+                .setMessage(getResources().getString(R.string.alertSignatureConfirmation))
+                .setPositiveButton(getResources().getString(R.string.oui), new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @SneakyThrows
                     @Override
@@ -93,14 +94,14 @@ public class SignatureActivity extends AppCompatActivity {
                         } else {
                             new ServiceEtudiant().updateSignature(etudiant, encoded);
                         }
-                        Toast.makeText(getApplicationContext(), "Signature envoyée !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.signatureEnvoyee), Toast.LENGTH_LONG).show();
                         Go();
                     }
                 })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), "Annulation de l'ajout de la signature", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.annulationEnvoiSignature), Toast.LENGTH_LONG).show();
                     }
                 })
                 .show();
@@ -116,10 +117,18 @@ public class SignatureActivity extends AppCompatActivity {
             intent.putExtra("professeur", professeur);
             intent.putExtra("formation", formationSelectionne);
         } else {
-            intent = new Intent(this, WelcomeActivity.class);
-            professeur.setHasSigned(true);
-            intent.putExtra("professeur", professeur);
+            if (getIntent().getIntExtra("modificationSignature", 0) == 1) {
+                intent = new Intent(this, ParametreActivity.class);
+                professeur.setHasSigned(true);
+                intent.putExtra("professeur", professeur);
+                intent.putExtra("modificationSignature", 0);
+            } else {
+                intent = new Intent(this, WelcomeActivity.class);
+                professeur.setHasSigned(true);
+                intent.putExtra("professeur", professeur);
+            }
         }
+        this.finish();
         startActivity(intent);
 
     }

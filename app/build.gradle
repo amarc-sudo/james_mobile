@@ -29,7 +29,10 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
     compileOnly 'com.android.support:recyclerview-v7'
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     implementation 'androidx.appcompat:appcompat:1.2.0'

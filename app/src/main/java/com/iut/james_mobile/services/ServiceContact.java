@@ -1,5 +1,7 @@
 package com.iut.james_mobile.services;
 
+import com.iut.james_mobile.models.Professeur;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -11,7 +13,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 
 public class ServiceContact extends ServiceConfiguration {
 
@@ -32,6 +37,32 @@ public class ServiceContact extends ServiceConfiguration {
         BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String bool = reader.readLine();
         return Boolean.parseBoolean(bool);
+    }
+
+    public String updateMail(Integer idContact, String newMail) throws JSONException, IOException {
+        JSONObject jsonLogin = new JSONObject();
+        jsonLogin.put("newMail", newMail);
+        jsonLogin.put("idContact", idContact);
+        StringEntity se = new StringEntity(jsonLogin.toString());
+        this.prepareHttpPost("/rest/api/contact/updateMail", se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
+        response = httpClient.execute(httpPost);
+        InputStream instream = response.getEntity().getContent();
+        String result = convertStreamToString(instream);
+        return result;
+    }
+
+    public String updatePassword(Integer idContact, String newPassword) throws JSONException, IOException {
+        JSONObject jsonLogin = new JSONObject();
+        jsonLogin.put("newPassword", newPassword);
+        jsonLogin.put("idContact", idContact);
+        StringEntity se = new StringEntity(jsonLogin.toString());
+        this.prepareHttpPost("/rest/api/contact/updatePassword", se);
+        httpClient = new DefaultHttpClient(this.getHttpParams());
+        response = httpClient.execute(httpPost);
+        InputStream instream = response.getEntity().getContent();
+        String result = convertStreamToString(instream);
+        return result;
     }
 
 }

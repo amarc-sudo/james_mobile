@@ -36,12 +36,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"
         android:gravity="center"
-
         android:onClick="GoEmargement"
-        android:text="Emarger un cours" />
+        android:backgroundTint="@color/green_uvsq"
+        android:background="@drawable/background"
+        android:text="@string/textEmargerUnCours" />
 
     <Button
         android:id="@+id/BT_settings"
@@ -51,10 +50,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"
         android:gravity="center"
-        android:text="Paramètres" />
+        android:backgroundTint="@color/green_uvsq"
+        android:background="@drawable/background"
+        android:text="@string/parametres"
+        android:onClick="goParametre"/>
 
     <ImageView
         android:layout_width="match_parent"

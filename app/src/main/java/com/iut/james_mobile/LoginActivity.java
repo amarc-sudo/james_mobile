@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Professeur correctProfesseur;
 
+    private LanguageModifier languageModifier;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -53,7 +55,16 @@ public class LoginActivity extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
+            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+            languageModifier = new LanguageModifier();
+            languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
             setContentView(R.layout.activity_login);
+            ET_login = findViewById(R.id.ET_login);
+            ET_password = (EditText) this.findViewById(R.id.ET_password);
+            boutonValider = (Button) findViewById(R.id.BT_connect);
+            CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
+            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
+
             ET_login = findViewById(R.id.ET_login);
             ET_password = (EditText) this.findViewById(R.id.ET_password);
             boutonValider = (Button) findViewById(R.id.BT_connect);
@@ -90,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                     return false;
                 }
             });
-            sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
             if (sharedPreferences.getBoolean("isChecked", false)) {
                 ET_login.setText(sharedPreferences.getString("login", ""));
                 ET_password.setText(sharedPreferences.getString("password", ""));
@@ -131,11 +141,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 Go();
             } else {
-                Toast.makeText(this.getApplicationContext(), "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.loginOuMdpIncorrect), Toast.LENGTH_SHORT).show();
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this.getApplicationContext(), "Problème de communication avec le serveur", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.ProblemeCommunicationServeur), Toast.LENGTH_SHORT).show();
 
         }
     }

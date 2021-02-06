@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">James-mobile</string>
+    <string name="textEmailForgotPassword">Vă rugăm să introduceți e-mailul :</string>
+    <string name="textNewEmail">Vă rugăm să introduceți noua dvs. poștă electronică : </string>
+    <string name="textNewEmailConfirmation">Vă rugăm să repetați noua dvs. poștă : </string>
+    <string name="textEmailForgotPasswordConfirmation">Vă rugăm să repetați e-mailul:</string>
+    <string name="textFormation">Formare</string>
+    <string name="textMatiere">Chestiune</string>
+    <string name="textRemember">Amintindu-mi</string>
+    <string name="textConnecter">conectează-te</string>
+    <string name="textForgotPassword">Parola uitată ?</string>
+    <string name="textEnterPassword">Introduceți noua parolă :</string>
+    <string name="textEnterPasswordConfirmation">Confirmați noua parolă :</string>
+    <string name="textNomEleve">Numele studentului</string>
+    <string name="textEmargerUnCours">Emarger Un curs</string>
+    <string name="boutonValiderChangerEmail">Validarea modificării e-mailului său</string>
+    <string name="boutonChangerCouleur">Modificarea culorii aplicației</string>
+    <string name="boutonChangerLangue">Modificarea limbii aplicației</string>
+    <string name="boutonValiderCours">Validarea cursului</string>
+    <string name="boutonChangerSignature">Modificarea semnăturii</string>
+    <string name="boutonChangerEmail">Modificarea e-mailului</string>
+    <string name="boutonChangerPassword">Modificarea parolei</string>
+    <string name="boutonEnvoyerEmail">Trimiterea unui e-mail de resetare</string>
+    <string name="boutonEnvoyer">Trimiterea unui e-mail de resetare</string>
+    <string name="heureDebut">Ora de început</string>
+    <string name="heureFin">Ora de sfârșit</string>
+    <string name="login">E-mail</string>
+    <string name="password">Parola</string>
+    <string name="choisir">Alege</string>
+    <string name="reset">Resetați</string>
+    <string name="valider">Valida</string>
+    <string name="parametres">Setări</string>
+    <string name="bonjour">Salut</string>
+    <string name="next">Următor</string>
+    <string name="previous">Anterior</string>
+    <string name="francais" >Français</string>
+    <string name="anglais" >English</string>
+    <string name="espagnol">Español</string>
+    <string name="roumain">Română</string>
+    <string name="present">Prezent</string>
+    <string name="absent">Absent</string>
+    <string name="retard">Întârziere</string>
+    <string name="retour">Întoarcere</string>
+    <string name="signature">semnăturii</string>
+
+
+    <string name="confirmationAjoutCours">Confirmați adăugarea cursului</string>
+    <string name="nombreRetardataire">Număr (uri) întârziat (e)</string>
+    <string name="coursAjoute">Bine adăugat curs</string>
+    <string name="annulerCoursAjout">Ați anulat această decizie</string>
+    <string name="tousSigne">Nu toată lumea a semnat</string>
+    <string name="nombreAbsent">Număr (uri) absent (e)</string>
+    <string name="annuler">A anula</string>
+    <string name="messageServeur">Mesaj server :</string>
+    <string name="emailCorrespondentPas">Email-urile nu se potrivesc</string>
+    <string name="champsVideEmail">Câmpuri goale, vă rugăm să introduceți o adresă de e-mail validă</string>
+    <string name="emailEnvoyeSurEmail">Tocmai a fost trimis un e-mail la adresa dvs. de e-mail</string>
+    <string name="emailPasValide">Vă rugăm să introduceți o adresă de email validă</string>
+    <string name="loginOuMdpIncorrect">Parolă sau logare incorectă</string>
+    <string name="ProblemeCommunicationServeur">Problemă de comunicare cu serverul</string>
+    <string name="mdpCorrespondentPas">Parolele nu se potrivesc</string>
+    <string name="signatureConfirmation">Confirmarea semnăturii</string>
+    <string name="alertSignatureConfirmation">Doriți să confirmați această semnătură?</string>
+    <string name="oui">Da</string>
+    <string name="non">Nu</string>
+    <string name="signatureEnvoyee">Semnătura trimisă!</string>
+    <string name="annulationEnvoiSignature">Anularea adăugării semnăturii</string>
+
+
+    <string-array name="languages">
+        <item>@string/francais</item>
+        <item>@string/anglais</item>
+        <item>@string/espagnol</item>
+        <item>@string/roumain</item>
+    </string-array>
+</resources>

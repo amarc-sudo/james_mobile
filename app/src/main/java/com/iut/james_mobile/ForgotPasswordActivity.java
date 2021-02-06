@@ -1,7 +1,8 @@
 package com.iut.james_mobile;
 
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,14 +38,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void getAndSendEmail(View view) throws IOException, JSONException {
         emailForgotPasswordString = emailForgotPassword.getText().toString();
         if (emailForgotPasswordString.isEmpty()) {
-            Toast.makeText(this, "Champs vide, veuillez entrer une adresse email valide", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.champsVideEmail), Toast.LENGTH_LONG).show();
         } else {
             boolean email = serviceContact.checkLoginAndSendMailReset(emailForgotPasswordString);
             if (email == true) {
-                Toast.makeText(this, "Un email vient d'être envoyé sur votre adresse email", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.emailEnvoyeSurEmail), Toast.LENGTH_LONG).show();
                 this.finish();
             } else {
-                Toast.makeText(this, "Veuillez entrer une adresse email valide", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.emailPasValide), Toast.LENGTH_LONG).show();
             }
         }
     }

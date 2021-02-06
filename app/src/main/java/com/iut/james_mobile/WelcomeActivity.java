@@ -16,7 +16,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView TV_welcome;
 
-    private Button BT_emargement;
+    private Button BT_emargement;  // inutile ici puisqu'on n'utilise pas ce bouton
+
+    private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class WelcomeActivity extends AppCompatActivity {
             GoSignature();
         }
         TV_welcome = findViewById(R.id.TV_welcome);
-        TV_welcome.setText("Bonjour " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
+        TV_welcome.setText(getResources().getString(R.string.bonjour) + " " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
         BT_emargement = findViewById(R.id.BT_emargement);
     }
 
@@ -39,9 +41,16 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void GoSignature() {
+        this.finish();
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
+        startActivity(intent);
+    }
+
+    public void goParametre(View view) {
         this.finish();
+        Intent intent = new Intent(this, ParametreActivity.class);
+        intent.putExtra("professeur", professeur);
         startActivity(intent);
     }
 }
