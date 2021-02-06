@@ -57,7 +57,7 @@ public class ParametreActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
-        listLanguages= new ArrayList<String>();
+        listLanguages = new ArrayList<String>();
         //this.addLanguagesToArrayList();
         //BT_goSignature=findViewById(R.id.BT_goSignature);  // inutile ici puisqu'on n'utilise pas ce bouton
         this.setValuesSpinnerLanguages();
@@ -67,16 +67,16 @@ public class ParametreActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguages.setAdapter(adapter);
-        spinnerLanguages.setSelection(sharedPreferences.getInt("positionLanguage",0), true);
-        positionLanguage=sharedPreferences.getInt("positionLanguage",0);
-        language=sharedPreferences.getString("language", languagesAbr[0]);
+        spinnerLanguages.setSelection(sharedPreferences.getInt("positionLanguage", 0), true);
+        positionLanguage = sharedPreferences.getInt("positionLanguage", 0);
+        language = sharedPreferences.getString("language", languagesAbr[0]);
         spinnerLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                language=adapterView.getItemAtPosition(i).toString();
-                language=language.substring(0,2).toLowerCase();
-                positionLanguage=i;
+                language = adapterView.getItemAtPosition(i).toString();
+                language = language.substring(0, 2).toLowerCase();
+                positionLanguage = i;
             }
 
             @Override
@@ -85,7 +85,7 @@ public class ParametreActivity extends AppCompatActivity {
         });
     }
 
-    public void LanguageChangementButton(View view){
+    public void LanguageChangementButton(View view) {
         sharedPreferences.edit().putString("language", language).apply();
         languageModifier.setLanguage(sharedPreferences.getString("language", languagesAbr[0]), ParametreActivity.this);
         sharedPreferences.edit().putInt("positionLanguage", positionLanguage).apply();
@@ -96,10 +96,10 @@ public class ParametreActivity extends AppCompatActivity {
     }
 
     public void goSignature(View view) { //Il faut renommer la méthode
-        int modificationSignature=1;
+        int modificationSignature = 1;
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
-        intent.putExtra("modificationSignature",modificationSignature);
+        intent.putExtra("modificationSignature", modificationSignature);
         this.startActivity(intent);
     }
 

@@ -264,7 +264,7 @@ public class AppelActivity extends AppCompatActivity {
             if (!etudiant.isHasSigned()) {
                 toutLeMondeASigne = false;
             }
-            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner()+1);
+            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner() + 1);
         }
         if (toutLeMondeASigne) {
             new AlertDialog.Builder(this)

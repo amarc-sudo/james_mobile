@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
             super.onCreate(savedInstanceState);
             sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
-            languageModifier=new LanguageModifier();
+            languageModifier = new LanguageModifier();
             languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
             setContentView(R.layout.activity_login);
             ET_login = findViewById(R.id.ET_login);

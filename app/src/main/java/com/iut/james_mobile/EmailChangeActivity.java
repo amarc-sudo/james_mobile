@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceContact;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 public class EmailChangeActivity extends AppCompatActivity {
 
-    private EditText ET_emailChange,ET_emailChangeConfirmation;
+    private EditText ET_emailChange, ET_emailChangeConfirmation;
     private Button BT_emailChangeConfirmation;
     private ServiceContact serviceContact;
     private Professeur professeur;
@@ -32,24 +33,23 @@ public class EmailChangeActivity extends AppCompatActivity {
         BT_emailChangeConfirmation = (Button) findViewById(R.id.BT_emailChangeConfirmation);
         ET_emailChange = (EditText) findViewById(R.id.ET_emailChange);
         ET_emailChangeConfirmation = (EditText) findViewById(R.id.ET_emailChangeConfirmation);
-        professeur= (Professeur) getIntent().getSerializableExtra("professeur");
-        serviceContact =new ServiceContact();
-        sharedPreferences=this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+        professeur = (Professeur) getIntent().getSerializableExtra("professeur");
+        serviceContact = new ServiceContact();
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
     }
 
     public void emailChange(View view) throws IOException, JSONException {
-        String email=ET_emailChange.getText().toString();
-        String emailConfirmation=ET_emailChangeConfirmation.getText().toString();
-        if(email.equals(emailConfirmation) && email.isEmpty()==false && emailConfirmation.isEmpty()==false) {
-            String messageRetour=serviceContact.updateMail(professeur.getContact().getIdContact(), emailConfirmation);
+        String email = ET_emailChange.getText().toString();
+        String emailConfirmation = ET_emailChangeConfirmation.getText().toString();
+        if (email.equals(emailConfirmation) && email.isEmpty() == false && emailConfirmation.isEmpty() == false) {
+            String messageRetour = serviceContact.updateMail(professeur.getContact().getIdContact(), emailConfirmation);
             sharedPreferences.edit().putString("login", emailConfirmation).apply();
             Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.messageServeur) + messageRetour, Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(this, ParametreActivity.class);
+            Intent intent = new Intent(this, ParametreActivity.class);
             intent.putExtra("professeur", professeur);
             finish();
             startActivity(intent);
-        }
-        else{
+        } else {
             Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.emailCorrespondentPas), Toast.LENGTH_SHORT).show();
         }
     }

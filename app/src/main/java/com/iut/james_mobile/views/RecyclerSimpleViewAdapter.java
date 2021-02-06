@@ -138,7 +138,7 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             }
         });
         holder.SP_presence.setSelection(etudiant.getPositionSpinner());
-        SP_presences.put(etudiant,holder.SP_presence);
+        SP_presences.put(etudiant, holder.SP_presence);
 
     }
 
@@ -181,11 +181,19 @@ public class RecyclerSimpleViewAdapter extends RecyclerView.Adapter<RecyclerSimp
             sharedPreferences = context.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
 
 
-            switch(sharedPreferences.getString("language", "fr")) {
-                case "fr": etatPossible = Arrays.asList("Présent","Retard", "Absent"); break;
-                case "en": etatPossible = Arrays.asList("Present","Late", "Absent");break;
-                case "es": etatPossible = Arrays.asList("Presente","Retraso", "Ausente");break;
-                case "ro": etatPossible = Arrays.asList("Prezent","Întârziere", "Absent");break;
+            switch (sharedPreferences.getString("language", "fr")) {
+                case "fr":
+                    etatPossible = Arrays.asList("Présent", "Retard", "Absent");
+                    break;
+                case "en":
+                    etatPossible = Arrays.asList("Present", "Late", "Absent");
+                    break;
+                case "es":
+                    etatPossible = Arrays.asList("Presente", "Retraso", "Ausente");
+                    break;
+                case "ro":
+                    etatPossible = Arrays.asList("Prezent", "Întârziere", "Absent");
+                    break;
             }
             SP_presence = itemView.findViewById(R.id.SP_presence);
             texteSpinner = new ArrayAdapter<String>(context, R.layout.spinner_item_presence, etatPossible);
