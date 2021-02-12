@@ -271,7 +271,7 @@ public class AppelActivity extends AppCompatActivity {
                     .setTitle(getResources().getString((R.string.confirmationAjoutCours)))
                     .setMessage(getResources().getString(R.string.textMatiere) + " : " + matiere + "\n" +
                             getResources().getString(R.string.heureDebut) + " : " + heureDebut + "\n" +
-                            getResources().getString(R.string.heureDebut) + " : " + heureFin + "\n" +
+                            getResources().getString(R.string.heureFin) + " : " + heureFin + "\n" +
                             getResources().getString(R.string.nombreRetardataire) + " : " + nombreRetardataires + "\n" +
                             getResources().getString(R.string.nombreAbsent) + " : " + nombreAbsents + "\n")
                     .setPositiveButton(getResources().getString(R.string.valider), new DialogInterface.OnClickListener() {
