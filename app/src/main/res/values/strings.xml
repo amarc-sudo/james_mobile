@@ -43,7 +43,7 @@
 
     <string name="confirmationAjoutCours">Confirm the addition of the course</string>
     <string name="nombreRetardataire">Number Delayer(s)</string>
-    <string name="coursAjoute">Course well added</string>
+    <string name="coursAjoute">Course correctly added</string>
     <string name="annulerCoursAjout">You have cancelled this decision</string>
     <string name="tousSigne">Not everyone has signed </string>
     <string name="nombreAbsent">Number Absent</string>
