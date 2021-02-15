@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/passwordChangeLayout"
+    android:id="@+id/emailChangeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_uvsq"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/blue_uvsq">
 
     <ImageView
         android:layout_width="match_parent"
@@ -16,50 +16,51 @@
         app:srcCompat="@drawable/logo_james"></ImageView>
 
     <EditText
-        android:id="@+id/passwordFirst"
+        android:id="@+id/ET_emailChange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
         android:layout_marginTop="100dp"
-        android:layout_marginRight="21dp"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/green_uvsq"
+        android:layout_marginRight="21dp"
+        android:layout_marginLeft="21dp"
         android:ems="10"
-        android:hint="@string/textEnterPassword"
-        android:inputType="textPassword"
-        android:textColor="@color/white" />
+        android:hint="@string/textNewEmail"
+        android:inputType="textEmailAddress"
+        app:backgroundTint="@color/green_uvsq"
+        tools:layout_editor_absoluteY="128dp" />
 
     <EditText
-        android:id="@+id/passwordVerif"
+        android:id="@+id/ET_emailChangeConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
         android:layout_marginTop="80dp"
-        android:layout_marginRight="21dp"
-        android:backgroundTint="@color/green_uvsq"
         android:ems="10"
-        android:hint="@string/textEnterPasswordConfirmation"
-        android:inputType="textPassword"
-        android:textColor="@color/white" />
+        android:layout_marginRight="21dp"
+        android:layout_marginLeft="21dp"
+        android:hint="@string/textNewEmailConfirmation"
+        android:inputType="textEmailAddress|textNoSuggestions"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/green_uvsq"
+        tools:layout_editor_absoluteY="305dp" />
 
     <Button
-        android:id="@+id/BT_confirmPasswordChange"
+        android:id="@+id/BT_emailChangeConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="130dp"
-        android:layout_marginRight="30dp"
         android:layout_marginBottom="43dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/background"
         android:backgroundTint="@color/green_uvsq"
-        android:onClick="passwordChange"
-        android:text="@string/boutonEnvoyer"
-        android:textColor="@color/white" />
+        android:onClick="emailChange"
+        android:text="@string/boutonValiderChangerEmail" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/logo_uvsq"></ImageView>
+
 
 </LinearLayout>
