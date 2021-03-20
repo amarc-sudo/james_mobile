@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -76,6 +78,8 @@ public class AppelActivity extends AppCompatActivity {
 
     private List<String> nomsFormations;
 
+    private SharedPreferences sharedPreferences;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SneakyThrows
@@ -88,6 +92,7 @@ public class AppelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_appel);
         Intent intent = getIntent();
         professeur = (Professeur) intent.getSerializableExtra("professeur");
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         matiereList = serviceMatiere.listByProfesseur(professeur);
         etudiantList = serviceEtudiant.listByProfesseur(professeur);
         SP_matiere = findViewById(R.id.SP_matiere);
@@ -127,7 +132,7 @@ public class AppelActivity extends AppCompatActivity {
         TP_fin = (TimePicker) findViewById(R.id.TP_fin);
         TP_fin.setIs24HourView(true);
         TP_fin.setMinute(0);
-        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + sharedPreferences.getInt("dureeCours", 1));
         this.recyclerView = (RecyclerView) findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
         BT_validation = findViewById(R.id.BT_validation);

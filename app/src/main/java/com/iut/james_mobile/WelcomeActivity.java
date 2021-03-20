@@ -41,7 +41,6 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void GoSignature() {
-        this.finish();
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
         startActivity(intent);

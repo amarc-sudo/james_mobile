@@ -12,33 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:layout_weight="0"
         app:srcCompat="@drawable/logo_james"></ImageView>
 
-    <Button
-        android:id="@+id/BT_accessProfile"
+    <TextView
+        android:id="@+id/TV_dureeCours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="@string/accederProfil"
-        android:onClick="goProfProfile"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/texteDureeCours"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/BT_accessPreference"
+    <Spinner
+        android:id="@+id/SP_dureeCoursSimple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="@string/accederPreference"
-        android:onClick="goPreferencies"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:spinnerMode="dropdown"
+        android:backgroundTint="@color/green_uvsq"/>
+
+    <TextView
+        android:id="@+id/TV_languages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/texteLanguage"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Spinner
+        android:id="@+id/SP_languages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:spinnerMode="dropdown"
+        android:backgroundTint="@color/green_uvsq"/>
 
     <Button
         android:id="@+id/BTConfirmeParametre"
@@ -49,17 +72,14 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/background"
         android:backgroundTint="@color/green_uvsq"
-        android:onClick="returnWelcomeActivity"
-        android:text="@string/retour" />
+        android:onClick="changePreferencies"
+        android:text="@string/choisir" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="80dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/logo_uvsq"></ImageView>
-
-
-
 
 </LinearLayout>
