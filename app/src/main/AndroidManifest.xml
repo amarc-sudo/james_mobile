@@ -19,6 +19,7 @@
         <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".EmailChangeActivity"></activity>
         <activity android:name=".PasswordChangeActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">

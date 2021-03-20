@@ -95,22 +95,8 @@ public class ParametreActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    public void goSignature(View view) { //Il faut renommer la méthode
-        int modificationSignature = 1;
-        Intent intent = new Intent(this, SignatureActivity.class);
-        intent.putExtra("professeur", professeur);
-        intent.putExtra("modificationSignature", modificationSignature);
-        this.startActivity(intent);
-    }
-
-    public void goChangeMail(View view) { //Il faut renommer la méthode
-        Intent intent = new Intent(this, EmailChangeActivity.class);
-        intent.putExtra("professeur", professeur);
-        this.startActivity(intent);
-    }
-
-    public void goChangePassword(View view) { //Il faut renommer la méthode
-        Intent intent = new Intent(this, PasswordChangeActivity.class);
+    public void goProfProfile(View view){
+        Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("professeur", professeur);
         this.startActivity(intent);
     }

@@ -65,11 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
             BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
 
-            ET_login = findViewById(R.id.ET_login);
-            ET_password = (EditText) this.findViewById(R.id.ET_password);
-            boutonValider = (Button) findViewById(R.id.BT_connect);
-            CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
-            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {

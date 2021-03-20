@@ -17,45 +17,22 @@
         app:srcCompat="@drawable/logo_james"></ImageView>
 
     <Button
-        android:id="@+id/BT_goChangerEmail"
+        android:id="@+id/BT_accessProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:text="@string/boutonChangerEmail"
-        android:onClick="goChangeMail"
         android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"/>
-
-    <Button
-        android:id="@+id/BT_goChangePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
+        android:backgroundTint="@color/green_uvsq"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
-        android:text="@string/boutonChangerPassword"
-        android:onClick="goChangePassword"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq" />
-
-    <Button
-        android:id="@+id/BT_goSignature"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:onClick="goSignature"
-        android:text="@string/boutonChangerSignature"
-        android:background="@drawable/background"
-        android:backgroundTint="@color/green_uvsq"/>
+        android:text="@string/accederProfil"
+        android:onClick="goProfProfile"/>
 
     <Spinner
         android:id="@+id/SP_languages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:spinnerMode="dropdown"
@@ -78,9 +55,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="130dp"
         android:layout_weight="1"
         app:srcCompat="@drawable/logo_uvsq"></ImageView>
+
 
 
 

@@ -63,6 +63,7 @@
     <string name="non">No</string>
     <string name="signatureEnvoyee">¡Firma enviada!</string>
     <string name="annulationEnvoiSignature">Anulación de la adición de la firma</string>
+    <string name="accederProfil">Acceder al perfil</string>
 
     <string-array name="languages">
         <item>@string/francais</item>
