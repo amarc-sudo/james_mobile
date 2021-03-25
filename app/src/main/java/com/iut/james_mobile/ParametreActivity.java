@@ -47,6 +47,13 @@ public class ParametreActivity extends AppCompatActivity {
         professeur = (Professeur) intent.getSerializableExtra("professeur");
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
     public void returnWelcomeActivity(View view){
         this.finish();
     }
@@ -58,7 +65,6 @@ public class ParametreActivity extends AppCompatActivity {
     }
 
     public void  goPreferencies(View view){
-        this.finish();
         Intent intent = new Intent(this, PreferenceActivity.class);
         intent.putExtra("professeur", professeur);
         this.startActivity(intent);

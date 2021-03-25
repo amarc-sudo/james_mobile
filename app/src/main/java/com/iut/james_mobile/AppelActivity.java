@@ -138,6 +138,13 @@ public class AppelActivity extends AppCompatActivity {
         BT_validation = findViewById(R.id.BT_validation);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
     private int getPositionFormation(String intituleFormationSelectionne) {
         int compteur = 0;
         for (String intitule : nomsFormations) {

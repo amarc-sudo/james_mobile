@@ -30,9 +30,16 @@ public class ProfileActivity extends AppCompatActivity {
         this.setTextProfileProfesseur();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
     public void setTextProfileProfesseur(){
         nomProfesseur.setText(professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
-        emailProfesseur.setText(sharedPreferences.getString("login", "Votre email devrait s'afficher ici" ));
+        emailProfesseur.setText(professeur.getContact().getAdresseMail());
     }
 
     public void goSignature(View view) { //Il faut renommer la méthode

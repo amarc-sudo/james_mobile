@@ -38,6 +38,13 @@ public class PreferenceActivity extends AppCompatActivity {
         this.setValuesSpinnerCourseDuration();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
     public void setValuesSpinnerLanguages() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

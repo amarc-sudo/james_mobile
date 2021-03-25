@@ -105,6 +105,13 @@ public class LoginActivity extends AppCompatActivity {
         serviceProfesseur = new ServiceProfesseur();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
     public void Go() {
         Intent intent = new Intent(this, WelcomeActivity.class);
         intent.putExtra("professeur", correctProfesseur);
