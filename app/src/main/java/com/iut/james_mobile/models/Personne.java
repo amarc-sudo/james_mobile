@@ -1,5 +1,7 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +23,10 @@ public class Personne implements Serializable {
 
     private Date dateCreation;
 
-    public Personne(int idPersonne, String nom, String prenom, Date dateCreation) {
+    public Personne(@JsonProperty("idPersonne") int idPersonne,
+                    @JsonProperty("nom") String nom,
+                    @JsonProperty("prenom") String prenom,
+                    @JsonProperty("dateCreation") Date dateCreation) {
         this.idPersonne = idPersonne;
         this.nom = nom;
         this.prenom = prenom;

@@ -1,5 +1,7 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,14 +25,28 @@ public class Etudiant implements Serializable {
 
     private Integer groupe;
 
+    private Integer nombreRetards;
+
+    private Integer nombreAbsences;
+
+    private String signature;
+
     private int positionSpinner;
 
-    public Etudiant(int idEtudiant, Personne personne, boolean signature, Formation formation, Integer groupe) {
+    public Etudiant(@JsonProperty("idEtudiant") int idEtudiant,
+                    @JsonProperty("personne") Personne personne,
+                    @JsonProperty("hasSigned") boolean hasSigned,
+                    @JsonProperty("formation") Formation formation,
+                    @JsonProperty("groupe") Integer groupe,
+                    @JsonProperty("nombreRetards") Integer nombreRetards,
+                    @JsonProperty("nombreAbsences") Integer nombreAbsences) {
         this.idEtudiant = idEtudiant;
         this.personne = personne;
-        this.hasSigned = signature;
+        this.hasSigned = hasSigned;
         this.formation = formation;
         this.groupe = groupe;
+        this.nombreAbsences = nombreAbsences;
+        this.nombreRetards = nombreRetards;
         this.positionSpinner = 0;
     }
 

@@ -23,26 +23,19 @@ public class ServiceProfesseur extends ServiceConfiguration {
         this.prepareHttpPost("/rest/api/professeur/correctLogin", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
-        InputStream instream = response.getEntity().getContent();
-        String result = convertStreamToString(instream);
         try {
-            JSONObject jsonProfesseur = new JSONObject(result);
-            Professeur professeur = new Professeur(jsonProfesseur);
-            return professeur;
-        } catch (JSONException | ParseException e) {
+            return objectMapper.readValue(response.getEntity().getContent(), Professeur.class);
+        } catch (IOException | IllegalStateException e) {
             return null;
         }
     }
 
-    public void updateSignature(Professeur professeur, String signature) throws JSONException, IOException {
-        JSONObject jsonSignature = new JSONObject();
-        jsonSignature.put("professeur", professeur.getIdProfesseur());
-        jsonSignature.put("signature", signature);
-        StringEntity se = new StringEntity(jsonSignature.toString());
-        this.prepareHttpPost("/rest/api/professeur/signature", se);
+    public Professeur update(Professeur professeur) throws IOException {
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur));
+        this.prepareHttpPost("/rest/api/professeur/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
+        return objectMapper.readValue(response.getEntity().getContent(), Professeur.class);
     }
-
 
 }

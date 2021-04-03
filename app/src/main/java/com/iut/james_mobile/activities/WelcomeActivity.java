@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
 
@@ -20,9 +19,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView TV_welcome;
 
-    private Button BT_emargement;  // inutile ici puisqu'on n'utilise pas ce bouton
-
-    private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
 
     @SneakyThrows
     @Override
@@ -36,7 +32,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         TV_welcome = findViewById(R.id.TV_welcome);
         TV_welcome.setText(getResources().getString(R.string.bonjour) + " " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
-        BT_emargement = findViewById(R.id.BT_emargement);
     }
 
     public void GoEmargement(View view) {

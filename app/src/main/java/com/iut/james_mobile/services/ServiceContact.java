@@ -3,7 +3,6 @@ package com.iut.james_mobile.services;
 import android.util.Log;
 
 import com.iut.james_mobile.models.Contact;
-import com.iut.james_mobile.models.Professeur;
 
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -18,8 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 
 public class ServiceContact extends ServiceConfiguration {
 
@@ -42,19 +39,21 @@ public class ServiceContact extends ServiceConfiguration {
         return Boolean.parseBoolean(bool);
     }
 
-    public String update(Contact contact) throws JSONException, IOException {
+    public Contact update(Contact contact) throws JSONException, IOException {
         String jsonContact = objectMapper.writeValueAsString(contact);
         Log.i("update", jsonContact);
         StringEntity se = new StringEntity(jsonContact);
         this.prepareHttpPost("/rest/api/contact/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
-        InputStream inputStream = response.getEntity().getContent();
-        String test = convertStreamToString(inputStream);
-        Log.i("update", test);
-        Contact updateContact = objectMapper.readValue(test, Contact.class);
+        Contact updateContact;
+        try {
+            updateContact = objectMapper.readValue(response.getEntity().getContent(), Contact.class);
+        } catch (IOException | IllegalStateException e) {
+            return null;
+        }
         Log.i("update", updateContact.toString());
-        return null;
+        return updateContact;
     }
 
     public String updatePassword(Integer idContact, String newPassword) throws JSONException, IOException {

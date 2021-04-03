@@ -180,7 +180,7 @@ public class AppelActivity extends AppCompatActivity {
      * Méthode qui met à jour
      */
     public void setValueSpinnerMatiere() {
-        List<String> displayedMatiere = new ArrayList<String>();
+        List<String> displayedMatiere = new ArrayList<>();
         for (Matiere matiere : matiereList) {
             if (matiere.getFormation().getIntitule().equals(this.getIntituleFormation())) {
                 displayedMatiere.add(matiere.getIntitule());
