@@ -1,5 +1,6 @@
 package com.iut.james_mobile.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Formation;
 import com.iut.james_mobile.models.Matiere;
@@ -40,6 +41,8 @@ abstract public class ServiceConfiguration {
 
     protected String urlProd = "http://146.59.234.40:8080";
 
+    protected ObjectMapper objectMapper = new ObjectMapper();
+
     public HttpParams getHttpParams() {
         HttpParams httpParameters = new BasicHttpParams();
         int timeoutConnection = 10000;
@@ -54,6 +57,7 @@ abstract public class ServiceConfiguration {
         httpPost.setEntity(se);
         httpPost.setHeader("Content-type", "application/json");
     }
+
 
     protected String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));

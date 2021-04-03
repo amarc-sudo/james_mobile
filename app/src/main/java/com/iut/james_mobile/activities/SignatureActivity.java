@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,12 +18,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceEtudiant;
 import com.iut.james_mobile.services.ServiceProfesseur;
 
-import com.iut.james_mobile.services.ServiceConfiguration;
 import com.iut.james_mobile.views.PaintView;
 
 import org.json.JSONException;

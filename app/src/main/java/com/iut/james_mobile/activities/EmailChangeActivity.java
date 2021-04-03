@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceContact;
 
@@ -42,7 +43,9 @@ public class EmailChangeActivity extends AppCompatActivity {
         String email = ET_emailChange.getText().toString();
         String emailConfirmation = ET_emailChangeConfirmation.getText().toString();
         if (email.equals(emailConfirmation) && email.isEmpty() == false && emailConfirmation.isEmpty() == false) {
-            String messageRetour = serviceContact.updateMail(professeur.getContact().getIdContact(), emailConfirmation);
+            professeur.getContact().setAdresseMail(email);
+            serviceContact.update(professeur.getContact());
+            String messageRetour = "";
             sharedPreferences.edit().putString("login", emailConfirmation).apply();
             Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.messageServeur) + messageRetour, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ParametreActivity.class);

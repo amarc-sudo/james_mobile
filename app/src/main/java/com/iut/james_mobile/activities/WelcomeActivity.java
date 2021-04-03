@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
+
+import lombok.SneakyThrows;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -20,6 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
 
+    @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
