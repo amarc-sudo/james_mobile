@@ -24,7 +24,7 @@ public class ServiceContact extends ServiceConfiguration {
         JSONObject jsonEmail = new JSONObject();
         jsonEmail.put("email", email);
         httpPost = new HttpPost(urlProd + "/rest/api/contact/resetPassword");
-        StringEntity se = new StringEntity(jsonEmail.toString());
+        StringEntity se = new StringEntity(jsonEmail.toString(), "UTF-8");
         httpPost.setEntity(se);
         httpPost.setHeader("Content-type", "application/json");
         HttpParams httpParameters = new BasicHttpParams();
@@ -42,7 +42,7 @@ public class ServiceContact extends ServiceConfiguration {
     public Contact update(Contact contact) throws JSONException, IOException {
         String jsonContact = objectMapper.writeValueAsString(contact);
         Log.i("update", jsonContact);
-        StringEntity se = new StringEntity(jsonContact);
+        StringEntity se = new StringEntity(jsonContact, "UTF-8");
         this.prepareHttpPost("/rest/api/contact/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
@@ -60,7 +60,7 @@ public class ServiceContact extends ServiceConfiguration {
         JSONObject jsonLogin = new JSONObject();
         jsonLogin.put("newPassword", newPassword);
         jsonLogin.put("idContact", idContact);
-        StringEntity se = new StringEntity(jsonLogin.toString());
+        StringEntity se = new StringEntity(jsonLogin.toString(), "UTF-8");
         this.prepareHttpPost("/rest/api/contact/updatePassword", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);

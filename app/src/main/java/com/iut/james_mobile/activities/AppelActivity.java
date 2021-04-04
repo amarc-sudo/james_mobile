@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.iut.james_mobile.R;
+import com.iut.james_mobile.models.Cours;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Formation;
 import com.iut.james_mobile.models.Matiere;
@@ -24,6 +26,7 @@ import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceCours;
 import com.iut.james_mobile.services.ServiceEtudiant;
 import com.iut.james_mobile.services.ServiceMatiere;
+import com.iut.james_mobile.services.ServicePresence;
 import com.iut.james_mobile.views.RecyclerSimpleViewAdapter;
 
 import org.json.JSONException;
@@ -102,6 +105,7 @@ public class AppelActivity extends AppCompatActivity {
     /**
      * Méthode onCreate qui est appelé à la création de l'activité et qui va donc mettre
      * en place les données qui pourront être manipulées par l'utilisateur
+     *
      * @param savedInstanceState
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -162,6 +166,7 @@ public class AppelActivity extends AppCompatActivity {
 
     /**
      * Méthode qui permet d'obtenir la place dans le spinner des formations à partir de son nom
+     *
      * @param intituleFormationSelectionne l'intitulé de la formation que l'on cherche
      * @return la position dans le spinner de la formation
      */
@@ -295,10 +300,10 @@ public class AppelActivity extends AppCompatActivity {
                     .setPositiveButton(getResources().getString(R.string.valider), (dialogInterface, i) -> {
                         try {
                             ServiceCours serviceCours = new ServiceCours();
-                            serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut,
-                                    heureFin, eleveStatus);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            Cours cours = serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut + ":00",
+                                    heureFin + ":00");
+                            ServicePresence servicePresence = new ServicePresence();
+                            servicePresence.create(displayedEtudiantList, cours);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

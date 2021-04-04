@@ -23,7 +23,7 @@ public class ServiceEtudiant extends ServiceConfiguration {
 
     public List<Etudiant> listByProfesseur(Professeur professeur) throws JSONException, IOException {
         Set<Formation> formations = professeur.getFormations();
-        StringEntity se = new StringEntity(objectMapper.writeValueAsString(formations));
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(formations), "UTF-8");
         this.prepareHttpPost("/rest/api/etudiant/listByFormation", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
@@ -36,7 +36,7 @@ public class ServiceEtudiant extends ServiceConfiguration {
     }
 
     public Etudiant update(Etudiant etudiant) throws IOException {
-        StringEntity se = new StringEntity(objectMapper.writeValueAsString(etudiant));
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(etudiant), "UTF-8");
         this.prepareHttpPost("/rest/api/etudiant/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);

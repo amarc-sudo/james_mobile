@@ -19,7 +19,7 @@ public class ServiceProfesseur extends ServiceConfiguration {
         jsonLogin.put("email", login);
         jsonLogin.put("password", password);
         //
-        StringEntity se = new StringEntity(jsonLogin.toString());
+        StringEntity se = new StringEntity(jsonLogin.toString(), "UTF-8");
         this.prepareHttpPost("/rest/api/professeur/correctLogin", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
@@ -31,7 +31,7 @@ public class ServiceProfesseur extends ServiceConfiguration {
     }
 
     public Professeur update(Professeur professeur) throws IOException {
-        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur));
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur), "UTF-8");
         this.prepareHttpPost("/rest/api/professeur/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);

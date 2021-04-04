@@ -37,7 +37,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             Toast.makeText(this, getResources().getString(R.string.champsVideEmail), Toast.LENGTH_LONG).show();
         } else {
             boolean email = serviceContact.checkLoginAndSendMailReset(emailForgotPasswordString);
-            if (email == true) {
+            if (email) {
                 Toast.makeText(this, getResources().getString(R.string.emailEnvoyeSurEmail), Toast.LENGTH_LONG).show();
                 this.finish();
             } else {

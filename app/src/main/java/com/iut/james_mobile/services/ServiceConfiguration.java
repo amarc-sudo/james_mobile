@@ -55,7 +55,7 @@ abstract public class ServiceConfiguration {
     public void prepareHttpPost(String urlAPI, StringEntity se) {
         httpPost = new HttpPost(urlLocal + urlAPI);
         httpPost.setEntity(se);
-        httpPost.setHeader("Content-type", "application/json");
+        httpPost.setHeader("Content-type", "application/json;charset=UTF-8");
     }
 
 

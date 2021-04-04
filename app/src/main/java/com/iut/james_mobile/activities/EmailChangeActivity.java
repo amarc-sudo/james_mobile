@@ -40,7 +40,7 @@ public class EmailChangeActivity extends AppCompatActivity {
     public void emailChange(View view) throws IOException, JSONException {
         String email = ET_emailChange.getText().toString();
         String emailConfirmation = ET_emailChangeConfirmation.getText().toString();
-        if (email.equals(emailConfirmation) && email.isEmpty() == false && emailConfirmation.isEmpty() == false) {
+        if (email.equals(emailConfirmation) && !email.isEmpty() && !emailConfirmation.isEmpty()) {
             Contact updatedContact = serviceContact.update(professeur.getContact());
             String messageRetour = updatedContact != null ? " Modification bien prise en compte" : " L'adresse mail est déjà prise";
             if (updatedContact != null)

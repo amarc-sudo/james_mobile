@@ -24,7 +24,7 @@ public class ServiceMatiere extends ServiceConfiguration {
 
     public List<Matiere> listByProfesseur(Professeur professeur) throws IOException, JSONException {
         Log.i("prof", professeur.getFormations().toString());
-        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur.getFormations()));
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur.getFormations()), "UTF-8");
         this.prepareHttpPost("/rest/api/matiere/listMatiere", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);

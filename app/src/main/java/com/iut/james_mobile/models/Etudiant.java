@@ -1,5 +1,6 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class Etudiant implements Serializable {
 
     private String signature;
 
+    @JsonIgnore
     private int positionSpinner;
 
     public Etudiant(@JsonProperty("idEtudiant") int idEtudiant,
