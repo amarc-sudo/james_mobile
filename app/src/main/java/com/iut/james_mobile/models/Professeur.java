@@ -1,5 +1,7 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,20 @@ public class Professeur implements Serializable {
     private Set<Formation> formations;
 
     private boolean hasSigned;
+
+    private String signature;
+
+    public Professeur(@JsonProperty("idProfesseur") int idProfesseur,
+                      @JsonProperty("personne") Personne personne,
+                      @JsonProperty("contact") Contact contact,
+                      @JsonProperty("formations") Set<Formation> formations,
+                      @JsonProperty("hasSigned") boolean hasSigned) {
+        this.idProfesseur = idProfesseur;
+        this.personne = personne;
+        this.contact = contact;
+        this.formations = formations;
+        this.hasSigned = hasSigned;
+    }
 
     public Professeur(JSONObject json) throws JSONException, ParseException {
         this.idProfesseur = json.getInt("idProfesseur");

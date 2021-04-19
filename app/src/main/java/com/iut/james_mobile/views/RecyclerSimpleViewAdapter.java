@@ -14,9 +14,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iut.james_mobile.ParametreActivity;
 import com.iut.james_mobile.R;
-import com.iut.james_mobile.SignatureActivity;
+import com.iut.james_mobile.activities.SignatureActivity;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 

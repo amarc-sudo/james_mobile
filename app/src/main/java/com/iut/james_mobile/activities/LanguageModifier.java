@@ -1,6 +1,6 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
-import android.content.Intent;
+
 import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatActivity;

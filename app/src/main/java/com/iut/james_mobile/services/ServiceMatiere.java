@@ -1,5 +1,8 @@
 package com.iut.james_mobile.services;
 
+import android.util.Log;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.iut.james_mobile.models.Formation;
 import com.iut.james_mobile.models.Matiere;
 import com.iut.james_mobile.models.Professeur;
@@ -20,35 +23,16 @@ import java.util.Set;
 public class ServiceMatiere extends ServiceConfiguration {
 
     public List<Matiere> listByProfesseur(Professeur professeur) throws IOException, JSONException {
-        Set<Formation> formations = professeur.getFormations();
-        JSONObject jsonFormation = new JSONObject();
-        int compteur = 0;
-        for (Iterator<Formation> i = formations.iterator(); i.hasNext(); ) {
-            Formation formation = i.next();
-            jsonFormation.put(Integer.toString(compteur), formation.getIdFormation());
-            compteur++;
-        }
-        StringEntity se = new StringEntity(jsonFormation.toString());
+        Log.i("prof", professeur.getFormations().toString());
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(professeur.getFormations()), "UTF-8");
         this.prepareHttpPost("/rest/api/matiere/listMatiere", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
-        InputStream instream = response.getEntity().getContent();
-        String result = convertStreamToString(instream);
         try {
-            JSONArray jsonMatieres = new JSONArray(result);
-            return convertJSONtoListMatieres(jsonMatieres);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            return objectMapper.readValue(response.getEntity().getContent(), new TypeReference<List<Matiere>>() {
+            });
+        } catch (IOException | IllegalStateException e) {
+            return null;
         }
-        return null;
     }
-
-    private List<Matiere> convertJSONtoListMatieres(JSONArray jsonMatieres) throws JSONException {
-        List<Matiere> matiereList = new ArrayList<>();
-        for (int i = 0; i < jsonMatieres.length(); i++) {
-            matiereList.add(new Matiere(jsonMatieres.getJSONObject(i)));
-        }
-        return matiereList;
-    }
-
 }

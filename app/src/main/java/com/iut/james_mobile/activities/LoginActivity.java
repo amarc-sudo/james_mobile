@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +10,12 @@ import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
-import com.iut.james_mobile.services.ServiceConfiguration;
 import com.iut.james_mobile.services.ServiceProfesseur;
 
 import java.io.IOException;
@@ -27,15 +25,9 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button BT_forgotPassword;
-
-    private Button boutonValider;
-
     private EditText ET_login;
 
     private EditText ET_password;
-
-    private TextView textMessage;
 
     private ServiceProfesseur serviceProfesseur;
 
@@ -61,15 +53,10 @@ public class LoginActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
             ET_login = findViewById(R.id.ET_login);
             ET_password = (EditText) this.findViewById(R.id.ET_password);
-            boutonValider = (Button) findViewById(R.id.BT_connect);
             CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
-            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
-
             ET_login = findViewById(R.id.ET_login);
             ET_password = (EditText) this.findViewById(R.id.ET_password);
-            boutonValider = (Button) findViewById(R.id.BT_connect);
             CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
-            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -85,21 +72,18 @@ public class LoginActivity extends AppCompatActivity {
                     return false;
                 }
             });
-            ET_password.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                        switch (keyCode) {
-                            case KeyEvent.KEYCODE_ENTER:
-                                closeKeyboard();
+            ET_password.setOnKeyListener((view, keyCode, keyEvent) -> {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_ENTER:
+                            closeKeyboard();
 
-                                return true;
-                            default:
-                                break;
-                        }
+                            return true;
+                        default:
+                            break;
                     }
-                    return false;
                 }
+                return false;
             });
             if (sharedPreferences.getBoolean("isChecked", false)) {
                 ET_login.setText(sharedPreferences.getString("login", ""));
@@ -110,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         serviceProfesseur = new ServiceProfesseur();
     }
 
-    public void Go() {
+    public void go() {
         Intent intent = new Intent(this, WelcomeActivity.class);
         intent.putExtra("professeur", correctProfesseur);
         this.finish();
@@ -139,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     sharedPreferences.edit().remove("isChecked").apply();
 
                 }
-                Go();
+                go();
             } else {
                 Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.loginOuMdpIncorrect), Toast.LENGTH_SHORT).show();
             }

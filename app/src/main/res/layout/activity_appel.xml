@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/blue_uvsq"
     android:orientation="vertical"
-    tools:context=".AppelActivity">
+    tools:context=".activities.AppelActivity">
 
     <TextView
         android:id="@+id/TV_formation"
