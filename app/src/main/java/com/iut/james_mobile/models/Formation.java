@@ -30,9 +30,11 @@ public class Formation implements Serializable, Comparable<Formation> {
 
     @Override
     public String toString() {
-        return "Je suis en " + this.intitule + "\n";
+        return "Formation{" +
+                "idFormation=" + idFormation +
+                ", intitule='" + intitule + '\'' +
+                '}';
     }
-
 
     @Override
     public int compareTo(Formation o) {
