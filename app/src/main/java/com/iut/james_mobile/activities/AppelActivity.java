@@ -200,7 +200,7 @@ public class AppelActivity extends AppCompatActivity {
         for (Etudiant etudiant : etudiantList) {
             if (getNumeroGroupe() == null && etudiant.getFormation().getIntitule().equals(getIntituleFormation())) {
                 displayedEtudiants.add(etudiant);
-            } else if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && etudiant.getGroupe().equals(getNumeroGroupe())) {
+            } else if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && getNumeroGroupe().equals(etudiant.getGroupe())) {
                 displayedEtudiants.add(etudiant);
             }
         }
