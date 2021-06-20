@@ -134,6 +134,7 @@
         android:onClick="popUpValidation"
         android:text="@string/boutonValiderCours"
         android:textSize="18dp"
-        app:backgroundTint="@color/green_uvsq" />
+        android:backgroundTint="@color/green_uvsq"
+        android:background="@drawable/background" />
 
 </LinearLayout>

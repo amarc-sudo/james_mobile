@@ -65,6 +65,7 @@
     <string name="non">Non</string>
     <string name="signatureEnvoyee">Signature envoyée !</string>
     <string name="annulationEnvoiSignature">Annulation de l\'ajout de la signature</string>
+    <string name="heuresNotOk">le nombre de l\'heure de fin doit être cohérent</string>
 
 
 
