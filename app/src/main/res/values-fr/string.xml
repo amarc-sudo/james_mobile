@@ -66,7 +66,7 @@
     <string name="signatureEnvoyee">Signature envoyée !</string>
     <string name="annulationEnvoiSignature">Annulation de l\'ajout de la signature</string>
     <string name="accederProfil">Accéder au profil</string>
-    <string name="accederPreference">Accéder au préferences</string>
+    <string name="accederPreference">Accéder aux préferences</string>
     <string name="dureeCoursAvance">Paramètres avancés de durée des cours</string>
     <string name="texteDureeCours">Durée du cours par défaut :</string>
     <string name="texteLanguage">Langage de l\'application :</string>
