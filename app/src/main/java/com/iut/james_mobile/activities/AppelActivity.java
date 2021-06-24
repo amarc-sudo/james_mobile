@@ -175,6 +175,23 @@ public class AppelActivity extends AppCompatActivity {
             TP_fin.setMinute(0);
             TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
         }
+        SP_matiere.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (sharedPreferences.getString((String) SP_matiere.getSelectedItem(), null) != null) {
+                    TP_fin.setMinute(0 + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[1]));
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[0]));
+                } else {
+                    TP_fin.setMinute(0);
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
 
         this.recyclerView = findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
