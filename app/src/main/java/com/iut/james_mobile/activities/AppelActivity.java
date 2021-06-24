@@ -185,7 +185,7 @@ public class AppelActivity extends AppCompatActivity {
                     TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[0]));
                 } else {
                     TP_fin.setMinute(0);
-                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + sharedPreferences.getInt("dureeCours", 1));
                 }
             }
             @Override
