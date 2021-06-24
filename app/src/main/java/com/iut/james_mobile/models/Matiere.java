@@ -1,5 +1,7 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,7 +20,7 @@ public class Matiere implements Serializable {
 
     private String intitule;
 
-    public Matiere(int idMatiere, Formation formation, String intitule) {
+    public Matiere(@JsonProperty("idMatiere") int idMatiere, @JsonProperty("formation")  Formation formation, @JsonProperty("intitule") String intitule) {
         this.idMatiere = idMatiere;
         this.formation = formation;
         this.intitule = intitule;

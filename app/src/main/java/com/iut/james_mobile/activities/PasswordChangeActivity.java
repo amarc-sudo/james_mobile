@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceContact;
 

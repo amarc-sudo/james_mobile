@@ -2,15 +2,16 @@ package com.iut.james_mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
+
+import lombok.SneakyThrows;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -18,12 +19,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView TV_welcome;
 
-    private Button BT_emargement;  // inutile ici puisqu'on n'utilise pas ce bouton
 
     private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
 
     private SharedPreferences sharedPreferences;
 
+    @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

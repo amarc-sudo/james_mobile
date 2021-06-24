@@ -1,5 +1,7 @@
 package com.iut.james_mobile.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +16,8 @@ public class Formation implements Serializable, Comparable<Formation> {
 
     private String intitule;
 
-    public Formation(int idFormation, String intitule) {
+    public Formation(@JsonProperty("idFormation") int idFormation,
+                     @JsonProperty("intitule") String intitule) {
         this.idFormation = idFormation;
         this.intitule = intitule;
     }
@@ -27,9 +30,11 @@ public class Formation implements Serializable, Comparable<Formation> {
 
     @Override
     public String toString() {
-        return "Je suis en " + this.intitule + "\n";
+        return "Formation{" +
+                "idFormation=" + idFormation +
+                ", intitule='" + intitule + '\'' +
+                '}';
     }
-
 
     @Override
     public int compareTo(Formation o) {

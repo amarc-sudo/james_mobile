@@ -26,20 +26,23 @@ import androidx.core.content.ContextCompat;
 
 import com.iut.james_mobile.models.Professeur;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class ParametreActivity extends AppCompatActivity {
-    private LinearLayout linearLayout;
+
     private SharedPreferences sharedPreferences;
+    // private Button BT_goSignature;  // inutile ici puisqu'on n'utilise pas ce bouton
     private Professeur professeur;
+    private Spinner spinnerLanguages;
+    private String languagesAbr[] = {"fr", "en", "es", "ro"};
+    private LanguageModifier languageModifier;
+    private String language;
+    private int positionLanguage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        languageModifier = new LanguageModifier();
         this.setContentView(R.layout.activity_parametre);
         linearLayout = findViewById(R.id.parametreLayout);
         sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
@@ -69,7 +72,5 @@ public class ParametreActivity extends AppCompatActivity {
         intent.putExtra("professeur", professeur);
         this.startActivity(intent);
     }
-
-
 
 }

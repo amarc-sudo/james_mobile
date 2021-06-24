@@ -1,29 +1,26 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceEtudiant;
 import com.iut.james_mobile.services.ServiceProfesseur;
 
-import com.iut.james_mobile.services.ServiceConfiguration;
 import com.iut.james_mobile.views.PaintView;
 
 import org.json.JSONException;
@@ -31,13 +28,8 @@ import org.json.JSONException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import lombok.SneakyThrows;
-
 
 public class SignatureActivity extends AppCompatActivity {
-    private Button BT_signature_confirmation;
-
-    private Button BT_resetSignature;
 
     private TextView TV_nomEleve;
 
@@ -84,26 +76,26 @@ public class SignatureActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.signatureConfirmation))
                 .setMessage(getResources().getString(R.string.alertSignatureConfirmation))
-                .setPositiveButton(getResources().getString(R.string.oui), new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    @SneakyThrows
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (etudiant == null) {
-                            new ServiceProfesseur().updateSignature(professeur, encoded);
-                        } else {
-                            new ServiceEtudiant().updateSignature(etudiant, encoded);
+                .setPositiveButton(getResources().getString(R.string.oui), (dialogInterface, i) -> {
+                    if (etudiant == null) {
+                        professeur.setSignature(encoded);
+                        try {
+                            professeur = new ServiceProfesseur().update(professeur);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.signatureEnvoyee), Toast.LENGTH_LONG).show();
-                        Go();
+                    } else {
+                        etudiant.setSignature(encoded);
+                        try {
+                            etudiant = new ServiceEtudiant().update(etudiant);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.signatureEnvoyee), Toast.LENGTH_LONG).show();
+                    Go();
                 })
-                .setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.annulationEnvoiSignature), Toast.LENGTH_LONG).show();
-                    }
-                })
+                .setNegativeButton(R.string.non, (dialogInterface, i) -> Toast.makeText(getApplicationContext(), getResources().getString(R.string.annulationEnvoiSignature), Toast.LENGTH_LONG).show())
                 .show();
 
 

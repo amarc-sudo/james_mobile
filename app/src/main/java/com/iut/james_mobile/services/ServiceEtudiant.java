@@ -1,5 +1,6 @@
 package com.iut.james_mobile.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.iut.james_mobile.models.Etudiant;
 import com.iut.james_mobile.models.Formation;
 import com.iut.james_mobile.models.Professeur;
@@ -22,45 +23,24 @@ public class ServiceEtudiant extends ServiceConfiguration {
 
     public List<Etudiant> listByProfesseur(Professeur professeur) throws JSONException, IOException {
         Set<Formation> formations = professeur.getFormations();
-        JSONObject jsonFormation = new JSONObject();
-        int compteur = 0;
-        for (Iterator<Formation> i = formations.iterator(); i.hasNext(); ) {
-            Formation formation = i.next();
-            jsonFormation.put(Integer.toString(compteur), formation.getIdFormation());
-            compteur++;
-        }
-        StringEntity se = new StringEntity(jsonFormation.toString());
-        this.prepareHttpPost("/rest/api/etudiant/listEtudiant", se);
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(formations), "UTF-8");
+        this.prepareHttpPost("/rest/api/etudiant/listByFormation", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
-        InputStream instream = response.getEntity().getContent();
-        String result = convertStreamToString(instream);
         try {
-            JSONArray jsonEtudiants = new JSONArray(result);
-            return convertJSONtoListEtudiants(jsonEtudiants);
-        } catch (JSONException | ParseException e) {
-            e.printStackTrace();
+            return objectMapper.readValue(response.getEntity().getContent(), new TypeReference<List<Etudiant>>() {
+            });
+        } catch (IOException | IllegalStateException e) {
+            return null;
         }
-        return null;
     }
 
-    public void updateSignature(Etudiant etudiant, String signature) throws JSONException, IOException {
-        JSONObject jsonSignature = new JSONObject();
-        jsonSignature.put("etudiant", etudiant.getIdEtudiant());
-        jsonSignature.put("signature", signature);
-        StringEntity se = new StringEntity(jsonSignature.toString());
-        this.prepareHttpPost("/rest/api/etudiant/signature", se);
+    public Etudiant update(Etudiant etudiant) throws IOException {
+        StringEntity se = new StringEntity(objectMapper.writeValueAsString(etudiant), "UTF-8");
+        this.prepareHttpPost("/rest/api/etudiant/update", se);
         httpClient = new DefaultHttpClient(this.getHttpParams());
         response = httpClient.execute(httpPost);
-    }
-
-
-    private List<Etudiant> convertJSONtoListEtudiants(JSONArray jsonEtudiants) throws JSONException, ParseException {
-        List<Etudiant> etudiantList = new ArrayList<>();
-        for (int i = 0; i < jsonEtudiants.length(); i++) {
-            etudiantList.add(new Etudiant(jsonEtudiants.getJSONObject(i)));
-        }
-        return etudiantList;
+        return objectMapper.readValue(response.getEntity().getContent(), Etudiant.class);
     }
 
 }
