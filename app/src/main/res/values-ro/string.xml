@@ -66,6 +66,11 @@
     <string name="non">Nu</string>
     <string name="signatureEnvoyee">Semnătura trimisă!</string>
     <string name="annulationEnvoiSignature">Anularea adăugării semnăturii</string>
+    <string name="accederProfil">Accesați profilul</string>
+    <string name="accederPreference">Accesați preferințe</string>
+    <string name="dureeCoursAvance">Setări avansate privind durata cursului</string>
+    <string name="texteDureeCours">Lungimea implicită a cursului :</string>
+    <string name="texteLanguage">Limba de aplicare :</string>
     <string name="heuresNotOk">numărul timpului de încheiere trebuie să fie coerent</string>
 
     <string-array name="languages">
@@ -74,4 +79,13 @@
         <item>@string/espagnol</item>
         <item>@string/roumain</item>
     </string-array>
+
+    <string-array name="dureeCours">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 </resources>

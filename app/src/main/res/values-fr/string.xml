@@ -65,6 +65,11 @@
     <string name="non">Non</string>
     <string name="signatureEnvoyee">Signature envoyée !</string>
     <string name="annulationEnvoiSignature">Annulation de l\'ajout de la signature</string>
+    <string name="accederProfil">Accéder au profil</string>
+    <string name="accederPreference">Accéder au préferences</string>
+    <string name="dureeCoursAvance">Paramètres avancés de durée des cours</string>
+    <string name="texteDureeCours">Durée du cours par défaut :</string>
+    <string name="texteLanguage">Langage de l\'application :</string>
     <string name="heuresNotOk">le nombre de l\'heure de fin doit être cohérent</string>
 
 
@@ -76,5 +81,12 @@
         <item>@string/roumain</item>
     </string-array>
 
+    <string-array name="dureeCours">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
 </resources>

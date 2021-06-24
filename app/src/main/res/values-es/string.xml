@@ -63,6 +63,11 @@
     <string name="non">No</string>
     <string name="signatureEnvoyee">¡Firma enviada!</string>
     <string name="annulationEnvoiSignature">Anulación de la adición de la firma</string>
+    <string name="accederProfil">Acceder al perfil</string>
+    <string name="accederPreference">Acceder a las preferencias</string>
+    <string name="dureeCoursAvance">Configuraciónes avanzadas de la duración de cursos</string>
+    <string name="texteDureeCours">Duración del curso por defecto :</string>
+    <string name="texteLanguage">Idioma de aplicación :</string>
     <string name="heuresNotOk">el número de hora final debe ser coherente</string>
 
     <string-array name="languages">
@@ -70,6 +75,14 @@
         <item>@string/anglais</item>
         <item>@string/espagnol</item>
         <item>@string/roumain</item>
+    </string-array>
+
+    <string-array name="dureeCours">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

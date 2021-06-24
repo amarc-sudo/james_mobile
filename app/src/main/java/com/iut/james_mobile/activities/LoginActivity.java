@@ -10,12 +10,15 @@ import android.os.StrictMode;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
+import com.iut.james_mobile.services.ServiceConfiguration;
 import com.iut.james_mobile.services.ServiceProfesseur;
 
 import java.io.IOException;
@@ -25,9 +28,15 @@ import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private Button BT_forgotPassword;
+
+    private Button boutonValider;
+
     private EditText ET_login;
 
     private EditText ET_password;
+
+    private TextView textMessage;
 
     private ServiceProfesseur serviceProfesseur;
 
@@ -54,9 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             ET_login = findViewById(R.id.ET_login);
             ET_password = (EditText) this.findViewById(R.id.ET_password);
             CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
-            ET_login = findViewById(R.id.ET_login);
-            ET_password = (EditText) this.findViewById(R.id.ET_password);
-            CB_souvenir = (CheckBox) this.findViewById(R.id.CB_souvenir);
+            BT_forgotPassword = (Button) findViewById(R.id.BT_forgotPassword);
+
             ET_login.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
@@ -93,6 +101,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         serviceProfesseur = new ServiceProfesseur();
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
 
     public void go() {
         Intent intent = new Intent(this, WelcomeActivity.class);

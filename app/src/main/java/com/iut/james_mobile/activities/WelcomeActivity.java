@@ -2,7 +2,9 @@ package com.iut.james_mobile.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,12 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView TV_welcome;
 
 
+    private Button BT_settings;  // inutile ici puisqu'on n'utilise pas ce bouton
+
+    private SharedPreferences sharedPreferences;
+
+    private Button BT_emargement;
+
     @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,15 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         TV_welcome = findViewById(R.id.TV_welcome);
         TV_welcome.setText(getResources().getString(R.string.bonjour) + " " + professeur.getPersonne().getNom().toUpperCase() + " " + professeur.getPersonne().getPrenom());
+        BT_emargement = findViewById(R.id.BT_emargement);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
     }
 
     public void GoEmargement(View view) {
@@ -41,14 +58,12 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void GoSignature() {
-        this.finish();
         Intent intent = new Intent(this, SignatureActivity.class);
         intent.putExtra("professeur", professeur);
         startActivity(intent);
     }
 
     public void goParametre(View view) {
-        this.finish();
         Intent intent = new Intent(this, ParametreActivity.class);
         intent.putExtra("professeur", professeur);
         startActivity(intent);

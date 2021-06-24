@@ -16,9 +16,11 @@
         <activity android:name=".activities.ForgotPasswordActivity" />
         <activity android:name=".activities.SignatureActivity" />
         <activity android:name=".activities.ParametreActivity" />
-        <activity android:name=".activities.WelcomeActivity"></activity>
-        <activity android:name=".activities.EmailChangeActivity"></activity>
-        <activity android:name=".activities.PasswordChangeActivity"></activity>
+        <activity android:name=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.EmailChangeActivity"/>
+        <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.PreferenceActivity"/>
+        <activity android:name=".activities.PasswordChangeActivity"/>
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait">

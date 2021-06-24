@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -132,6 +133,7 @@ public class AppelActivity extends AppCompatActivity {
         etudiantList = serviceEtudiant.listByProfesseur(professeur);
         SP_matiere = findViewById(R.id.SP_matiere);
         SP_formation = findViewById(R.id.SP_formation);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         nomsFormations = new ArrayList<>();
         for (Formation formation : professeur.getFormations()) {
             nomsFormations.add(formation.getIntitule());
@@ -183,7 +185,7 @@ public class AppelActivity extends AppCompatActivity {
                     TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[0]));
                 } else {
                     TP_fin.setMinute(0);
-                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + sharedPreferences.getInt("dureeCours", 1));
                 }
             }
             @Override
@@ -244,6 +246,14 @@ public class AppelActivity extends AppCompatActivity {
         adapter.setProfesseurConnecte(professeur);
         adapter.setFormationSelectionne(intituleFormationSelectionne);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
 
     public String getIntituleFormation() {
         StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");
