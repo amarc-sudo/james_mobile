@@ -66,7 +66,7 @@
     <string name="non">Nu</string>
     <string name="signatureEnvoyee">Semnătura trimisă!</string>
     <string name="annulationEnvoiSignature">Anularea adăugării semnăturii</string>
-
+    <string name="heuresNotOk">numărul timpului de încheiere trebuie să fie coerent</string>
 
     <string-array name="languages">
         <item>@string/francais</item>
