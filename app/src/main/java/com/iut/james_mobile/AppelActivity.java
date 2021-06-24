@@ -139,7 +139,7 @@ public class AppelActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         LanguageModifier languageModifier = new LanguageModifier();
         languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
@@ -170,24 +170,29 @@ public class AppelActivity extends AppCompatActivity {
 
     public void setValueSpinnerMatiere() {
         List<String> displayedMatiere = new ArrayList<String>();
-        for (Matiere matiere : matiereList) {
-            if (matiere.getFormation().getIntitule().equals(this.getIntituleFormation())) {
-                displayedMatiere.add(matiere.getIntitule());
+        if (matiereList != null) {
+            for (Matiere matiere : matiereList) {
+                if (matiere.getFormation().getIntitule().equals(this.getIntituleFormation())) {
+                    displayedMatiere.add(matiere.getIntitule());
+                }
             }
         }
         SP_matiere.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_item, displayedMatiere));
+
     }
 
     public void setDisplayedEtudiants() {
         List<Etudiant> displayedEtudiants = new ArrayList<>();
-        for (Etudiant etudiant : etudiantList) {
-            if (getNumeroGroupe() == null) {
-                if (etudiant.getFormation().getIntitule().equals(getIntituleFormation())) {
+        if (etudiantList != null) {
+            for (Etudiant etudiant : etudiantList) {
+                if (getNumeroGroupe() == null) {
+                    if (etudiant.getFormation().getIntitule().equals(getIntituleFormation())) {
+                        displayedEtudiants.add(etudiant);
+                    }
+                }
+                if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && etudiant.getGroupe() == getNumeroGroupe()) {
                     displayedEtudiants.add(etudiant);
                 }
-            }
-            if (etudiant.getFormation().getIntitule().equals(getIntituleFormation()) && etudiant.getGroupe() == getNumeroGroupe()) {
-                displayedEtudiants.add(etudiant);
             }
         }
         this.displayedEtudiantList = displayedEtudiants;
