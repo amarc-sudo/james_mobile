@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -102,6 +105,16 @@ public class AppelActivity extends AppCompatActivity {
      */
     private List<String> nomsFormations;
 
+    private Button BT_validation;
+
+    private String heureDebut;
+
+    private String heureFin;
+
+    private SharedPreferences sharedPreferences;
+
+
+
     /**
      * Méthode onCreate qui est appelé à la création de l'activité et qui va donc mettre
      * en place les données qui pourront être manipulées par l'utilisateur
@@ -122,6 +135,7 @@ public class AppelActivity extends AppCompatActivity {
         etudiantList = serviceEtudiant.listByProfesseur(professeur);
         SP_matiere = findViewById(R.id.SP_matiere);
         SP_formation = findViewById(R.id.SP_formation);
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         nomsFormations = new ArrayList<>();
         for (Formation formation : professeur.getFormations()) {
             nomsFormations.add(formation.getIntitule());
@@ -159,7 +173,7 @@ public class AppelActivity extends AppCompatActivity {
         TP_fin = findViewById(R.id.TP_fin);
         TP_fin.setIs24HourView(true);
         TP_fin.setMinute(0);
-        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + sharedPreferences.getInt("dureeCours", 1));
         this.recyclerView = findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
     }
@@ -211,6 +225,14 @@ public class AppelActivity extends AppCompatActivity {
         adapter.setProfesseurConnecte(professeur);
         adapter.setFormationSelectionne(intituleFormationSelectionne);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LanguageModifier languageModifier = new LanguageModifier();
+        languageModifier.setLanguage(sharedPreferences.getString("language", "fr"), this);
+    }
+
 
     public String getIntituleFormation() {
         StringTokenizer tokenizer = new StringTokenizer(intituleFormationSelectionne, "-");

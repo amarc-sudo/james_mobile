@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
 
 import org.w3c.dom.Text;

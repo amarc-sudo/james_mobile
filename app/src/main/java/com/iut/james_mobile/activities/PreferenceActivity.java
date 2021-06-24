@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.iut.james_mobile.R;
+import com.iut.james_mobile.activities.WelcomeActivity;
 import com.iut.james_mobile.models.Professeur;
 
 public class PreferenceActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.iut.james_mobile;
+package com.iut.james_mobile.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iut.james_mobile.R;
 import com.iut.james_mobile.models.Professeur;
 import com.iut.james_mobile.services.ServiceConfiguration;
 import com.iut.james_mobile.services.ServiceProfesseur;
