@@ -39,8 +39,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import lombok.SneakyThrows;
@@ -105,15 +107,10 @@ public class AppelActivity extends AppCompatActivity {
      */
     private List<String> nomsFormations;
 
-    private Button BT_validation;
-
-    private String heureDebut;
-
-    private String heureFin;
-
+    /**
+     * SharedPreferences pour un stockage inérent à l'activité
+     */
     private SharedPreferences sharedPreferences;
-
-
 
     /**
      * Méthode onCreate qui est appelé à la création de l'activité et qui va donc mettre
@@ -130,6 +127,7 @@ public class AppelActivity extends AppCompatActivity {
         ServiceMatiere serviceMatiere = new ServiceMatiere();
         setContentView(R.layout.activity_appel);
         Intent intent = getIntent();
+        sharedPreferences = this.getSharedPreferences("com.iut.james_mobile", Context.MODE_PRIVATE);
         professeur = (Professeur) intent.getSerializableExtra("professeur");
         matiereList = serviceMatiere.listByProfesseur(professeur);
         etudiantList = serviceEtudiant.listByProfesseur(professeur);
@@ -172,8 +170,31 @@ public class AppelActivity extends AppCompatActivity {
         TP_debut.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY));
         TP_fin = findViewById(R.id.TP_fin);
         TP_fin.setIs24HourView(true);
-        TP_fin.setMinute(0);
-        TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + sharedPreferences.getInt("dureeCours", 1));
+        if (sharedPreferences.getString((String) SP_matiere.getSelectedItem(), null) != null) {
+            TP_fin.setMinute(0 + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[1]));
+            TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[0]));
+        } else {
+            TP_fin.setMinute(0);
+            TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+        }
+        SP_matiere.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (sharedPreferences.getString((String) SP_matiere.getSelectedItem(), null) != null) {
+                    TP_fin.setMinute(0 + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[1]));
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + Integer.parseInt(sharedPreferences.getString((String) SP_matiere.getSelectedItem(), "0").split(":")[0]));
+                } else {
+                    TP_fin.setMinute(0);
+                    TP_fin.setHour((Calendar.getInstance()).get(Calendar.HOUR_OF_DAY) + 1);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
         this.recyclerView = findViewById(R.id.RV_eleve);
         this.setDisplayedEtudiants();
     }
@@ -283,58 +304,72 @@ public class AppelActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void popUpValidation(View v) {
+        String[] donneesDureeCoursSauvegarde = new String[2];
         int nombreAbsents = 0;
         int nombreRetardataires = 0;
-        String heureDebut;
-        String heureFin;
+        int differenceHeure, differenceMinute;
+        String heureDebut, heureFin;
         String matiere = (String) SP_matiere.getSelectedItem();
         Map<Integer, Integer> eleveStatus = new HashMap<>();
-        if (TP_debut.getMinute() < 10) {
-            heureDebut = TP_debut.getHour() + ":0" + TP_debut.getMinute();
+        if (TP_fin.getHour() < TP_debut.getHour()) {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.heuresNotOk), Toast.LENGTH_LONG).show();
         } else {
-            heureDebut = TP_debut.getHour() + ":" + TP_debut.getMinute();
-        }
-        if (TP_fin.getMinute() < 10) {
-            heureFin = TP_fin.getHour() + ":0" + TP_fin.getMinute();
-        } else {
-            heureFin = TP_fin.getHour() + ":" + TP_fin.getMinute();
-        }
-        boolean toutLeMondeASigne = true;
-        for (Etudiant etudiant : displayedEtudiantList) {
-            if (etudiant.getPositionSpinner() == 1)
-                nombreRetardataires++;
-            else if (etudiant.getPositionSpinner() == 2)
-                nombreAbsents++;
-            if (!etudiant.isHasSigned()) {
-                toutLeMondeASigne = false;
+            if (TP_debut.getMinute() < 10) {
+                heureDebut = TP_debut.getHour() + ":0" + TP_debut.getMinute();
+            } else {
+                heureDebut = TP_debut.getHour() + ":" + TP_debut.getMinute();
             }
-            eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner() + 1);
-        }
-        if (toutLeMondeASigne) {
-            new AlertDialog.Builder(this)
-                    .setTitle(getResources().getString((R.string.confirmationAjoutCours)))
-                    .setMessage(getResources().getString(R.string.textMatiere) + " : " + matiere + "\n" +
-                            getResources().getString(R.string.heureDebut) + " : " + heureDebut + "\n" +
-                            getResources().getString(R.string.heureFin) + " : " + heureFin + "\n" +
-                            getResources().getString(R.string.nombreRetardataire) + " : " + nombreRetardataires + "\n" +
-                            getResources().getString(R.string.nombreAbsent) + " : " + nombreAbsents + "\n")
-                    .setPositiveButton(getResources().getString(R.string.valider), (dialogInterface, i) -> {
-                        try {
-                            ServiceCours serviceCours = new ServiceCours();
-                            Cours cours = serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut + ":00",
-                                    heureFin + ":00");
-                            ServicePresence servicePresence = new ServicePresence();
-                            servicePresence.create(displayedEtudiantList, cours);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.coursAjoute), Toast.LENGTH_LONG).show();
-                        goAtHome();
-                    })
-                    .setNegativeButton(getResources().getString(R.string.annuler), (dialogInterface, i) -> Toast.makeText(AppelActivity.this, getResources().getString(R.string.annulerCoursAjout), Toast.LENGTH_SHORT).show())
-                    .show();
-        } else {
-            Toast.makeText(AppelActivity.this, getResources().getString(R.string.tousSigne), Toast.LENGTH_SHORT).show();
+            if (TP_fin.getMinute() < 10) {
+                heureFin = TP_fin.getHour() + ":0" + TP_fin.getMinute();
+            } else {
+                heureFin = TP_fin.getHour() + ":" + TP_fin.getMinute();
+            }
+
+            differenceHeure = TP_fin.getHour() - TP_debut.getHour();
+            differenceMinute = Math.abs(TP_fin.getMinute() - TP_debut.getMinute());
+            donneesDureeCoursSauvegarde[0] = matiere;
+            System.out.println(matiere);
+            donneesDureeCoursSauvegarde[1] = differenceHeure + ":" + differenceMinute;
+            System.out.println(donneesDureeCoursSauvegarde[1]);
+
+            boolean toutLeMondeASigne = true;
+            for (Etudiant etudiant : displayedEtudiantList) {
+                if (etudiant.getPositionSpinner() == 1)
+                    nombreRetardataires++;
+                else if (etudiant.getPositionSpinner() == 2)
+                    nombreAbsents++;
+                if (!etudiant.isHasSigned()) {
+                    toutLeMondeASigne = false;
+                }
+                eleveStatus.put(etudiant.getIdEtudiant(), etudiant.getPositionSpinner() + 1);
+            }
+            if (toutLeMondeASigne) {
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString((R.string.confirmationAjoutCours)))
+                        .setMessage(getResources().getString(R.string.textMatiere) + " : " + matiere + "\n" +
+                                getResources().getString(R.string.heureDebut) + " : " + heureDebut + "\n" +
+                                getResources().getString(R.string.heureFin) + " : " + heureFin + "\n" +
+                                getResources().getString(R.string.nombreRetardataire) + " : " + nombreRetardataires + "\n" +
+                                getResources().getString(R.string.nombreAbsent) + " : " + nombreAbsents + "\n")
+                        .setPositiveButton(getResources().getString(R.string.valider), (dialogInterface, i) -> {
+                            try {
+                                ServiceCours serviceCours = new ServiceCours();
+                                Cours cours = serviceCours.create(professeur, getMatiereByIntitule(matiere), heureDebut + ":00",
+                                        heureFin + ":00");
+                                ServicePresence servicePresence = new ServicePresence();
+                                servicePresence.create(displayedEtudiantList, cours);
+                                sharedPreferences.edit().putString(donneesDureeCoursSauvegarde[0], donneesDureeCoursSauvegarde[1]).apply();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.coursAjoute), Toast.LENGTH_LONG).show();
+                            goAtHome();
+                        })
+                        .setNegativeButton(getResources().getString(R.string.annuler), (dialogInterface, i) -> Toast.makeText(AppelActivity.this, getResources().getString(R.string.annulerCoursAjout), Toast.LENGTH_SHORT).show())
+                        .show();
+            } else {
+                Toast.makeText(AppelActivity.this, getResources().getString(R.string.tousSigne), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

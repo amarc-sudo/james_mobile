@@ -70,6 +70,8 @@
     <string name="dureeCoursAvance">Paramètres avancés de durée des cours</string>
     <string name="texteDureeCours">Durée du cours par défaut :</string>
     <string name="texteLanguage">Langage de l\'application :</string>
+    <string name="heuresNotOk">le nombre de l\'heure de fin doit être cohérent</string>
+
 
 
     <string-array name="languages">

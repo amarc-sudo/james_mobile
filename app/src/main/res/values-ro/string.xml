@@ -71,6 +71,7 @@
     <string name="dureeCoursAvance">Setări avansate privind durata cursului</string>
     <string name="texteDureeCours">Lungimea implicită a cursului :</string>
     <string name="texteLanguage">Limba de aplicare :</string>
+    <string name="heuresNotOk">numărul timpului de încheiere trebuie să fie coerent</string>
 
     <string-array name="languages">
         <item>@string/francais</item>

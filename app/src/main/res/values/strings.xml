@@ -69,6 +69,7 @@
     <string name="texteLanguage">Application\'s language :</string>
 
 
+    <string name="heuresNotOk">The end hour number must be coherent</string>
 
     <string-array name="languages">
         <item>@string/francais</item>
